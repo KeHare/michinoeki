@@ -1,0 +1,1786 @@
+[
+ {
+  "no": "北海道-001",
+  "article": "道の駅三笠",
+  "name": "三笠",
+  "furigana": "みかさ",
+  "region": "道央",
+  "municipality": "三笠市",
+  "routes": [
+   "国道12号",
+   "北海道道30号三笠栗山線"
+  ],
+  "lat": 43.24656,
+  "lon": 141.80453,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-002",
+  "article": "道の駅スタープラザ芦別",
+  "name": "スタープラザ芦別",
+  "furigana": "スタープラザあしべつ",
+  "region": "道央",
+  "municipality": "芦別市",
+  "routes": [
+   "国道38号",
+   "国道452号"
+  ],
+  "lat": 43.52592,
+  "lon": 142.18903,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-003",
+  "article": "道の駅南ふらの",
+  "name": "南ふらの",
+  "furigana": "みなみふらの",
+  "region": "道北",
+  "municipality": "空知郡南富良野町",
+  "routes": [
+   "国道38号"
+  ],
+  "lat": 43.16975,
+  "lon": 142.57261,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-004",
+  "article": "道の駅しらぬか恋問",
+  "name": "しらぬか恋問",
+  "furigana": "しらぬかこいとい",
+  "region": "釧路 根室",
+  "municipality": "白糠郡白糠町",
+  "routes": [
+   "国道38号"
+  ],
+  "lat": 42.99044912,
+  "lon": 144.18955764,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-005",
+  "article": "道の駅びふか",
+  "name": "びふか",
+  "furigana": null,
+  "region": "道北",
+  "municipality": "中川郡美深町",
+  "routes": [
+   "国道40号"
+  ],
+  "lat": 44.55883,
+  "lon": 142.32003,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-006",
+  "article": "道の駅江差",
+  "name": "江差",
+  "furigana": "えさし",
+  "region": "道南",
+  "municipality": "檜山郡江差町",
+  "routes": [
+   "国道227号"
+  ],
+  "lat": 41.89433,
+  "lon": 140.13931,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-007",
+  "article": "道の駅望羊中山",
+  "name": "望羊中山",
+  "furigana": "ぼうようなかやま",
+  "region": "道央",
+  "municipality": "虻田郡喜茂別町",
+  "routes": [
+   "国道230号"
+  ],
+  "lat": 42.85581,
+  "lon": 141.09667,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-008",
+  "article": "道の駅えんべつ富士見",
+  "name": "えんべつ富士見",
+  "furigana": "えんべつふじみ",
+  "region": "道北",
+  "municipality": "天塩郡遠別町",
+  "routes": [
+   "国道232号"
+  ],
+  "lat": 44.714,
+  "lon": 141.79367,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-009",
+  "article": "道の駅忠類",
+  "name": "忠類",
+  "furigana": "ちゅうるい",
+  "region": "十勝",
+  "municipality": "中川郡幕別町",
+  "routes": [
+   "国道236号"
+  ],
+  "lat": 42.55886,
+  "lon": 143.29919,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-011",
+  "article": "道の駅摩周温泉",
+  "name": "摩周温泉",
+  "furigana": "ましゅうおんせん",
+  "region": "釧路 根室",
+  "municipality": "川上郡弟子屈町",
+  "routes": [
+   "国道241号"
+  ],
+  "lat": 43.49239,
+  "lon": 144.44769,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-012",
+  "article": "道の駅おといねっぷ",
+  "name": "おといねっぷ",
+  "furigana": null,
+  "region": "道北",
+  "municipality": "中川郡音威子府村",
+  "routes": [
+   "国道275号",
+   "国道40号"
+  ],
+  "lat": 44.72908,
+  "lon": 142.25789,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-013",
+  "article": "道の駅かみゆうべつ温泉チューリップの湯",
+  "name": "かみゆうべつ温泉チューリップの湯",
+  "furigana": "かみゆうべつおんせんチューリップのゆ",
+  "region": "オホーツク",
+  "municipality": "紋別郡湧別町",
+  "routes": [
+   "北海道道712号緑蔭中湧別停車場線"
+  ],
+  "lat": 44.18433333,
+  "lon": 143.59466667,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-014",
+  "article": "道の駅いわない",
+  "name": "いわない",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "岩内郡岩内町",
+  "routes": [
+   "北海道道270号岩内港線"
+  ],
+  "lat": 42.98344,
+  "lon": 140.51675,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-016",
+  "article": "道の駅厚岸グルメパーク",
+  "name": "厚岸グルメパーク",
+  "furigana": "あっけしグルメパーク",
+  "region": "釧路 根室",
+  "municipality": "厚岸郡厚岸町",
+  "routes": [
+   "国道44号",
+   "北海道道123号別海厚岸線"
+  ],
+  "lat": 43.05767,
+  "lon": 144.84411,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-017",
+  "article": "道の駅サンフラワー北竜",
+  "name": "サンフラワー北竜",
+  "furigana": "サンフラワーほくりゅう",
+  "region": "道央",
+  "municipality": "雨竜郡北竜町",
+  "routes": [
+   "国道275号"
+  ],
+  "lat": 43.75106,
+  "lon": 141.87536,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-018",
+  "article": "道の駅みついし",
+  "name": "みついし",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "日高郡新ひだか町",
+  "routes": [
+   "国道235号"
+  ],
+  "lat": 42.221,
+  "lon": 142.63422,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-019",
+  "article": "道の駅あっさぶ",
+  "name": "あっさぶ",
+  "furigana": null,
+  "region": "道南",
+  "municipality": "檜山郡厚沢部町",
+  "routes": [
+   "国道227号"
+  ],
+  "lat": 41.91658,
+  "lon": 140.21619,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-020",
+  "article": "道の駅よってけ!島牧",
+  "name": "よってけ!島牧",
+  "furigana": "よってけしままき",
+  "region": "道央",
+  "municipality": "島牧郡島牧村",
+  "routes": [
+   "国道229号"
+  ],
+  "lat": 42.68672,
+  "lon": 140.01344,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-021",
+  "article": "道の駅てっくいランド大成",
+  "name": "てっくいランド大成",
+  "furigana": "てっくいランドたいせい",
+  "region": "道南",
+  "municipality": "久遠郡せたな町",
+  "routes": [
+   "国道229号"
+  ],
+  "lat": 42.21244,
+  "lon": 139.87669,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-022",
+  "article": "道の駅オホーツク紋別",
+  "name": "オホーツク紋別",
+  "furigana": "オホーツクもんべつ",
+  "region": "オホーツク",
+  "municipality": "紋別市",
+  "routes": [
+   "北海道道304号紋別港線"
+  ],
+  "lat": 44.32839,
+  "lon": 143.37494,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-023",
+  "article": "道の駅YOU・遊・もり",
+  "name": "YOU・遊・もり",
+  "furigana": "ゆうゆうもり",
+  "region": "道南",
+  "municipality": "茅部郡森町",
+  "routes": [
+   "国道5号"
+  ],
+  "lat": 42.09961,
+  "lon": 140.568,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-024",
+  "article": "道の駅おんねゆ温泉",
+  "name": "おんねゆ温泉",
+  "furigana": "おんねゆおんせん",
+  "region": "オホーツク",
+  "municipality": "北見市",
+  "routes": [
+   "国道39号"
+  ],
+  "lat": 43.75356,
+  "lon": 143.50064,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-025",
+  "article": "道の駅ルート229元和台",
+  "name": "ルート229元和台",
+  "furigana": "ルート229げんなだい",
+  "region": "道南",
+  "municipality": "爾志郡乙部町",
+  "routes": [
+   "国道229号"
+  ],
+  "lat": 42.01147,
+  "lon": 140.10622,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-026",
+  "article": "道の駅ハウスヤルビ奈井江",
+  "name": "ハウスヤルビ奈井江",
+  "furigana": "ハウスヤルビないえ",
+  "region": "道央",
+  "municipality": "空知郡奈井江町",
+  "routes": [
+   "国道12号"
+  ],
+  "lat": 43.43317,
+  "lon": 141.88878,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-027",
+  "article": "道の駅おびら鰊番屋",
+  "name": "おびら鰊番屋",
+  "furigana": "おびらにしんばんや",
+  "region": "道北",
+  "municipality": "留萌郡小平町",
+  "routes": [
+   "国道232号"
+  ],
+  "lat": 44.13703,
+  "lon": 141.65497,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-028",
+  "article": "道の駅マリーンアイランド岡島",
+  "name": "マリーンアイランド岡島",
+  "furigana": "マリーンアイランドおかしま",
+  "region": "道北",
+  "municipality": "枝幸郡枝幸町",
+  "routes": [
+   "国道238号"
+  ],
+  "lat": 44.87836,
+  "lon": 142.63181,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-029",
+  "article": "道の駅おこっぺ",
+  "name": "おこっぺ",
+  "furigana": null,
+  "region": "オホーツク",
+  "municipality": "紋別郡興部町",
+  "routes": [
+   "国道239号"
+  ],
+  "lat": 44.4695,
+  "lon": 143.11694,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-030",
+  "article": "道の駅阿寒丹頂の里",
+  "name": "阿寒丹頂の里",
+  "furigana": "あかんたんちょうのさと",
+  "region": "釧路 根室",
+  "municipality": "釧路市",
+  "routes": [
+   "国道240号"
+  ],
+  "lat": 43.14416667,
+  "lon": 144.14502778,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-031",
+  "article": "道の駅おとふけ",
+  "name": "おとふけ",
+  "furigana": null,
+  "region": "十勝",
+  "municipality": "河東郡音更町",
+  "routes": [
+   "国道241号",
+   "帯広北バイパス"
+  ],
+  "lat": 42.97491667,
+  "lon": 143.18169444,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-032",
+  "article": "道の駅ピンネシリ",
+  "name": "ピンネシリ",
+  "furigana": null,
+  "region": "道北",
+  "municipality": "枝幸郡中頓別町",
+  "routes": [
+   "国道275号"
+  ],
+  "lat": 44.87747,
+  "lon": 142.21336,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-034",
+  "article": "道の駅上ノ国もんじゅ",
+  "name": "上ノ国もんじゅ",
+  "furigana": "かみのくにもんじゅ",
+  "region": "道南",
+  "municipality": "檜山郡上ノ国町",
+  "routes": [
+   "国道228号"
+  ],
+  "lat": 41.8085,
+  "lon": 140.09511,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-035",
+  "article": "道の駅オスコイ!かもえない",
+  "name": "オスコイ!かもえない",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "古宇郡神恵内村",
+  "routes": [
+   "国道229号"
+  ],
+  "lat": 43.16531,
+  "lon": 140.38594,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-036",
+  "article": "道の駅なかさつない",
+  "name": "なかさつない",
+  "furigana": null,
+  "region": "十勝",
+  "municipality": "河西郡中札内村",
+  "routes": [
+   "国道236号"
+  ],
+  "lat": 42.69214,
+  "lon": 143.12683,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-037",
+  "article": "道の駅マオイの丘公園",
+  "name": "マオイの丘公園",
+  "furigana": "マオイのおかこうえん",
+  "region": "道央",
+  "municipality": "夕張郡長沼町",
+  "routes": [
+   "国道274号"
+  ],
+  "lat": 42.94997,
+  "lon": 141.71664,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-038",
+  "article": "道の駅樹海ロード日高",
+  "name": "樹海ロード日高",
+  "furigana": "じゅかいロードひだか",
+  "region": "道央",
+  "municipality": "沙流郡日高町",
+  "routes": [
+   "国道274号"
+  ],
+  "lat": 42.87683,
+  "lon": 142.44203,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-039",
+  "article": "道の駅そうべつ情報館i(アイ)",
+  "name": "そうべつ情報館i（アイ）",
+  "furigana": "アイ",
+  "region": "道央",
+  "municipality": "有珠郡壮瞥町",
+  "routes": [
+   "国道453号"
+  ],
+  "lat": 42.55886,
+  "lon": 140.89894,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-040",
+  "article": "道の駅ニセコビュープラザ",
+  "name": "ニセコビュープラザ",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "虻田郡ニセコ町",
+  "routes": [
+   "国道5号",
+   "北海道道66号岩内洞爺線"
+  ],
+  "lat": 42.79942,
+  "lon": 140.70233,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-041",
+  "article": "道の駅しりうち",
+  "name": "しりうち",
+  "furigana": null,
+  "region": "道南",
+  "municipality": "上磯郡知内町",
+  "routes": [
+   "国道228号"
+  ],
+  "lat": 41.60136,
+  "lon": 140.33647,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-042",
+  "article": "道の駅横綱の里ふくしま",
+  "name": "横綱の里ふくしま",
+  "furigana": "よこづなのさとふくしま",
+  "region": "道南",
+  "municipality": "松前郡福島町",
+  "routes": [
+   "国道228号"
+  ],
+  "lat": 41.47947,
+  "lon": 140.25569,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-043",
+  "article": "道の駅サラブレッドロード新冠",
+  "name": "サラブレッドロード新冠",
+  "furigana": "サラブレッドロードにいかっぷ",
+  "region": "道央",
+  "municipality": "新冠郡新冠町",
+  "routes": [
+   "国道235号"
+  ],
+  "lat": 42.35981,
+  "lon": 142.31569,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-044",
+  "article": "道の駅ピア21しほろ",
+  "name": "ピア21しほろ",
+  "furigana": null,
+  "region": "十勝",
+  "municipality": "河東郡士幌町",
+  "routes": [
+   "国道241号",
+   "国道274号"
+  ],
+  "lat": 43.14433,
+  "lon": 143.23931,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-045",
+  "article": "道の駅香りの里たきのうえ",
+  "name": "香りの里たきのうえ",
+  "furigana": "かおりのさとたきのうえ",
+  "region": "オホーツク",
+  "municipality": "紋別郡滝上町",
+  "routes": [
+   "国道273号"
+  ],
+  "lat": 44.19689,
+  "lon": 143.09097,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-046",
+  "article": "道の駅田園の里うりゅう",
+  "name": "田園の里うりゅう",
+  "furigana": "でんえんのさとうりゅう",
+  "region": "道央",
+  "municipality": "雨竜郡雨竜町",
+  "routes": [
+   "国道275号"
+  ],
+  "lat": 43.66247,
+  "lon": 141.89408,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-047",
+  "article": "道の駅みたら室蘭",
+  "name": "みたら室蘭",
+  "furigana": "みたらむろらん",
+  "region": "道央",
+  "municipality": "室蘭市",
+  "routes": [
+   "国道37号"
+  ],
+  "lat": 42.34194,
+  "lon": 140.94375,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-048",
+  "article": "道の駅とうま",
+  "name": "とうま",
+  "furigana": null,
+  "region": "道北",
+  "municipality": "上川郡当麻町",
+  "routes": [
+   "国道39号",
+   "北海道道1122号当麻比布線"
+  ],
+  "lat": 43.84408,
+  "lon": 142.48936,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-049",
+  "article": "道の駅スペース・アップルよいち",
+  "name": "スペース・アップルよいち",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "余市郡余市町",
+  "routes": [
+   "国道229号"
+  ],
+  "lat": 43.18891667,
+  "lon": 140.78897222,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-050",
+  "article": "道の駅ほっと♡はぼろ",
+  "name": "ほっと♡はぼろ",
+  "furigana": null,
+  "region": "道北",
+  "municipality": "苫前郡羽幌町",
+  "routes": [
+   "国道232号"
+  ],
+  "lat": 44.36733,
+  "lon": 141.70644,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-051",
+  "article": "道の駅サロマ湖",
+  "name": "サロマ湖",
+  "furigana": "サロマこ",
+  "region": "オホーツク",
+  "municipality": "常呂郡佐呂間町",
+  "routes": [
+   "国道238号"
+  ],
+  "lat": 44.09972,
+  "lon": 143.82367,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-052",
+  "article": "道の駅愛ランド湧別",
+  "name": "愛ランド湧別",
+  "furigana": "あいランドゆうべつ",
+  "region": "オホーツク",
+  "municipality": "紋別郡湧別町",
+  "routes": [
+   "国道238号"
+  ],
+  "lat": 44.13075,
+  "lon": 143.71922,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-053",
+  "article": "道の駅おうむ",
+  "name": "おうむ",
+  "furigana": null,
+  "region": "オホーツク",
+  "municipality": "紋別郡雄武町",
+  "routes": [
+   "国道238号"
+  ],
+  "lat": 44.58306,
+  "lon": 142.95975,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-054",
+  "article": "道の駅さるふつ公園",
+  "name": "さるふつ公園",
+  "furigana": "さるふつこうえん",
+  "region": "道北",
+  "municipality": "宗谷郡猿払村",
+  "routes": [
+   "国道238号"
+  ],
+  "lat": 45.32922,
+  "lon": 142.17733,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-055",
+  "article": "道の駅森と湖の里ほろかない",
+  "name": "森と湖の里ほろかない",
+  "furigana": "もりとみずうみのさとほろかない",
+  "region": "道北",
+  "municipality": "雨竜郡幌加内町",
+  "routes": [
+   "国道275号"
+  ],
+  "lat": 44.11461,
+  "lon": 142.13956,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-056",
+  "article": "道の駅うたしないチロルの湯",
+  "name": "うたしないチロルの湯",
+  "furigana": "うたしないチロルのゆ",
+  "region": "道央",
+  "municipality": "歌志内市",
+  "routes": [
+   "北海道道114号赤平奈井江線"
+  ],
+  "lat": 43.50322,
+  "lon": 142.00583,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-057",
+  "article": "道の駅くろまつない",
+  "name": "くろまつない",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "寿都郡黒松内町",
+  "routes": [
+   "国道5号"
+  ],
+  "lat": 42.67267,
+  "lon": 140.38003,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-058",
+  "article": "道の駅たきかわ",
+  "name": "たきかわ",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "滝川市",
+  "routes": [
+   "国道12号",
+   "北海道道564号江部乙赤平線"
+  ],
+  "lat": 43.62328,
+  "lon": 141.94142,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-059",
+  "article": "道の駅スワン44ねむろ",
+  "name": "スワン44ねむろ",
+  "furigana": null,
+  "region": "釧路 根室",
+  "municipality": "根室市",
+  "routes": [
+   "国道44号"
+  ],
+  "lat": 43.26175,
+  "lon": 145.43847,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-060",
+  "article": "道の駅つるぬま",
+  "name": "つるぬま",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "樺戸郡浦臼町",
+  "routes": [
+   "国道275号"
+  ],
+  "lat": 43.45158,
+  "lon": 141.83575,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-061",
+  "article": "道の駅なとわ・えさん",
+  "name": "なとわ・えさん",
+  "furigana": null,
+  "region": "道南",
+  "municipality": "函館市",
+  "routes": [
+   "国道278号"
+  ],
+  "lat": 41.77947,
+  "lon": 141.10161,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-062",
+  "article": "道の駅つど〜る・プラザ・さわら",
+  "name": "つど〜る・プラザ・さわら",
+  "furigana": null,
+  "region": "道南",
+  "municipality": "茅部郡森町",
+  "routes": [
+   "国道278号"
+  ],
+  "lat": 42.12531,
+  "lon": 140.66736,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-063",
+  "article": "道の駅知床・らうす",
+  "name": "知床・らうす",
+  "furigana": "しれとこらうす",
+  "region": "釧路 根室",
+  "municipality": "目梨郡羅臼町",
+  "routes": [
+   "国道335号"
+  ],
+  "lat": 44.01739,
+  "lon": 145.19208,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-064",
+  "article": "道の駅さらべつ",
+  "name": "さらべつ",
+  "furigana": null,
+  "region": "十勝",
+  "municipality": "河西郡更別村",
+  "routes": [
+   "北海道道238号更別幕別線",
+   "北海道道210号尾田豊頃停車場線"
+  ],
+  "lat": 42.63325,
+  "lon": 143.27186,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-065",
+  "article": "道の駅だて歴史の杜",
+  "name": "だて歴史の杜",
+  "furigana": "だてれきしのもり",
+  "region": "道央",
+  "municipality": "伊達市",
+  "routes": [
+   "国道37号"
+  ],
+  "lat": 42.47061,
+  "lon": 140.8755,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-066",
+  "article": "道の駅あさひかわ",
+  "name": "あさひかわ",
+  "furigana": null,
+  "region": "道北",
+  "municipality": "旭川市",
+  "routes": [
+   "国道237号"
+  ],
+  "lat": 43.75992,
+  "lon": 142.34853,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-067",
+  "article": "道の駅自然体感しむかっぷ",
+  "name": "自然体感しむかっぷ",
+  "furigana": "しぜんたいかんしむかっぷ",
+  "region": "道北",
+  "municipality": "勇払郡占冠村",
+  "routes": [
+   "国道237号"
+  ],
+  "lat": 42.97858,
+  "lon": 142.39758,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-068",
+  "article": "道の駅にしおこっぺ花夢",
+  "name": "にしおこっぺ花夢",
+  "furigana": "にしおこっぺかむ",
+  "region": "オホーツク",
+  "municipality": "紋別郡西興部村",
+  "routes": [
+   "国道239号"
+  ],
+  "lat": 44.33589,
+  "lon": 142.86808,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-069",
+  "article": "道の駅オーロラタウン93りくべつ",
+  "name": "オーロラタウン93りくべつ",
+  "furigana": null,
+  "region": "十勝",
+  "municipality": "足寄郡陸別町",
+  "routes": [
+   "国道242号",
+   "北海道道502号斗満陸別停車場線"
+  ],
+  "lat": 43.4675,
+  "lon": 143.74244,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-070",
+  "article": "道の駅はなやか（葉菜野花）小清水",
+  "name": "はなやか（葉菜野花）小清水",
+  "furigana": "葉菜野花",
+  "region": "オホーツク",
+  "municipality": "斜里郡小清水町",
+  "routes": [
+   "国道244号"
+  ],
+  "lat": 43.93394444,
+  "lon": 144.45336111,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-071",
+  "article": "道の駅ライスランドふかがわ",
+  "name": "ライスランドふかがわ",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "深川市",
+  "routes": [
+   "国道12号",
+   "国道233号"
+  ],
+  "lat": 43.6995,
+  "lon": 142.07067,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-072",
+  "article": "道の駅なかがわ",
+  "name": "なかがわ",
+  "furigana": null,
+  "region": "道北",
+  "municipality": "中川郡中川町",
+  "routes": [
+   "国道40号"
+  ],
+  "lat": 44.80169,
+  "lon": 142.06736,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-073",
+  "article": "道の駅230ルスツ",
+  "name": "230ルスツ",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "虻田郡留寿都村",
+  "routes": [
+   "国道230号"
+  ],
+  "lat": 42.73994,
+  "lon": 140.88447,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-074",
+  "article": "道の駅てしお",
+  "name": "てしお",
+  "furigana": null,
+  "region": "道北",
+  "municipality": "天塩郡天塩町",
+  "routes": [
+   "国道232号",
+   "北海道道106号稚内天塩線"
+  ],
+  "lat": 44.88447,
+  "lon": 141.74775,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-075",
+  "article": "道の駅コスモール大樹",
+  "name": "コスモール大樹",
+  "furigana": "コスモールたいき",
+  "region": "十勝",
+  "municipality": "広尾郡大樹町",
+  "routes": [
+   "国道236号",
+   "北海道道622号幸徳大樹停車場線"
+  ],
+  "lat": 42.48981,
+  "lon": 143.27325,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-076",
+  "article": "道の駅ぐるっとパノラマ美幌峠",
+  "name": "ぐるっとパノラマ美幌峠",
+  "furigana": "ぐるっとパノラマびほろとうげ",
+  "region": "オホーツク",
+  "municipality": "網走郡美幌町",
+  "routes": [
+   "国道243号"
+  ],
+  "lat": 43.64833,
+  "lon": 144.24758,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-077",
+  "article": "道の駅らんこし・ふるさとの丘",
+  "name": "らんこし・ふるさとの丘",
+  "furigana": "らんこしふるさとのおか",
+  "region": "道央",
+  "municipality": "磯谷郡蘭越町",
+  "routes": [
+   "国道5号"
+  ],
+  "lat": 42.76206,
+  "lon": 140.47897,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-078",
+  "article": "道の駅とようら",
+  "name": "とようら",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "虻田郡豊浦町",
+  "routes": [
+   "国道37号"
+  ],
+  "lat": 42.57756,
+  "lon": 140.72239,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-079",
+  "article": "道の駅メルヘンの丘めまんべつ",
+  "name": "メルヘンの丘めまんべつ",
+  "furigana": "メルヘンのおかめまんべつ",
+  "region": "オホーツク",
+  "municipality": "網走郡大空町",
+  "routes": [
+   "国道39号"
+  ],
+  "lat": 43.91736,
+  "lon": 144.1885,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-080",
+  "article": "道の駅むかわ四季の館",
+  "name": "むかわ四季の館",
+  "furigana": "むかわしきのやかた",
+  "region": "道央",
+  "municipality": "勇払郡むかわ町",
+  "routes": [
+   "国道235号",
+   "北海道道10号千歳鵡川線"
+  ],
+  "lat": 42.57381,
+  "lon": 141.92497,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-081",
+  "article": "道の駅あいおい",
+  "name": "あいおい",
+  "furigana": null,
+  "region": "オホーツク",
+  "municipality": "網走郡津別町",
+  "routes": [
+   "国道240号"
+  ],
+  "lat": 43.54553,
+  "lon": 143.98042,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-082",
+  "article": "道の駅しかおい",
+  "name": "しかおい",
+  "furigana": null,
+  "region": "十勝",
+  "municipality": "河東郡鹿追町",
+  "routes": [
+   "国道274号"
+  ],
+  "lat": 43.09836,
+  "lon": 142.98861,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-083",
+  "article": "道の駅しらたき",
+  "name": "しらたき",
+  "furigana": null,
+  "region": "オホーツク",
+  "municipality": "紋別郡遠軽町",
+  "routes": [
+   "旭川紋別自動車道#国道450号",
+   "旭川紋別自動車道",
+   "国道333号"
+  ],
+  "lat": 43.8697703,
+  "lon": 143.0762765,
+  "coord_source": "OSM"
+ },
+ {
+  "no": "北海道-084",
+  "article": "道の駅あしょろ銀河ホール21",
+  "name": "あしょろ銀河ホール21",
+  "furigana": "あしょろぎんがホール21",
+  "region": "十勝",
+  "municipality": "足寄郡足寄町",
+  "routes": [
+   "国道241号",
+   "国道242号"
+  ],
+  "lat": 43.24433,
+  "lon": 143.54644,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-085",
+  "article": "道の駅サーモンパーク千歳",
+  "name": "サーモンパーク千歳",
+  "furigana": "サーモンパークちとせ",
+  "region": "道央",
+  "municipality": "千歳市",
+  "routes": [
+   "国道337号"
+  ],
+  "lat": 42.8339,
+  "lon": 141.6594,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-086",
+  "article": "道の駅ひがしかわ「道草館」",
+  "name": "ひがしかわ「道草館」",
+  "furigana": "ひがしかわみちくさかん",
+  "region": "道北",
+  "municipality": "上川郡東川町",
+  "routes": [
+   "北海道道1160号旭川旭岳温泉線"
+  ],
+  "lat": 43.69725,
+  "lon": 142.50878,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-088",
+  "article": "道の駅シェルプラザ・港",
+  "name": "シェルプラザ・港",
+  "furigana": "シェルプラザみなと",
+  "region": "道央",
+  "municipality": "磯谷郡蘭越町",
+  "routes": [
+   "国道229号"
+  ],
+  "lat": 42.88017,
+  "lon": 140.37003,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-089",
+  "article": "道の駅真狩フラワーセンター",
+  "name": "真狩フラワーセンター",
+  "furigana": "まっかりフラワーセンター",
+  "region": "道央",
+  "municipality": "虻田郡真狩村",
+  "routes": [
+   "北海道道66号岩内洞爺線"
+  ],
+  "lat": 42.76194,
+  "lon": 140.80797,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-090",
+  "article": "道の駅鐘のなるまち・ちっぷべつ",
+  "name": "鐘のなるまち・ちっぷべつ",
+  "furigana": "かねのなるまちちっぷべつ",
+  "region": "道央",
+  "municipality": "雨竜郡秩父別町",
+  "routes": [
+   "国道233号"
+  ],
+  "lat": 43.76511,
+  "lon": 141.96661,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-091",
+  "article": "道の駅あぷた",
+  "name": "あぷた",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "虻田郡洞爺湖町",
+  "routes": [
+   "国道37号"
+  ],
+  "lat": 42.52897,
+  "lon": 140.77872,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-092",
+  "article": "道の駅うりまく",
+  "name": "うりまく",
+  "furigana": null,
+  "region": "十勝",
+  "municipality": "河東郡鹿追町",
+  "routes": [
+   "国道274号"
+  ],
+  "lat": 43.16975,
+  "lon": 143.02503,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-093",
+  "article": "道の駅絵本の里けんぶち",
+  "name": "絵本の里けんぶち",
+  "furigana": "えほんのさとけんぶち",
+  "region": "道北",
+  "municipality": "上川郡剣淵町",
+  "routes": [
+   "国道40号"
+  ],
+  "lat": 44.09383,
+  "lon": 142.391,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-094",
+  "article": "道の駅風Wとままえ",
+  "name": "風Wとままえ",
+  "furigana": "ふわっととままえ",
+  "region": "道北",
+  "municipality": "苫前郡苫前町",
+  "routes": [
+   "国道232号"
+  ],
+  "lat": 44.31347,
+  "lon": 141.65689,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-095",
+  "article": "道の駅しほろ温泉",
+  "name": "しほろ温泉",
+  "furigana": "しほろおんせん",
+  "region": "十勝",
+  "municipality": "河東郡士幌町",
+  "routes": [
+   "北海道道134号本別士幌線"
+  ],
+  "lat": 43.13888889,
+  "lon": 143.36794444,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-096",
+  "article": "道の駅名水の郷きょうごく",
+  "name": "名水の郷きょうごく",
+  "furigana": "めいすいのさときょうごく",
+  "region": "道央",
+  "municipality": "虻田郡京極町",
+  "routes": [
+   "北海道道478号京極倶知安線"
+  ],
+  "lat": 42.85889,
+  "lon": 140.87094,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-097",
+  "article": "道の駅びえい「丘のくら」",
+  "name": "びえい「丘のくら」",
+  "furigana": "びえいおかのくら",
+  "region": "道北",
+  "municipality": "上川郡美瑛町",
+  "routes": [
+   "北海道道213号天人峡美瑛線"
+  ],
+  "lat": 43.59214,
+  "lon": 142.46378,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-098",
+  "article": "道の駅☆ロマン街道しょさんべつ",
+  "name": "☆ロマン街道しょさんべつ",
+  "furigana": "ロマンかいどうしょさんべつ",
+  "region": "道北",
+  "municipality": "苫前郡初山別村",
+  "routes": [
+   "国道232号"
+  ],
+  "lat": 44.56325,
+  "lon": 141.77747,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-099",
+  "article": "道の駅うとろ・シリエトク",
+  "name": "うとろ・シリエトク",
+  "furigana": null,
+  "region": "オホーツク",
+  "municipality": "斜里郡斜里町",
+  "routes": [
+   "国道334号"
+  ],
+  "lat": 44.06903,
+  "lon": 144.99069,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-100",
+  "article": "道の駅しゃり",
+  "name": "しゃり",
+  "furigana": null,
+  "region": "オホーツク",
+  "municipality": "斜里郡斜里町",
+  "routes": [
+   "北海道道92号斜里停車場線"
+  ],
+  "lat": 43.91175,
+  "lon": 144.66419,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-101",
+  "article": "道の駅パパスランドさっつる",
+  "name": "パパスランドさっつる",
+  "furigana": null,
+  "region": "オホーツク",
+  "municipality": "斜里郡清里町",
+  "routes": [
+   "北海道道1115号摩周湖斜里線"
+  ],
+  "lat": 43.79064,
+  "lon": 144.53453,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-102",
+  "article": "道の駅もち米の里☆なよろ",
+  "name": "もち米の里☆なよろ",
+  "furigana": "もちごめのさとなよろ",
+  "region": "道北",
+  "municipality": "名寄市",
+  "routes": [
+   "国道40号"
+  ],
+  "lat": 44.28736,
+  "lon": 142.41378,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-103",
+  "article": "道の駅みなとま〜れ寿都",
+  "name": "みなとま〜れ寿都",
+  "furigana": "みなとま〜れすっつ",
+  "region": "道央",
+  "municipality": "寿都郡寿都町",
+  "routes": [
+   "北海道道9号寿都黒松内線"
+  ],
+  "lat": 42.79536,
+  "lon": 140.23175,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-104",
+  "article": "道の駅とうや湖",
+  "name": "とうや湖",
+  "furigana": "とうやこ",
+  "region": "道央",
+  "municipality": "虻田郡洞爺湖町",
+  "routes": [
+   "国道230号"
+  ],
+  "lat": 42.6645,
+  "lon": 140.82183,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-105",
+  "article": "道の駅流氷街道網走",
+  "name": "流氷街道網走",
+  "furigana": "りゅうひょうかいどうあばしり",
+  "region": "オホーツク",
+  "municipality": "網走市",
+  "routes": [
+   "北海道道1083号網走港線"
+  ],
+  "lat": 44.02206,
+  "lon": 144.27392,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-106",
+  "article": "道の駅北前船 松前",
+  "name": "北前船 松前",
+  "furigana": "きたまえぶねまつまえ",
+  "region": "道南",
+  "municipality": "松前郡松前町",
+  "routes": [
+   "国道228号"
+  ],
+  "lat": 41.42656,
+  "lon": 140.10728,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-107",
+  "article": "道の駅ステラ★ほんべつ",
+  "name": "ステラ★ほんべつ",
+  "furigana": null,
+  "region": "十勝",
+  "municipality": "中川郡本別町",
+  "routes": [
+   "国道242号",
+   "北海道道499号勇足本別停車場線"
+  ],
+  "lat": 43.12572,
+  "lon": 143.61325,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-108",
+  "article": "道の駅ウトナイ湖",
+  "name": "ウトナイ湖",
+  "furigana": "ウトナイこ",
+  "region": "道央",
+  "municipality": "苫小牧市",
+  "routes": [
+   "国道36号"
+  ],
+  "lat": 42.69975,
+  "lon": 141.69442,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-109",
+  "article": "道の駅うらほろ",
+  "name": "うらほろ",
+  "furigana": null,
+  "region": "十勝",
+  "municipality": "十勝郡浦幌町",
+  "routes": [
+   "国道38号"
+  ],
+  "lat": 42.81392,
+  "lon": 143.6635,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-110",
+  "article": "道の駅しんしのつ",
+  "name": "しんしのつ",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "石狩郡新篠津村",
+  "routes": [
+   "北海道道139号江別奈井江線"
+  ],
+  "lat": 43.21403,
+  "lon": 141.64264,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-111",
+  "article": "道の駅夕張メロード",
+  "name": "夕張メロード",
+  "furigana": "ゆうばりメロード",
+  "region": "道央",
+  "municipality": "夕張市",
+  "routes": [
+   "国道274号"
+  ],
+  "lat": 42.93697,
+  "lon": 142.03811,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-112",
+  "article": "道の駅おだいとう",
+  "name": "おだいとう",
+  "furigana": null,
+  "region": "釧路 根室",
+  "municipality": "野付郡別海町",
+  "routes": [
+   "国道244号"
+  ],
+  "lat": 43.53339,
+  "lon": 145.23694,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-113",
+  "article": "道の駅縄文ロマン 南かやべ",
+  "name": "縄文ロマン 南かやべ",
+  "furigana": "じょうもんろまんみなみかやべ",
+  "region": "道南",
+  "municipality": "函館市",
+  "routes": [
+   "国道278号",
+   "尾札部道路"
+  ],
+  "lat": 41.92792,
+  "lon": 140.94486,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-114",
+  "article": "道の駅わっかない",
+  "name": "わっかない",
+  "furigana": null,
+  "region": "道北",
+  "municipality": "稚内市",
+  "routes": [
+   "国道40号"
+  ],
+  "lat": 45.4174074,
+  "lon": 141.6776808,
+  "coord_source": "OSM"
+ },
+ {
+  "no": "北海道-115",
+  "article": "道の駅あかいがわ",
+  "name": "あかいがわ",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "余市郡赤井川村",
+  "routes": [
+   "国道393号"
+  ],
+  "lat": 43.05103,
+  "lon": 140.84478,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-116",
+  "article": "道の駅みそぎの郷 きこない",
+  "name": "みそぎの郷 きこない",
+  "furigana": "みそぎのさときこない",
+  "region": "道南",
+  "municipality": "上磯郡木古内町",
+  "routes": [
+   "北海道道383号木古内停車場線"
+  ],
+  "lat": 41.6778,
+  "lon": 140.435,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-117",
+  "article": "道の駅しかべ間歇泉公園",
+  "name": "しかべ間歇泉公園",
+  "furigana": "しかべかんけつせんこうえん",
+  "region": "道南",
+  "municipality": "茅部郡鹿部町",
+  "routes": [
+   "北海道道43号大沼公園鹿部線"
+  ],
+  "lat": 42.02847,
+  "lon": 140.83067,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-118",
+  "article": "道の駅ノンキーランド ひがしもこと",
+  "name": "ノンキーランド ひがしもこと",
+  "furigana": null,
+  "region": "オホーツク",
+  "municipality": "網走郡大空町",
+  "routes": [
+   "国道334号",
+   "北海道道102号網走川湯線"
+  ],
+  "lat": 43.84497,
+  "lon": 144.29494,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-120",
+  "article": "道の駅石狩「あいろーど厚田」",
+  "name": "石狩「あいろーど厚田」",
+  "furigana": "いしかりあいろーどあつた",
+  "region": "道央",
+  "municipality": "石狩市",
+  "routes": [
+   "国道231号"
+  ],
+  "lat": 43.40456,
+  "lon": 141.43125,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-121",
+  "article": "道の駅なないろ・ななえ",
+  "name": "なないろ・ななえ",
+  "furigana": null,
+  "region": "道南",
+  "municipality": "亀田郡七飯町",
+  "routes": [
+   "国道5号"
+  ],
+  "lat": 41.92597,
+  "lon": 140.65606,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-122",
+  "article": "道の駅びえい「白金ビルケ」",
+  "name": "びえい「白金ビルケ」",
+  "furigana": "びえいしろがねビルケ",
+  "region": "道北",
+  "municipality": "上川郡美瑛町",
+  "routes": [
+   "北海道道966号十勝岳温泉美瑛線"
+  ],
+  "lat": 43.50305556,
+  "lon": 142.59733333,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-123",
+  "article": "道の駅北オホーツクはまとんべつ",
+  "name": "北オホーツクはまとんべつ",
+  "furigana": "きたオホーツクはまとんべつ",
+  "region": "道北",
+  "municipality": "枝幸郡浜頓別町",
+  "routes": [
+   "国道275号"
+  ],
+  "lat": 45.12525,
+  "lon": 142.36058,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-124",
+  "article": "道の駅あびら D51ステーション",
+  "name": "あびら D51ステーション",
+  "furigana": "あびらデゴイチステーション",
+  "region": "道央",
+  "municipality": "勇払郡安平町",
+  "routes": [
+   "国道234号"
+  ],
+  "lat": 42.87606,
+  "lon": 141.81875,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-125",
+  "article": "道の駅遠軽 森のオホーツク",
+  "name": "遠軽 森のオホーツク",
+  "furigana": "えんがるもりのオホーツク",
+  "region": "オホーツク",
+  "municipality": "紋別郡遠軽町",
+  "routes": [
+   "国道450号"
+  ],
+  "lat": 44.02214,
+  "lon": 143.49656,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-126",
+  "article": "道の駅るもい",
+  "name": "るもい",
+  "furigana": null,
+  "region": "道北",
+  "municipality": "留萌市",
+  "routes": [
+   "国道231号"
+  ],
+  "lat": 43.94478,
+  "lon": 141.64894,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-127",
+  "article": "道の駅かみしほろ",
+  "name": "かみしほろ",
+  "furigana": null,
+  "region": "十勝",
+  "municipality": "河東郡上士幌町",
+  "routes": [
+   "国道241号",
+   "北海道道337号上士幌士幌音更線"
+  ],
+  "lat": 43.22453,
+  "lon": 143.29178,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-128",
+  "article": "道の駅ガーデンスパ十勝川温泉",
+  "name": "ガーデンスパ十勝川温泉",
+  "furigana": "ガーデンスパとかちがわおんせん",
+  "region": "十勝",
+  "municipality": "河東郡音更町",
+  "routes": [
+   "北海道道73号帯広浦幌線"
+  ],
+  "lat": 42.93361111,
+  "lon": 143.30083333,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-129",
+  "article": "道の駅羊のまち 侍・しべつ",
+  "name": "羊のまち 侍・しべつ",
+  "furigana": "ひつじのまちさむらいしべつ",
+  "region": "道北",
+  "municipality": "士別市",
+  "routes": [
+   "国道40号"
+  ],
+  "lat": 44.17611,
+  "lon": 142.39258,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-130",
+  "article": "道の駅275つきがた",
+  "name": "275つきがた",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "樺戸郡月形町",
+  "routes": [],
+  "lat": 43.34136111,
+  "lon": 141.67988889,
+  "coord_source": "Wikipedia"
+ },
+ {
+  "no": "北海道-131",
+  "article": "道の駅ふるびらたらこミュージアム",
+  "name": "ふるびらたらこミュージアム",
+  "furigana": null,
+  "region": "道央",
+  "municipality": "古平郡古平町",
+  "routes": [
+   "国道229号"
+  ],
+  "lat": 43.2649168,
+  "lon": 140.6386418,
+  "coord_source": "OSM"
+ }
+]

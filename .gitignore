@@ -1,0 +1,11 @@
+data/pages/
+data/*.zip
+data/*.html
+data/osm_michinoeki_raw.json
+data/wikidata*.json
+data/wikipedia_stations.json
+data/sitemap.xml
+data/list_wikitext.txt
+data/overpass_query.txt
+data/wikidata_query.sparql
+.DS_Store
