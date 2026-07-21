@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#2e5d4b">
-<title>環 — 道の駅めぐり 北海道</title>
+<title>廻 — 道の駅めぐり 北海道</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="環">
+<meta name="apple-mobile-web-app-title" content="廻">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -144,7 +144,7 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 <div id="app">
   <header>
     <div class="ttl">
-      <h1>環<span class="yomi">かん</span></h1>
+      <h1>廻<span class="yomi">めぐり</span></h1>
       <small>道の駅めぐり 北海道・128駅</small>
     </div>
     <div id="progress"><b>0</b> / 128 駅</div>
@@ -740,7 +740,7 @@ function renderLog(){
 }
 document.getElementById("exportBtn").onclick=()=>{
   const blob=new Blob([JSON.stringify({app:"michinoeki",exported:new Date().toISOString(),visited:[...visited],want:[...want]},null,1)],{type:"application/json"});
-  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="環_道の駅記録.json"; a.click();
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="廻_道の駅記録.json"; a.click();
   toast("記録を書き出しました");
 };
 document.getElementById("importBtn").onclick=()=>document.getElementById("importFile").click();
