@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#2e5d4b">
-<title>道の駅めぐり 北海道</title>
+<title>環 — 道の駅めぐり 北海道</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="道の駅めぐり">
+<meta name="apple-mobile-web-app-title" content="環">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,8 +29,9 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:15p
 #app{max-width:560px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
 
 header{padding:16px 18px 10px;display:flex;align-items:flex-end;justify-content:space-between;position:sticky;top:0;background:linear-gradient(var(--bg) 82%,rgba(245,243,236,0));z-index:500}
-header .ttl h1{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:.14em}
-header .ttl small{display:block;font-size:10px;color:var(--sub);letter-spacing:.28em;margin-top:1px}
+header .ttl h1{font-family:var(--serif);font-size:24px;font-weight:600;letter-spacing:.14em}
+header .ttl h1 .yomi{font-size:10px;color:var(--sub);font-weight:500;letter-spacing:.3em;margin-left:7px;vertical-align:2px}
+header .ttl small{display:block;font-size:10px;color:var(--sub);letter-spacing:.18em;margin-top:1px}
 #progress{font-size:11px;color:var(--sub);white-space:nowrap;text-align:right;letter-spacing:.06em}
 #progress b{font-family:var(--serif);color:var(--primary);font-size:19px;letter-spacing:0}
 
@@ -143,8 +144,8 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 <div id="app">
   <header>
     <div class="ttl">
-      <h1>道の駅めぐり</h1>
-      <small>HOKKAIDO・128 STATIONS</small>
+      <h1>環<span class="yomi">かん</span></h1>
+      <small>道の駅めぐり 北海道・128駅</small>
     </div>
     <div id="progress"><b>0</b> / 128 駅</div>
   </header>
@@ -739,7 +740,7 @@ function renderLog(){
 }
 document.getElementById("exportBtn").onclick=()=>{
   const blob=new Blob([JSON.stringify({app:"michinoeki",exported:new Date().toISOString(),visited:[...visited],want:[...want]},null,1)],{type:"application/json"});
-  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="michinoeki-kiroku.json"; a.click();
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="環_道の駅記録.json"; a.click();
   toast("記録を書き出しました");
 };
 document.getElementById("importBtn").onclick=()=>document.getElementById("importFile").click();
