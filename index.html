@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#c2410c">
+<meta name="theme-color" content="#2e5d4b">
 <title>道の駅めぐり 北海道</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11,122 +11,148 @@
 <meta name="apple-mobile-web-app-title" content="道の駅めぐり">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="assets/icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{
-  --bg:#f6f4ef; --card:#ffffff; --ink:#2b2b2b; --sub:#8a857c;
-  --accent:#c2410c; --accent-soft:#fdf0e7; --green:#2e7d32; --blue:#1a73e8; --line:#e8e4dc;
+  --bg:#f5f3ec; --card:#fffdf8; --ink:#243430; --sub:#7f8b83;
+  --primary:#2e5d4b; --primary-soft:#e8efe8; --accent:#b45330; --accent-soft:#f6e9e1;
+  --gold:#c8a24a; --gold-soft:#f7f0dd; --green:#2e7d32; --line:#e3dfd2;
   --radius:14px; --safe:env(safe-area-inset-bottom,0px);
+  --serif:"Shippori Mincho","Hiragino Mincho ProN",serif;
+  --sans:"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6;overscroll-behavior-y:none}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:15px;line-height:1.65;overscroll-behavior-y:none}
 #app{max-width:560px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
 
-header{padding:12px 16px 8px;display:flex;align-items:baseline;justify-content:space-between;position:sticky;top:0;background:var(--bg);z-index:500}
-header h1{font-size:16px;letter-spacing:.06em}
-header h1 small{font-size:11px;color:var(--sub);font-weight:normal;margin-left:6px}
-#progress{font-size:12px;color:var(--sub);white-space:nowrap}
-#progress b{color:var(--accent);font-size:16px}
+header{padding:16px 18px 10px;display:flex;align-items:flex-end;justify-content:space-between;position:sticky;top:0;background:linear-gradient(var(--bg) 82%,rgba(245,243,236,0));z-index:500}
+header .ttl h1{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:.14em}
+header .ttl small{display:block;font-size:10px;color:var(--sub);letter-spacing:.28em;margin-top:1px}
+#progress{font-size:11px;color:var(--sub);white-space:nowrap;text-align:right;letter-spacing:.06em}
+#progress b{font-family:var(--serif);color:var(--primary);font-size:19px;letter-spacing:0}
 
-nav{display:flex;gap:5px;padding:0 10px 8px;position:sticky;top:44px;background:var(--bg);z-index:500}
-nav button{flex:1;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 0;font-size:12px;color:var(--sub);cursor:pointer}
-nav button.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:bold}
+nav{display:flex;gap:5px;padding:2px 12px 10px;position:sticky;top:56px;background:var(--bg);z-index:500;border-bottom:1px solid var(--line)}
+nav button{flex:1;border:none;background:none;border-radius:8px;padding:7px 0 9px;font-size:12px;color:var(--sub);cursor:pointer;position:relative;letter-spacing:.04em}
+nav button.on{color:var(--primary);font-weight:700}
+nav button.on::after{content:"";position:absolute;left:22%;right:22%;bottom:0;height:2px;background:var(--primary);border-radius:2px}
 
-main{flex:1;padding:0 12px calc(28px + var(--safe))}
+main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 .pane{display:none}
 .pane.on{display:block;animation:fade .25s}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:10px}
-.card h2{font-size:13px;color:var(--sub);font-weight:normal;margin-bottom:8px;letter-spacing:.06em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:15px;margin-bottom:12px;box-shadow:0 1px 3px rgba(36,52,48,.04)}
+.card h2{font-family:var(--serif);font-size:13px;color:var(--sub);font-weight:600;margin-bottom:9px;letter-spacing:.18em}
 
-#locBtn{width:100%;padding:13px;border:none;border-radius:var(--radius);background:var(--accent);color:#fff;font-size:15px;font-weight:bold;cursor:pointer}
+#locBtn{width:100%;padding:13px;border:none;border-radius:var(--radius);background:var(--primary);color:#fff;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.08em}
 #locBtn:disabled{opacity:.5}
 #locStatus{font-size:12px;color:var(--sub);margin-top:8px;text-align:center}
 .cityRow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;justify-content:center}
-.cityRow button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:12px;color:var(--ink);cursor:pointer}
+.cityRow button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 13px;font-size:12px;color:var(--ink);cursor:pointer}
 .cityRow button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 
 .filterRow{display:flex;flex-wrap:wrap;gap:6px}
-.filterRow button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 11px;font-size:12px;color:var(--sub);cursor:pointer}
-.filterRow button.on{background:var(--accent-soft);color:var(--accent);border-color:var(--accent);font-weight:bold}
+.filterRow button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 12px;font-size:12px;color:var(--sub);cursor:pointer}
+.filterRow button.on{background:var(--primary-soft);color:var(--primary);border-color:var(--primary);font-weight:700}
+.filterRow button.gold.on{background:var(--gold-soft);color:#8a6c22;border-color:var(--gold)}
 
-.st{display:flex;align-items:center;gap:10px;padding:11px 2px;border-bottom:1px solid var(--line);cursor:pointer}
+.st{display:flex;align-items:center;gap:9px;padding:11px 2px;border-bottom:1px solid var(--line);cursor:pointer}
 .st:last-child{border-bottom:none}
-.st .num{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:12px;flex-shrink:0}
-.st.visited .num{background:#eee;color:#aaa}
+.st .num{width:30px;height:30px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:13px;flex-shrink:0}
+.st.visited .num{background:#edeae1;color:#b4ae9f}
 .st .info{flex:1;min-width:0}
-.st .info .nm{font-weight:bold;font-size:14px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.st .info .nm{font-weight:700;font-size:14px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .st .info .nm .done{color:var(--green);font-size:11px}
+.st .info .nm .wantMark{color:var(--gold);font-size:13px}
 .st .info .tags{font-size:10px}
-.st .info .tags span{display:inline-block;background:#f0ede7;color:var(--sub);border-radius:4px;padding:0 5px;margin-right:3px}
-.st .info .tags .on{background:#e8f3ea;color:var(--green)}
+.st .info .tags span{display:inline-block;background:#efece3;color:var(--sub);border-radius:4px;padding:0 5px;margin-right:3px}
+.st .info .tags .on{background:#e6efe7;color:var(--green)}
 .st .info .meta{font-size:11px;color:var(--sub)}
 .st .dist{text-align:right;font-size:11px;color:var(--sub);flex-shrink:0;line-height:1.35;white-space:nowrap}
-.st .dist b{color:var(--ink);font-size:14px}
-.st .go{flex-shrink:0;width:34px;height:34px;border-radius:50%;border:none;background:var(--blue);color:#fff;font-size:15px;cursor:pointer}
+.st .dist b{color:var(--ink);font-size:14px;font-family:var(--serif)}
+.st .star{flex-shrink:0;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:#c9c3b4;font-size:15px;cursor:pointer}
+.st .star.on{background:var(--gold-soft);border-color:var(--gold);color:var(--gold)}
+.st .go{flex-shrink:0;width:32px;height:32px;border-radius:50%;border:none;background:var(--ink);color:#fff;font-size:13px;cursor:pointer}
 
 .slider{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.slider label{font-size:13px;color:var(--sub);white-space:nowrap;width:76px}
-.slider input[type=range]{flex:1;accent-color:var(--accent)}
-.slider output{font-weight:bold;color:var(--accent);width:70px;text-align:right;font-size:13px}
+.slider label{font-size:13px;color:var(--sub);white-space:nowrap;width:82px}
+.slider input[type=range]{flex:1;accent-color:var(--primary)}
+.slider output{font-weight:700;color:var(--primary);width:72px;text-align:right;font-size:13px;font-family:var(--serif)}
 .toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);margin:4px 0 2px}
-.toggle input{width:18px;height:18px;accent-color:var(--accent)}
-.bigBtn{width:100%;padding:13px;border:none;border-radius:var(--radius);color:#fff;font-size:15px;font-weight:bold;cursor:pointer;margin-top:10px}
-.bigBtn.dark{background:var(--ink)} .bigBtn.accent{background:var(--accent)}
-.summary{font-size:12px;color:var(--sub);margin:8px 0;line-height:1.7}
-.summary b{color:var(--accent);font-size:14px}
-.gmaps{width:100%;padding:11px;border:1px solid var(--blue);border-radius:var(--radius);background:#fff;color:var(--blue);font-size:13px;font-weight:bold;cursor:pointer;margin-top:8px}
+.toggle input{width:18px;height:18px;accent-color:var(--primary)}
+.bigBtn{width:100%;padding:13px;border:none;border-radius:var(--radius);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:10px;letter-spacing:.06em}
+.bigBtn.dark{background:var(--ink)} .bigBtn.accent{background:var(--accent)} .bigBtn.primary{background:var(--primary)}
+.bigBtn.gold{background:linear-gradient(135deg,#c8a24a,#b08a35)}
+.summary{font-size:12px;color:var(--sub);margin:9px 0 2px;line-height:1.8}
+.summary b{color:var(--primary);font-size:14px;font-family:var(--serif)}
+.gmaps{width:100%;padding:11px;border:1px solid var(--ink);border-radius:var(--radius);background:var(--card);color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;margin-top:9px}
+.gmaps.mini{width:auto;padding:6px 13px;font-size:11px;margin:6px 0 2px;border-radius:999px;font-weight:500}
+.originBadge{display:inline-flex;align-items:center;gap:5px;background:var(--primary-soft);color:var(--primary);border-radius:999px;padding:3px 12px;font-size:12px;font-weight:700;margin-bottom:8px}
+
+.dayHead{display:flex;align-items:center;gap:8px;margin:14px 0 2px;font-family:var(--serif);font-size:13px;color:var(--primary);font-weight:700;letter-spacing:.1em}
+.dayHead::after{content:"";flex:1;height:1px;background:var(--line)}
+.stay{font-size:11px;color:var(--sub);padding:4px 2px 2px 40px}
+.stay b{color:var(--accent)}
 
 #map{height:64vh;border-radius:var(--radius);border:1px solid var(--line)}
-.legend{font-size:11px;color:var(--sub);margin-top:6px;text-align:center}
+.legend{font-size:11px;color:var(--sub);margin-top:7px;text-align:center;letter-spacing:.03em}
 
-.regionBlock summary{font-weight:bold;font-size:14px;padding:10px 4px;cursor:pointer;list-style:none}
+.regionBlock summary{font-family:var(--serif);font-weight:700;font-size:14px;padding:10px 4px;cursor:pointer;list-style:none;letter-spacing:.08em}
 .regionBlock summary::-webkit-details-marker{display:none}
 .regionBlock summary::before{content:"▸ ";color:var(--accent)}
 .regionBlock[open] summary::before{content:"▾ "}
-.regionBlock summary .cnt{font-size:12px;color:var(--sub);font-weight:normal;margin-left:8px}
+.regionBlock summary .cnt{font-size:12px;color:var(--sub);font-weight:normal;margin-left:8px;font-family:var(--sans)}
 .ioRow{display:flex;gap:8px;margin-top:10px}
-.ioRow button{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 0;font-size:12px;cursor:pointer}
-.note{font-size:11px;color:var(--sub);margin-top:8px;line-height:1.6}
+.ioRow button{flex:1;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:9px 0;font-size:12px;cursor:pointer;color:var(--ink)}
+.note{font-size:11px;color:var(--sub);margin-top:8px;line-height:1.7}
 
 /* 詳細シート */
 #sheet{position:fixed;inset:0;z-index:1000;display:none}
 #sheet.on{display:block}
-#sheetBg{position:absolute;inset:0;background:rgba(0,0,0,.4)}
+#sheetBg{position:absolute;inset:0;background:rgba(24,34,30,.45)}
 #sheetBody{position:absolute;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;background:var(--card);border-radius:18px 18px 0 0;max-height:88vh;overflow-y:auto;padding:8px 18px calc(24px + var(--safe));animation:up .28s}
 @keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.grip{width:40px;height:4px;background:#ddd;border-radius:2px;margin:6px auto 12px}
-#sheetBody h3{font-size:19px;margin-bottom:2px}
+.grip{width:40px;height:4px;background:#ddd6c8;border-radius:2px;margin:6px auto 12px}
+#sheetBody h3{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:2px;letter-spacing:.05em}
 #sheetBody .sub{font-size:12px;color:var(--sub);margin-bottom:12px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
-.chips span{background:var(--accent-soft);color:var(--accent);font-size:12px;border-radius:6px;padding:3px 9px}
-.chips span.onsen{background:#e8f3ea;color:var(--green);font-weight:bold}
+.chips span{background:var(--primary-soft);color:var(--primary);font-size:12px;border-radius:6px;padding:3px 9px}
+.chips span.onsen{background:#e6efe7;color:var(--green);font-weight:700}
 .dl{font-size:13px;margin:10px 0}
-.dl dt{color:var(--sub);font-size:11px;margin-top:9px}
-.dl dd{white-space:pre-wrap;line-height:1.55}
-.sheetBtns{display:flex;gap:8px;margin-top:16px;position:sticky;bottom:0;background:var(--card);padding-bottom:4px}
-.sheetBtns button{flex:1;border:none;border-radius:12px;padding:12px 0;font-size:14px;font-weight:bold;cursor:pointer}
-.sheetBtns .navi{background:var(--blue);color:#fff}
-.sheetBtns .visit{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)!important}
-.sheetBtns .visit.on{background:var(--green);color:#fff}
+.dl dt{color:var(--sub);font-size:11px;margin-top:10px;letter-spacing:.1em}
+.dl dd{white-space:pre-wrap;line-height:1.6}
+.dl a{color:var(--primary)}
+.sheetBtns{display:flex;gap:8px;margin-top:14px}
+.sheetBtns button{flex:1;border:none;border-radius:12px;padding:12px 0;font-size:13px;font-weight:700;cursor:pointer}
+.sheetBtns .navi{background:var(--ink);color:#fff}
+.sheetBtns .visit{background:var(--card);color:var(--primary);border:1px solid var(--primary)}
+.sheetBtns .visit.on{background:var(--green);color:#fff;border:none}
+.sheetBtns .wantBtn{background:var(--card);color:#8a6c22;border:1px solid var(--gold)}
+.sheetBtns .wantBtn.on{background:var(--gold);color:#fff;border:none}
+.sheetBtns .origin{background:var(--primary);color:#fff}
 
 #toast{position:fixed;bottom:calc(30px + var(--safe));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2000;white-space:nowrap}
 #toast.show{opacity:.94}
-.empty{text-align:center;color:var(--sub);font-size:13px;padding:24px 8px;line-height:1.7}
+.empty{text-align:center;color:var(--sub);font-size:13px;padding:24px 8px;line-height:1.8}
 </style>
 </head>
 <body>
 <div id="app">
   <header>
-    <h1>道の駅めぐり<small>北海道 128駅</small></h1>
-    <div id="progress"><b>0</b>/128 制覇</div>
+    <div class="ttl">
+      <h1>道の駅めぐり</h1>
+      <small>HOKKAIDO・128 STATIONS</small>
+    </div>
+    <div id="progress"><b>0</b> / 128 駅</div>
   </header>
 
   <nav>
     <button data-pane="near" class="on">近くの駅</button>
-    <button data-pane="plan">巡回プラン</button>
-    <button data-pane="drive">ドライブ</button>
+    <button data-pane="plan">めぐる</button>
+    <button data-pane="drive">とまり旅</button>
     <button data-pane="map">地図</button>
     <button data-pane="log">記録</button>
   </nav>
@@ -135,7 +161,7 @@ main{flex:1;padding:0 12px calc(28px + var(--safe))}
     <!-- 近くの駅 -->
     <section class="pane on" id="pane-near">
       <div class="card">
-        <button id="locBtn">📍 現在地から探す</button>
+        <button id="locBtn">現在地から探す</button>
         <div id="locStatus">位置情報が使えない時は、下の街から選べます</div>
         <div class="cityRow" id="cityRow"></div>
       </div>
@@ -144,43 +170,51 @@ main{flex:1;padding:0 12px calc(28px + var(--safe))}
         <div class="filterRow" id="filterRow"></div>
       </div>
       <div class="card">
-        <h2>近い順（未訪問）<span id="nearHint" style="font-size:11px"></span></h2>
+        <h2>近い順（未訪問）<span id="nearHint" style="font-size:11px;letter-spacing:0"></span></h2>
         <div id="nearList"><div class="empty">まず現在地を教えてください</div></div>
       </div>
     </section>
 
-    <!-- 巡回プラン -->
+    <!-- めぐる（巡回プラン） -->
     <section class="pane" id="pane-plan">
       <div class="card">
-        <h2>近い駅を連鎖でつないでめぐる</h2>
+        <h2>ここから連鎖でめぐる</h2>
+        <div id="originBadge1"></div>
         <div class="slider"><label>めぐる数</label><input type="range" id="planN" min="2" max="15" value="6"><output id="planNOut">6駅</output></div>
         <div class="slider"><label>1駅の滞在</label><input type="range" id="planStay" min="10" max="60" step="5" value="20"><output id="planStayOut">20分</output></div>
-        <button class="bigBtn dark" id="planBtn">🧭 プランを立てる</button>
-        <div class="summary" id="planSummary"></div>
+        <button class="bigBtn primary" id="planBtn">プランを立てる</button>
+        <div class="note">駅の詳細から「ここを起点に」を押すと、その駅の周辺をめぐるプランになります。</div>
+      </div>
+      <div class="card">
+        <h2>選んだ駅だけでめぐる</h2>
+        <div class="note" style="margin:0 0 4px">☆行きたいに入れた駅（<b id="wantCount">0</b>駅）を、いちばん走りが短くなる順に並べ替えます。</div>
+        <button class="bigBtn gold" id="wantPlanBtn">☆ 行きたいリストでめぐる</button>
       </div>
       <div class="card" id="planCard" style="display:none">
-        <h2>巡回ルート</h2>
+        <h2 id="planTitle">巡回ルート</h2>
+        <div class="summary" id="planSummary"></div>
         <div id="planList"></div>
         <button class="gmaps" id="planGmaps">Googleマップでこのルートを開く</button>
-        <div class="note">駅から駅は実際の道路距離（OSRM）です。現在地からの最初の1本だけ直線概算を含みます。</div>
+        <div class="note">駅から駅は実際の道路距離（OSRM）。現在地からの最初の1本のみ直線概算を含むことがあります。</div>
       </div>
     </section>
 
-    <!-- ドライブモード -->
+    <!-- とまり旅（ドライブ・複数日） -->
     <section class="pane" id="pane-drive">
       <div class="card">
-        <h2>「今から◯時間で回って戻る」</h2>
-        <div class="slider"><label>使える時間</label><input type="range" id="drvH" min="2" max="10" step="0.5" value="4"><output id="drvHOut">4.0時間</output></div>
+        <h2>時間で回る・泊まって回る</h2>
+        <div id="originBadge2"></div>
+        <div class="slider"><label>日数</label><input type="range" id="drvDays" min="1" max="4" value="1"><output id="drvDaysOut">日帰り</output></div>
+        <div class="slider"><label id="drvHLabel">使える時間</label><input type="range" id="drvH" min="2" max="10" step="0.5" value="4"><output id="drvHOut">4.0時間</output></div>
         <div class="slider"><label>1駅の滞在</label><input type="range" id="drvStay" min="10" max="45" step="5" value="20"><output id="drvStayOut">20分</output></div>
-        <label class="toggle"><input type="checkbox" id="drvReturn" checked>出発地の近くに戻ってくる（周回）</label>
-        <button class="bigBtn accent" id="drvBtn">🚗 回れるルートを組む</button>
+        <label class="toggle"><input type="checkbox" id="drvReturn" checked><span id="drvReturnLabel">出発地の近くに戻ってくる（周回）</span></label>
+        <button class="bigBtn accent" id="drvBtn">回れるルートを組む</button>
         <div class="summary" id="drvSummary"></div>
       </div>
       <div class="card" id="drvCard" style="display:none">
-        <h2>周回プラン</h2>
+        <h2>行程表</h2>
         <div id="drvList"></div>
-        <button class="gmaps" id="drvGmaps">Googleマップでこのルートを開く</button>
-        <div class="note">時間内に「行って戻れる」駅を、近い順に詰め込んでいます。滞在時間込みの目安です。</div>
+        <div class="note">「泊」はその日の最後の駅の周辺で宿を取る想定です。時間は滞在込みの目安です。</div>
       </div>
     </section>
 
@@ -188,7 +222,7 @@ main{flex:1;padding:0 12px calc(28px + var(--safe))}
     <section class="pane" id="pane-map">
       <div class="card" style="padding:8px">
         <div id="map"></div>
-        <div class="legend">🟠未訪問　⚪訪問済み　🔵現在地　番号=プラン　マーカーをタップで詳細</div>
+        <div class="legend">🟠未訪問　⚪訪問済み　★行きたい　🔵起点　番号=プラン　タップで詳細</div>
       </div>
     </section>
 
@@ -202,14 +236,12 @@ main{flex:1;padding:0 12px calc(28px + var(--safe))}
           <button id="importBtn">記録を読み込む</button>
           <input type="file" id="importFile" accept=".json" style="display:none">
         </div>
-        <div class="note">訪問チェックはこの端末に保存されます。機種変更の前に「書き出す」でファイルに残しておくと安心です。データが消えることはありません。</div>
+        <div class="note">訪問チェックと行きたいリストはこの端末に保存されます。機種変更の前に「書き出す」でファイルに残しておくと安心です。データが消えることはありません。</div>
       </div>
     </section>
   </main>
 
   <div id="toast"></div>
-
-  <!-- 詳細シート -->
   <div id="sheet"><div id="sheetBg"></div><div id="sheetBody"><div class="grip"></div><div id="sheetContent"></div></div></div>
 </div>
 
@@ -220,11 +252,14 @@ main{flex:1;padding:0 12px calc(28px + var(--safe))}
 "use strict";
 
 /* ---------- 状態 ---------- */
-const LS_KEY = "michinoeki.visited.v1";
-let visited = new Set(JSON.parse(localStorage.getItem(LS_KEY) || "[]"));
+const LS_VISITED = "michinoeki.visited.v1";
+const LS_WANT = "michinoeki.want.v1";
+let visited = new Set(JSON.parse(localStorage.getItem(LS_VISITED) || "[]"));
+let want = new Set(JSON.parse(localStorage.getItem(LS_WANT) || "[]"));
 let here = null;              // {lat, lon, label}
-let originMin = null;         // 現在地→各駅の分（OSRM取得できた場合。idx配列）
-let currentPlan = [];         // 駅idの配列
+let hereIdx = null;           // 起点が駅のときの駅index（マトリクス直参照用）
+let originMin = null;         // 現在地→各駅の実道路分（OSRM精緻化）
+let currentPlan = [];         // 駅idの配列（地図表示用）
 let activeFilters = new Set();
 const AVG_KMH = 55, ROAD_FACTOR = 1.3;
 
@@ -235,13 +270,13 @@ const CITIES = [
   {n:"滝川", lat:43.5580, lon:141.9103}, {n:"稚内", lat:45.4156, lon:141.6730},
 ];
 const FILTERS = [
+  {key:"want", label:"☆ 行きたい", gold:true, test:s=>want.has(s.id)},
   {key:"onsen", label:"♨ 温泉", test:s=>s.onsen},
   {key:"ev", label:"🔌 EV充電", test:s=>s.facilities.includes("EV充電器")},
   {key:"rest", label:"🍜 レストラン", test:s=>s.facilities.includes("レストラン")},
   {key:"sanchoku", label:"🥬 産直", test:s=>s.facilities.includes("産地直売")},
   {key:"dog", label:"🐕 ドッグラン", test:s=>s.facilities.includes("ドッグラン")},
 ];
-
 const IDX = Object.fromEntries(STATIONS.map((s,i)=>[s.id,i]));
 
 /* ---------- 距離 ---------- */
@@ -251,15 +286,15 @@ function haversine(a, b){
   const h=Math.sin(dLat/2)**2+Math.cos(a.lat*d)*Math.cos(b.lat*d)*Math.sin(dLon/2)**2;
   return 2*R*Math.asin(Math.sqrt(h));
 }
-// 駅i→駅j（実道路）
 const stKm  = (i,j)=> MATRIX.km[i][j]/10;
 const stMin = (i,j)=> MATRIX.min[i][j];
-// 現在地→駅s（OSRM優先、なければ直線概算）
 function originKmTo(s){
+  if(hereIdx!=null) return stKm(hereIdx, IDX[s.id]);
   return haversine(here, s)*ROAD_FACTOR;
 }
 function originMinTo(s){
   const i = IDX[s.id];
+  if(hereIdx!=null) return stMin(hereIdx, i);
   if(originMin && originMin[i]!=null) return originMin[i];
   return haversine(here, s)/AVG_KMH*60;
 }
@@ -267,27 +302,24 @@ const fmtKm  = km => km<10 ? km.toFixed(1)+"km" : Math.round(km)+"km";
 function fmtMin(m){ m=Math.round(m); return m<60 ? m+"分" : Math.floor(m/60)+"時間"+(m%60?m%60+"分":""); }
 
 function save(){
-  localStorage.setItem(LS_KEY, JSON.stringify([...visited]));
-  renderProgress(); renderNear(); renderLog(); renderMap();
+  localStorage.setItem(LS_VISITED, JSON.stringify([...visited]));
+  localStorage.setItem(LS_WANT, JSON.stringify([...want]));
+  renderProgress(); renderNear(); renderLog(); renderMap(); renderWantCount();
 }
 function toast(msg){
   const t=document.getElementById("toast");
   t.textContent=msg; t.classList.add("show");
   clearTimeout(t._tm); t._tm=setTimeout(()=>t.classList.remove("show"),2200);
 }
+function switchPane(name){
+  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on", x.dataset.pane===name));
+  document.querySelectorAll(".pane").forEach(x=>x.classList.remove("on"));
+  document.getElementById("pane-"+name).classList.add("on");
+  if(name==="map") setTimeout(()=>map.invalidateSize(),60);
+}
+document.querySelectorAll("nav button").forEach(b=>{ b.onclick=()=>switchPane(b.dataset.pane); });
 
-/* ---------- タブ ---------- */
-document.querySelectorAll("nav button").forEach(b=>{
-  b.onclick=()=>{
-    document.querySelectorAll("nav button").forEach(x=>x.classList.remove("on"));
-    document.querySelectorAll(".pane").forEach(x=>x.classList.remove("on"));
-    b.classList.add("on");
-    document.getElementById("pane-"+b.dataset.pane).classList.add("on");
-    if(b.dataset.pane==="map") setTimeout(()=>map.invalidateSize(),60);
-  };
-});
-
-/* ---------- 現在地 ---------- */
+/* ---------- 起点 ---------- */
 document.getElementById("locBtn").onclick=()=>{
   const btn=document.getElementById("locBtn"), st=document.getElementById("locStatus");
   if(!navigator.geolocation){ st.textContent="この端末では位置情報が使えません。下の街から選んでください。"; return; }
@@ -312,26 +344,30 @@ CITIES.forEach(c=>{
   };
   cityRow.appendChild(b);
 });
-function setOrigin(o){
-  here=o; originMin=null;
-  renderNear(); renderMap();
-  refineOrigin(); // OSRMで現在地→各駅の実時間を裏で取得
+function setOrigin(o, idx=null){
+  here=o; hereIdx=idx; originMin=null;
+  if(idx==null) document.querySelectorAll("#cityRow button").forEach(x=>{ if(o.label!==x.textContent) x.classList.remove("on"); });
+  renderOriginBadges(); renderNear(); renderMap();
+  if(idx==null) refineOrigin();
 }
-// 現在地→全駅の実道路時間をOSRMで取得（失敗しても直線概算で動く）
+function renderOriginBadges(){
+  const html = here ? `<span class="originBadge">⚐ 起点：${here.label}</span>` : "";
+  document.getElementById("originBadge1").innerHTML=html;
+  document.getElementById("originBadge2").innerHTML=html;
+}
+// 現在地→近い60駅をOSRMで実時間に精緻化（失敗しても直線概算で動く）
 function refineOrigin(){
-  const origin = here;
-  const coords = `${origin.lon},${origin.lat};` + STATIONS.map(s=>`${s.lon},${s.lat}`).join(";");
-  // 100座標制限のため、近い60駅だけ精緻化
-  const near = STATIONS.map((s,i)=>({i, d:haversine(origin,s)})).sort((a,b)=>a.d-b.d).slice(0,60);
-  const sub = near.map(x=>x.i);
-  const cstr = `${origin.lon},${origin.lat};` + sub.map(i=>`${STATIONS[i].lon},${STATIONS[i].lat}`).join(";");
-  const url = `https://router.project-osrm.org/table/v1/driving/${cstr}?sources=0&annotations=duration`;
-  fetch(url).then(r=>r.json()).then(d=>{
-    if(d.code!=="Ok") return;
-    if(!originMin) originMin = new Array(STATIONS.length).fill(null);
-    d.durations[0].forEach((sec,k)=>{ if(k>0) originMin[sub[k-1]] = sec/60; });
-    renderNear();
-  }).catch(()=>{});
+  const origin=here;
+  const near=STATIONS.map((s,i)=>({i, d:haversine(origin,s)})).sort((a,b)=>a.d-b.d).slice(0,60);
+  const sub=near.map(x=>x.i);
+  const cstr=`${origin.lon},${origin.lat};`+sub.map(i=>`${STATIONS[i].lon},${STATIONS[i].lat}`).join(";");
+  fetch(`https://router.project-osrm.org/table/v1/driving/${cstr}?sources=0&annotations=duration`)
+    .then(r=>r.json()).then(d=>{
+      if(d.code!=="Ok" || here!==origin) return;
+      if(!originMin) originMin=new Array(STATIONS.length).fill(null);
+      d.durations[0].forEach((sec,k)=>{ if(k>0) originMin[sub[k-1]]=sec/60; });
+      renderNear();
+    }).catch(()=>{});
 }
 
 /* ---------- 駅行 ---------- */
@@ -344,31 +380,40 @@ function facTagsHtml(s){
   return t.length?`<div class="tags">${t.join("")}</div>`:"";
 }
 function stationRow(s, badge, distHtml){
-  const v=visited.has(s.id);
+  const v=visited.has(s.id), w=want.has(s.id);
   const div=document.createElement("div");
   div.className="st"+(v?" visited":"");
   div.innerHTML=`
     <div class="num">${badge}</div>
     <div class="info">
-      <div class="nm">${s.name}${v?'<span class="done">✓</span>':''}</div>
+      <div class="nm">${w?'<span class="wantMark">★</span>':''}${s.name}${v?'<span class="done">✓</span>':''}</div>
       ${facTagsHtml(s)}
       <div class="meta">${s.muni}・${s.routes[0]||""}</div>
     </div>
     <div class="dist">${distHtml||""}</div>
+    <button class="star ${w?"on":""}" title="行きたい">★</button>
     <button class="go" title="ナビ">▶</button>`;
   div.querySelector(".info").onclick=()=>openSheet(s);
   div.querySelector(".num").onclick=()=>openSheet(s);
+  div.querySelector(".star").onclick=e=>{ e.stopPropagation(); toggleWant(s); };
   div.querySelector(".go").onclick=e=>{ e.stopPropagation(); naviTo(s); };
   return div;
+}
+function toggleWant(s){
+  if(want.has(s.id)){ want.delete(s.id); toast(s.name+"を行きたいリストから外しました"); }
+  else{ want.add(s.id); toast("★ "+s.name+"を行きたいリストへ"); }
+  save();
 }
 function naviTo(s){
   location.href=`https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lon}&travelmode=driving`;
 }
+function renderWantCount(){ document.getElementById("wantCount").textContent=want.size; }
 
 /* ---------- フィルタ ---------- */
 const filterRow=document.getElementById("filterRow");
 FILTERS.forEach(f=>{
   const b=document.createElement("button"); b.textContent=f.label;
+  if(f.gold) b.classList.add("gold");
   b.onclick=()=>{
     if(activeFilters.has(f.key)){ activeFilters.delete(f.key); b.classList.remove("on"); }
     else{ activeFilters.add(f.key); b.classList.add("on"); }
@@ -388,43 +433,36 @@ function passFilter(s){
 function renderNear(){
   const box=document.getElementById("nearList");
   const hint=document.getElementById("nearHint");
-  hint.textContent = originMin ? "（実道路時間）" : (here ? "（直線概算）" : "");
+  hint.textContent = (hereIdx!=null||originMin) ? "（実道路時間）" : (here ? "（直線概算）" : "");
   box.innerHTML="";
   if(!here){ box.innerHTML='<div class="empty">まず現在地を教えてください</div>'; return; }
-  let list=STATIONS.filter(s=>!visited.has(s.id) && passFilter(s))
+  let list=STATIONS.filter(s=>!visited.has(s.id) && passFilter(s) && IDX[s.id]!==hereIdx)
     .map(s=>({s, km:originKmTo(s), min:originMinTo(s)}))
     .sort((a,b)=>a.min-b.min).slice(0,15);
   if(!list.length){ box.innerHTML='<div class="empty">条件に合う未訪問の駅がありません<br>絞り込みを外すか、全駅制覇です🎉</div>'; return; }
   list.forEach((x,i)=>box.appendChild(stationRow(x.s, i+1, `<b>${fmtKm(x.km)}</b><br>約${fmtMin(x.min)}`)));
 }
 
-/* ---------- 巡回プラン（最近傍連鎖・マトリクス使用） ---------- */
+/* ---------- めぐる：連鎖プラン ---------- */
 document.getElementById("planN").oninput=e=>document.getElementById("planNOut").textContent=e.target.value+"駅";
 document.getElementById("planStay").oninput=e=>document.getElementById("planStayOut").textContent=e.target.value+"分";
 document.getElementById("planBtn").onclick=()=>{
-  if(!here){ toast("先に「近くの駅」で現在地を教えてください"); return; }
+  if(!here){ toast("先に「近くの駅」で起点を決めてください"); switchPane("near"); return; }
   const n=+document.getElementById("planN").value, stay=+document.getElementById("planStay").value;
-  const pool=STATIONS.filter(s=>!visited.has(s.id) && passFilter(s)).map(s=>IDX[s.id]);
+  const pool=STATIONS.filter(s=>!visited.has(s.id) && passFilter(s) && IDX[s.id]!==hereIdx).map(s=>IDX[s.id]);
   if(!pool.length){ toast("未訪問の駅がありません"); return; }
-  const chain=nearestChain(pool, n, stay);
-  currentPlan=chain.map(c=>STATIONS[c.i].id);
-  const totalKm=chain.reduce((a,c)=>a+c.km,0), driveMin=chain.reduce((a,c)=>a+c.min,0);
-  document.getElementById("planSummary").innerHTML=
-    `${here.label}から <b>${chain.length}駅</b>／走行 <b>${fmtKm(totalKm)}</b>・運転 <b>${fmtMin(driveMin)}</b>・滞在込み <b>${fmtMin(driveMin+stay*chain.length)}</b>`;
-  const box=document.getElementById("planList"); box.innerHTML="";
-  chain.forEach((c,i)=>box.appendChild(stationRow(STATIONS[c.i], i+1, `<b>${fmtKm(c.km)}</b><br>約${fmtMin(c.min)}`)));
-  document.getElementById("planCard").style.display="block";
-  renderMap(); toast("プランを立てました");
+  const chain=nearestChain(pool, n);
+  showPlan("巡回ルート", chain, stay,
+    `${here.label}から <b>${chain.length}駅</b>／走行 <b>${fmtKm(chain.reduce((a,c)=>a+c.km,0))}</b>・運転 <b>${fmtMin(chain.reduce((a,c)=>a+c.min,0))}</b>・滞在込み <b>${fmtMin(chain.reduce((a,c)=>a+c.min,0)+stay*chain.length)}</b>`);
 };
-// pool=駅index配列。現在地→最寄り→（マトリクスで）最寄り…
-function nearestChain(pool, n, stay){
+function nearestChain(pool, n){
   const used=new Set(), chain=[];
-  let curIdx=null; // null=現在地
+  let curIdx=hereIdx; // null=座標起点
   while(chain.length<n){
     let best=null, bestMin=Infinity, bestKm=0;
     for(const j of pool){
       if(used.has(j)) continue;
-      const m = curIdx==null ? originMinTo(STATIONS[j]) : stMin(curIdx,j);
+      const m = curIdx==null ? originMinTo(STATIONS[j]) : stMin(curIdx, j);
       if(m<bestMin){ bestMin=m; best=j; bestKm=curIdx==null?originKmTo(STATIONS[j]):stKm(curIdx,j); }
     }
     if(best==null) break;
@@ -433,78 +471,189 @@ function nearestChain(pool, n, stay){
   }
   return chain;
 }
+function showPlan(title, chain, stay, summaryHtml){
+  currentPlan=chain.map(c=>STATIONS[c.i].id);
+  document.getElementById("planTitle").textContent=title;
+  document.getElementById("planSummary").innerHTML=summaryHtml;
+  const box=document.getElementById("planList"); box.innerHTML="";
+  chain.forEach((c,i)=>box.appendChild(stationRow(STATIONS[c.i], i+1, `<b>${fmtKm(c.km)}</b><br>約${fmtMin(c.min)}`)));
+  document.getElementById("planCard").style.display="block";
+  renderMap(); switchPane("plan"); toast("プランを立てました");
+}
 
-/* ---------- ドライブモード（時間予算で周回） ---------- */
-document.getElementById("drvH").oninput=e=>document.getElementById("drvHOut").textContent=(+e.target.value).toFixed(1)+"時間";
-document.getElementById("drvStay").oninput=e=>document.getElementById("drvStayOut").textContent=e.target.value+"分";
-document.getElementById("drvBtn").onclick=()=>{
-  if(!here){ toast("先に「近くの駅」で現在地を教えてください"); return; }
-  const budget=(+document.getElementById("drvH").value)*60;
-  const stay=+document.getElementById("drvStay").value;
-  const ret=document.getElementById("drvReturn").checked;
-  const pool=STATIONS.filter(s=>!visited.has(s.id) && passFilter(s)).map(s=>IDX[s.id]);
-  if(!pool.length){ toast("未訪問の駅がありません"); return; }
-  const plan=driveLoop(pool, budget, stay, ret);
-  currentPlan=plan.chain.map(c=>STATIONS[c.i].id);
-  const totalKm=plan.chain.reduce((a,c)=>a+c.km,0)+ (ret?plan.returnKm:0);
-  const totalMin=plan.driveMin+stay*plan.chain.length+(ret?plan.returnMin:0);
-  let s = `${here.label}を起点に <b>${plan.chain.length}駅</b>／走行 <b>${fmtKm(totalKm)}</b>・所要 <b>${fmtMin(totalMin)}</b>`;
-  if(ret) s += `（最後に出発地へ約${fmtMin(plan.returnMin)}）`;
-  if(!plan.chain.length) s = "その時間内に行って戻れる未訪問の駅が見つかりませんでした。時間を増やすか絞り込みを外してみてください。";
-  document.getElementById("drvSummary").innerHTML=s;
-  const box=document.getElementById("drvList"); box.innerHTML="";
-  plan.chain.forEach((c,i)=>box.appendChild(stationRow(STATIONS[c.i], i+1, `<b>${fmtKm(c.km)}</b><br>約${fmtMin(c.min)}`)));
-  document.getElementById("drvCard").style.display=plan.chain.length?"block":"none";
-  renderMap(); toast(plan.chain.length?`${plan.chain.length}駅の周回プラン`:"該当なし");
+/* ---------- めぐる：選んだ駅だけ（行きたいリスト・順序最適化） ---------- */
+document.getElementById("wantPlanBtn").onclick=()=>{
+  if(!want.size){ toast("☆で行きたい駅を選んでください"); return; }
+  if(!here){ toast("先に「近くの駅」で起点を決めてください"); switchPane("near"); return; }
+  const ids=[...want].map(id=>IDX[id]).filter(j=>j!=null && j!==hereIdx);
+  if(!ids.length){ toast("行きたい駅がありません"); return; }
+  const stay=+document.getElementById("planStay").value;
+  const route=optimizeOrder(ids);
+  const chain=[];
+  let cur=hereIdx;
+  route.forEach((j,k)=>{
+    const km = (cur==null && k===0) ? originKmTo(STATIONS[j]) : stKm(cur, j);
+    const min = (cur==null && k===0) ? originMinTo(STATIONS[j]) : stMin(cur, j);
+    chain.push({i:j, km, min}); cur=j;
+  });
+  showPlan("行きたい駅めぐり", chain, stay,
+    `☆<b>${chain.length}駅</b>を最短順で／走行 <b>${fmtKm(chain.reduce((a,c)=>a+c.km,0))}</b>・運転 <b>${fmtMin(chain.reduce((a,c)=>a+c.min,0))}</b>・滞在込み <b>${fmtMin(chain.reduce((a,c)=>a+c.min,0)+stay*chain.length)}</b>`);
 };
-// 時間予算内で「行って戻れる」駅を近い順に詰める
-function driveLoop(pool, budget, stay, ret){
-  const used=new Set(), chain=[];
-  let curIdx=null, driveMin=0;
-  const retMinFrom = j => haversine(STATIONS[j], here)/AVG_KMH*60;
-  const retKmFrom  = j => haversine(STATIONS[j], here)*ROAD_FACTOR;
-  while(true){
-    let best=null, bestMin=Infinity, bestKm=0;
-    const elapsed = driveMin + stay*chain.length; // これまでの走行＋滞在の累計
-    for(const j of pool){
+// 起点固定・訪問順自由の経路を最近傍法＋2-optで最適化
+function optimizeOrder(ids){
+  const firstLeg = j => (hereIdx!=null) ? stMin(hereIdx,j) : originMinTo(STATIONS[j]);
+  // 最近傍法
+  let route=[], used=new Set(), cur=null;
+  while(route.length<ids.length){
+    let best=null, bestM=Infinity;
+    for(const j of ids){
       if(used.has(j)) continue;
-      const legMin = curIdx==null ? originMinTo(STATIONS[j]) : stMin(curIdx,j);
-      const back = ret ? retMinFrom(j) : 0;
-      if(elapsed+legMin+stay+back <= budget && legMin<bestMin){
-        bestMin=legMin; best=j; bestKm=curIdx==null?originKmTo(STATIONS[j]):stKm(curIdx,j);
+      const m = cur==null ? firstLeg(j) : stMin(cur,j);
+      if(m<bestM){ bestM=m; best=j; }
+    }
+    route.push(best); used.add(best); cur=best;
+  }
+  // 2-opt改善
+  const cost=r=>{
+    let c=firstLeg(r[0]);
+    for(let k=0;k<r.length-1;k++) c+=stMin(r[k],r[k+1]);
+    return c;
+  };
+  let improved=true, guard=0;
+  while(improved && guard<60){
+    improved=false; guard++;
+    for(let a=0;a<route.length-1;a++){
+      for(let b=a+1;b<route.length;b++){
+        const cand=route.slice(0,a).concat(route.slice(a,b+1).reverse(), route.slice(b+1));
+        if(cost(cand)<cost(route)-0.01){ route=cand; improved=true; }
       }
     }
-    if(best==null) break;
-    chain.push({i:best, km:bestKm, min:bestMin});
-    driveMin+=bestMin; used.add(best); curIdx=best;
   }
-  return {chain, driveMin, returnMin: (ret&&curIdx!=null)?retMinFrom(curIdx):0, returnKm:(ret&&curIdx!=null)?retKmFrom(curIdx):0};
+  return route;
+}
+
+/* ---------- とまり旅：時間予算・複数日 ---------- */
+const drvDaysEl=document.getElementById("drvDays");
+drvDaysEl.oninput=e=>{
+  const d=+e.target.value;
+  document.getElementById("drvDaysOut").textContent=d===1?"日帰り":d+"日間";
+  document.getElementById("drvHLabel").textContent=d===1?"使える時間":"1日の時間";
+  document.getElementById("drvReturnLabel").textContent=d===1?"出発地の近くに戻ってくる（周回）":"最終日に出発地の近くへ戻る";
+};
+document.getElementById("drvH").oninput=e=>document.getElementById("drvHOut").textContent=(+e.target.value).toFixed(1)+"時間";
+document.getElementById("drvStay").oninput=e=>document.getElementById("drvStayOut").textContent=e.target.value+"分";
+
+document.getElementById("drvBtn").onclick=()=>{
+  if(!here){ toast("先に「近くの駅」で起点を決めてください"); switchPane("near"); return; }
+  const days=+drvDaysEl.value;
+  const dayBudget=(+document.getElementById("drvH").value)*60;
+  const stay=+document.getElementById("drvStay").value;
+  const ret=document.getElementById("drvReturn").checked;
+  const pool=STATIONS.filter(s=>!visited.has(s.id) && passFilter(s) && IDX[s.id]!==hereIdx).map(s=>IDX[s.id]);
+  if(!pool.length){ toast("未訪問の駅がありません"); return; }
+  const plan=multiDayPlan(pool, days, dayBudget, stay, ret);
+  currentPlan=plan.chain.map(c=>STATIONS[c.i].id);
+  renderDrive(plan, days, stay, ret);
+  renderMap();
+  toast(plan.chain.length?`${plan.chain.length}駅の行程を組みました`:"該当なし");
+};
+// 日ごとに時間予算内で最近傍を詰める。日をまたぐ時は前日最後の駅から再開（泊）。
+function multiDayPlan(pool, days, dayBudget, stay, ret){
+  const used=new Set(), chain=[];
+  let curIdx=hereIdx;
+  let curIsOrigin = true; // 初日最初のレグだけ座標起点の可能性
+  let returnMin=0, returnKm=0;
+  for(let day=1; day<=days; day++){
+    let elapsed=0, added=0;
+    const lastDay = day===days;
+    while(true){
+      let best=null, bestMin=Infinity, bestKm=0;
+      for(const j of pool){
+        if(used.has(j)) continue;
+        const legMin=(curIsOrigin && curIdx==null)?originMinTo(STATIONS[j]):stMin(curIdx,j);
+        const back = (lastDay && ret) ? haversine(STATIONS[j], here)/AVG_KMH*60 : 0;
+        if(elapsed+legMin+stay+back<=dayBudget && legMin<bestMin){
+          bestMin=legMin; best=j;
+          bestKm=(curIsOrigin && curIdx==null)?originKmTo(STATIONS[j]):stKm(curIdx,j);
+        }
+      }
+      if(best==null) break;
+      chain.push({i:best, km:bestKm, min:bestMin, day});
+      elapsed+=bestMin+stay;
+      used.add(best); curIdx=best; curIsOrigin=false; added++;
+    }
+    if(added===0 && chain.length===0) break; // 初日から1駅も入らない
+  }
+  if(ret && curIdx!=null && !curIsOrigin){
+    returnMin=haversine(STATIONS[curIdx], here)/AVG_KMH*60;
+    returnKm=haversine(STATIONS[curIdx], here)*ROAD_FACTOR;
+  }
+  return {chain, returnMin, returnKm};
+}
+function renderDrive(plan, days, stay, ret){
+  const box=document.getElementById("drvList"); box.innerHTML="";
+  const sum=document.getElementById("drvSummary");
+  if(!plan.chain.length){
+    sum.innerHTML="その条件で回れる未訪問の駅が見つかりませんでした。時間を増やすか、絞り込みを外してみてください。";
+    document.getElementById("drvCard").style.display="none";
+    return;
+  }
+  const totalKm=plan.chain.reduce((a,c)=>a+c.km,0)+plan.returnKm;
+  const totalDriveMin=plan.chain.reduce((a,c)=>a+c.min,0)+plan.returnMin;
+  sum.innerHTML=`${here.label}を起点に <b>${plan.chain.length}駅</b>`+(days>1?`・<b>${days}日間</b>`:"")+
+    `／走行 <b>${fmtKm(totalKm)}</b>・所要 <b>${fmtMin(totalDriveMin+stay*plan.chain.length)}</b>`+
+    (ret?`（戻りに約${fmtMin(plan.returnMin)}）`:"");
+  let n=0;
+  for(let day=1; day<=days; day++){
+    const dayChain=plan.chain.filter(c=>c.day===day);
+    if(!dayChain.length) continue;
+    if(days>1){
+      const dh=document.createElement("div"); dh.className="dayHead"; dh.textContent=`${day}日目`;
+      box.appendChild(dh);
+    }
+    dayChain.forEach(c=>{
+      n++;
+      box.appendChild(stationRow(STATIONS[c.i], n, `<b>${fmtKm(c.km)}</b><br>約${fmtMin(c.min)}`));
+    });
+    // Googleマップ（この日の分）
+    const gm=document.createElement("button"); gm.className="gmaps mini";
+    gm.textContent=days>1?`${day}日目のルートをGoogleマップで`:"Googleマップでこのルートを開く";
+    const dayIds=dayChain.map(c=>STATIONS[c.i].id);
+    const prevChain=plan.chain.filter(c=>c.day<day);
+    const startPt = prevChain.length ? STATIONS[prevChain[prevChain.length-1].i] : here;
+    gm.onclick=()=>openGmapsRoute(dayIds, startPt);
+    box.appendChild(gm);
+    if(days>1 && day<days){
+      const st=document.createElement("div"); st.className="stay";
+      st.innerHTML=`<b>泊</b>　${STATIONS[dayChain[dayChain.length-1].i].name} 周辺で宿を取る`;
+      box.appendChild(st);
+    }
+  }
+  document.getElementById("drvCard").style.display="block";
 }
 
 /* ---------- Googleマップ書き出し ---------- */
-function openGmaps(){
-  if(!currentPlan.length) return;
-  const pts=currentPlan.map(id=>STATIONS[IDX[id]]).map(s=>`${s.lat},${s.lon}`);
+function openGmapsRoute(ids, startPt){
+  if(!ids.length) return;
+  const pts=ids.map(id=>STATIONS[IDX[id]]).map(s=>`${s.lat},${s.lon}`);
   const dest=pts.pop();
   let url=`https://www.google.com/maps/dir/?api=1`;
-  if(here) url+=`&origin=${here.lat},${here.lon}`;
+  if(startPt) url+=`&origin=${startPt.lat},${startPt.lon}`;
   url+=`&destination=${dest}&travelmode=driving`;
-  const wp=pts.slice(0,9); // URLの経由地上限に配慮
+  const wp=pts.slice(0,9);
   if(wp.length) url+=`&waypoints=${wp.join("|")}`;
   location.href=url;
 }
-document.getElementById("planGmaps").onclick=openGmaps;
-document.getElementById("drvGmaps").onclick=openGmaps;
+document.getElementById("planGmaps").onclick=()=>openGmapsRoute(currentPlan, here);
 
 /* ---------- 詳細シート ---------- */
 const sheet=document.getElementById("sheet");
 document.getElementById("sheetBg").onclick=closeSheet;
 function closeSheet(){ sheet.classList.remove("on"); }
 function openSheet(s){
-  const v=visited.has(s.id);
-  const facs=s.facilities.slice();
+  const v=visited.has(s.id), w=want.has(s.id);
   const chips=[]; if(s.onsen) chips.push('<span class="onsen">♨ 温泉あり／近く</span>');
-  facs.forEach(f=>chips.push(`<span>${f}</span>`));
+  s.facilities.forEach(f=>chips.push(`<span>${f}</span>`));
   const c=document.getElementById("sheetContent");
   c.innerHTML=`
     <h3>${s.name}</h3>
@@ -518,11 +667,15 @@ function openSheet(s){
       ${s.addr?`<dt>住所</dt><dd>${s.addr}</dd>`:""}
       ${s.mapcode?`<dt>マップコード（カーナビ用）</dt><dd>${s.mapcode}</dd>`:""}
       <dt>設置路線</dt><dd>${s.routes.join("／")||"—"}</dd>
-      <dt>公式ページ</dt><dd><a href="${s.url}" target="_blank" rel="noopener">北の道の駅で見る ↗</a></dd>
+      <dt>公式ページ（写真・見どころはこちら）</dt><dd><a href="${s.url}" target="_blank" rel="noopener">北の道の駅で見る ↗</a></dd>
     </dl>
     <div class="sheetBtns">
-      <button class="navi">🧭 ここへナビ</button>
+      <button class="navi">ここへナビ</button>
       <button class="visit ${v?"on":""}">${v?"✓ 訪問済み":"訪問チェック"}</button>
+    </div>
+    <div class="sheetBtns">
+      <button class="origin">⚐ ここを起点にめぐる</button>
+      <button class="wantBtn ${w?"on":""}">${w?"★ 行きたい済":"☆ 行きたい"}</button>
     </div>`;
   c.querySelector(".navi").onclick=()=>naviTo(s);
   c.querySelector(".visit").onclick=()=>{
@@ -530,6 +683,12 @@ function openSheet(s){
     else{ visited.add(s.id); toast(s.name+"に訪問チェック！"); }
     save(); openSheet(s);
   };
+  c.querySelector(".origin").onclick=()=>{
+    setOrigin({lat:s.lat, lon:s.lon, label:s.name}, IDX[s.id]);
+    closeSheet(); switchPane("plan");
+    toast("⚐ "+s.name+"を起点にしました");
+  };
+  c.querySelector(".wantBtn").onclick=()=>{ toggleWant(s); openSheet(s); };
   sheet.classList.add("on");
 }
 
@@ -541,11 +700,16 @@ function renderMap(){
   markerLayer.clearLayers();
   const planIdx=Object.fromEntries(currentPlan.map((id,i)=>[id,i+1]));
   STATIONS.forEach(s=>{
-    const v=visited.has(s.id), pi=planIdx[s.id];
-    const html=pi
-      ?`<div style="background:#c2410c;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:12px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">${pi}</div>`
-      :`<div style="background:${v?"#cfcac2":"#e8710a"};border-radius:50%;width:12px;height:12px;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.3)"></div>`;
-    const m=L.marker([s.lat,s.lon],{icon:L.divIcon({html,className:"",iconSize:pi?[24,24]:[12,12],iconAnchor:pi?[12,12]:[6,6]})});
+    const v=visited.has(s.id), w=want.has(s.id), pi=planIdx[s.id];
+    let html;
+    if(pi){
+      html=`<div style="background:#2e5d4b;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:12px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">${pi}</div>`;
+    }else if(w){
+      html=`<div style="background:#c8a24a;color:#fff;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:10px;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.35)">★</div>`;
+    }else{
+      html=`<div style="background:${v?"#cfc9bb":"#b45330"};border-radius:50%;width:12px;height:12px;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.3)"></div>`;
+    }
+    const m=L.marker([s.lat,s.lon],{icon:L.divIcon({html,className:"",iconSize:pi?[24,24]:(w?[16,16]:[12,12]),iconAnchor:pi?[12,12]:(w?[8,8]:[6,6])})});
     m.on("click",()=>openSheet(s));
     markerLayer.addLayer(m);
   });
@@ -554,7 +718,7 @@ function renderMap(){
   }
   if(currentPlan.length&&here){
     const pts=[[here.lat,here.lon],...currentPlan.map(id=>[STATIONS[IDX[id]].lat,STATIONS[IDX[id]].lon])];
-    markerLayer.addLayer(L.polyline(pts,{color:"#c2410c",weight:3,dashArray:"6 6",opacity:.8}));
+    markerLayer.addLayer(L.polyline(pts,{color:"#2e5d4b",weight:3,dashArray:"6 6",opacity:.8}));
   }
 }
 
@@ -574,7 +738,7 @@ function renderLog(){
   });
 }
 document.getElementById("exportBtn").onclick=()=>{
-  const blob=new Blob([JSON.stringify({app:"michinoeki",exported:new Date().toISOString(),visited:[...visited]},null,1)],{type:"application/json"});
+  const blob=new Blob([JSON.stringify({app:"michinoeki",exported:new Date().toISOString(),visited:[...visited],want:[...want]},null,1)],{type:"application/json"});
   const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="michinoeki-kiroku.json"; a.click();
   toast("記録を書き出しました");
 };
@@ -588,6 +752,7 @@ document.getElementById("importFile").onchange=e=>{
       if(!Array.isArray(d.visited)) throw 0;
       const before=visited.size;
       d.visited.forEach(id=>{ if(IDX[id]!=null) visited.add(id); });
+      (d.want||[]).forEach(id=>{ if(IDX[id]!=null) want.add(id); });
       save(); toast(`読み込みました（${before}→${visited.size}駅）`);
     }catch{ toast("このファイルは読み込めませんでした。書き出したファイルを選んでください"); }
   };
@@ -595,9 +760,9 @@ document.getElementById("importFile").onchange=e=>{
 };
 
 /* ---------- 起動 ---------- */
-renderProgress(); renderLog(); renderMap();
+renderProgress(); renderLog(); renderMap(); renderWantCount();
 
-/* ---------- PWA: Service Worker登録 ---------- */
+/* ---------- PWA ---------- */
 if("serviceWorker" in navigator){
   window.addEventListener("load", ()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{}));
 }
