@@ -396,7 +396,10 @@ function stationRow(s, badge, distHtml){
     <button class="go" title="ナビ">▶</button>`;
   div.querySelector(".info").onclick=()=>openSheet(s);
   div.querySelector(".num").onclick=()=>openSheet(s);
-  div.querySelector(".star").onclick=e=>{ e.stopPropagation(); toggleWant(s); };
+  div.querySelector(".star").onclick=e=>{
+    e.stopPropagation(); toggleWant(s);
+    e.currentTarget.classList.toggle("on", want.has(s.id)); // 再描画されない一覧（プラン等）でも即時反映
+  };
   div.querySelector(".go").onclick=e=>{ e.stopPropagation(); naviTo(s); };
   return div;
 }
@@ -726,13 +729,18 @@ function renderMap(){
 /* ---------- 記録 ---------- */
 function renderProgress(){ document.querySelector("#progress b").textContent=visited.size; }
 function renderLog(){
-  const box=document.getElementById("logList"); box.innerHTML="";
+  const box=document.getElementById("logList");
+  // 開いているエリアを記憶してから作り直す（★や✓の操作で一覧が閉じないように）
+  const openRegions=new Set([...box.querySelectorAll("details[open]")].map(d=>d.dataset.region));
+  box.innerHTML="";
   const regions=["道南","道央","道北","十勝","オホーツク","釧路 根室"];
   const order=r=>{ const i=regions.indexOf(r); return i<0?99:i; };
   [...new Set(STATIONS.map(s=>s.region))].sort((a,b)=>order(a)-order(b)).forEach(r=>{
     const sts=STATIONS.filter(s=>s.region===r);
     const done=sts.filter(s=>visited.has(s.id)).length;
     const det=document.createElement("details"); det.className="regionBlock";
+    det.dataset.region=r;
+    if(openRegions.has(r)) det.open=true;
     det.innerHTML=`<summary>${r}<span class="cnt">${done} / ${sts.length}</span></summary>`;
     sts.forEach((s,i)=>det.appendChild(stationRow(s,i+1,"")));
     box.appendChild(det);
