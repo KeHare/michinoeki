@@ -219,9 +219,13 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
             <button id="destEditBtn" class="originNowBtn" style="margin-left:8px">変更</button></div>
           <div id="destPicker" style="display:none;margin-top:8px">
             <div class="cityRow" id="destCityRow" style="margin:0 0 8px"></div>
-            <input type="search" id="destSearch" placeholder="場所で検索して終着点に（例：札幌駅、ニセコ）" style="width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:var(--card);color:var(--ink)">
+            <div style="display:flex;gap:6px">
+              <input type="search" id="destSearch" enterkeyhint="search" placeholder="場所名で検索（駅・空港・宿・地名）" style="flex:1;min-width:0;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:var(--card);color:var(--ink)">
+              <button id="destSearchBtn" style="border:none;border-radius:10px;background:var(--primary);color:#fff;font-weight:700;padding:0 14px;font-size:13px;white-space:nowrap">検索</button>
+            </div>
+            <div class="cityRow" id="destQuickRow" style="margin:8px 0 0;justify-content:flex-start"></div>
             <div id="destSearchResults"></div>
-            <div class="note" style="margin-top:6px">道の駅を終着点にするには、駅の詳細で「🏁 ここを終着点に」を押してください。</div>
+            <div class="note" style="margin-top:6px">宿・空港・実家など、道の駅以外の場所も終着点にできます。道の駅を終着点にするには、駅の詳細で「🏁 ここを終着点に」。</div>
           </div>
         </div>
         <button class="bigBtn primary" id="planBtn">プランを立てる</button>
@@ -519,6 +523,7 @@ function firstLegTo(j){
 function setDest(o, idx=null){
   dest=o; destIdx=idx; destMinArr=null; destKmArr=null;
   renderDestUI(); renderMap();
+  document.getElementById("destPicker").style.display="none"; // 選んだら閉じる
   if(o && idx==null) refineDest();
   if(o) toast("🏁 終着点："+o.label);
 }
@@ -547,6 +552,7 @@ function refineDest(){
 }
 function renderDestUI(){
   document.getElementById("destBadge").textContent = dest ? "🏁 "+dest.label : "なし（最後の駅で終わり）";
+  document.getElementById("destEditBtn").textContent = dest ? "変更" : "🏁 決める";
   document.querySelectorAll("#destCityRow button").forEach(b=>{
     b.classList.toggle("on", (dest && b.textContent===dest.label) || (!dest && b.textContent==="なし"));
   });
@@ -572,11 +578,10 @@ const destCityRow=document.getElementById("destCityRow");
   destCityRow.appendChild(b);
 });
 // 地名・施設名で終着点を検索（OpenStreetMap Nominatim）
-document.getElementById("destSearch").addEventListener("keydown", e=>{
-  if(e.key!=="Enter") return;
-  e.preventDefault();
-  const q=e.target.value.trim();
-  if(!q) return;
+function runDestSearch(){
+  const q=document.getElementById("destSearch").value.trim();
+  if(!q){ toast("場所名を入れてください"); return; }
+  document.getElementById("destSearch").blur();
   const box=document.getElementById("destSearchResults");
   box.innerHTML='<div class="note">検索中…</div>';
   fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&countrycodes=jp&accept-language=ja&limit=5&q=${encodeURIComponent(q)}`)
@@ -591,7 +596,24 @@ document.getElementById("destSearch").addEventListener("keydown", e=>{
         b.onclick=()=>{ setDest({lat:+r.lat, lon:+r.lon, label}); renderPlanList(); box.innerHTML=""; };
         box.appendChild(b);
       });
-    }).catch(()=>{ box.innerHTML='<div class="note">検索できませんでした。電波を確認して、もう一度試してください。</div>'; });
+    }).catch(()=>{ box.innerHTML='<div class="note">検索できませんでした。通信状況を確認して、もう一度試してください。</div>'; });
+}
+document.getElementById("destSearch").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); runDestSearch(); } });
+document.getElementById("destSearch").addEventListener("search", ()=>{ if(document.getElementById("destSearch").value.trim()) runDestSearch(); });
+document.getElementById("destSearchBtn").onclick=runDestSearch;
+// よく使う終着点のワンタップ候補
+const DEST_QUICK=[
+  {n:"新千歳空港", lat:42.7752, lon:141.6924}, {n:"札幌駅", lat:43.0686, lon:141.3508},
+  {n:"旭川空港", lat:43.6708, lon:142.4475}, {n:"函館空港", lat:41.7700, lon:140.8222},
+  {n:"帯広空港", lat:42.7333, lon:143.2172}, {n:"釧路空港", lat:43.0410, lon:144.1930},
+  {n:"女満別空港", lat:43.8806, lon:144.1642}, {n:"苫小牧港", lat:42.6300, lon:141.6350},
+  {n:"小樽港", lat:43.2020, lon:141.0110},
+];
+const destQuickRow=document.getElementById("destQuickRow");
+DEST_QUICK.forEach(c=>{
+  const b=document.createElement("button"); b.textContent=c.n;
+  b.onclick=()=>{ setDest({lat:c.lat, lon:c.lon, label:c.n}); renderPlanList(); document.getElementById("destSearchResults").innerHTML=""; };
+  destQuickRow.appendChild(b);
 });
 
 /* ---------- 駅行 ---------- */
@@ -1174,7 +1196,7 @@ document.getElementById("importFile").onchange=e=>{
 };
 
 /* ---------- 起動 ---------- */
-renderProgress(); renderLog(); renderMap(); renderWantCount(); renderOriginBadges(); renderFirstUI();
+renderProgress(); renderLog(); renderMap(); renderWantCount(); renderOriginBadges(); renderFirstUI(); renderDestUI();
 
 /* ---------- PWA ---------- */
 if("serviceWorker" in navigator){
