@@ -1,7 +1,7 @@
 // 道の駅めぐり 北海道 — Service Worker
 // アプリシェル＋駅データ＋マトリクスをキャッシュしオフラインでも起動できるようにする。
 // 地図タイル(OSM)とOSRM経路APIは通信が必要（オフライン時は直線概算にフォールバック）。
-const CACHE = "michinoeki-v9";
+const CACHE = "michinoeki-v10";
 const SHELL = [
   "./",
   "./index.html",
@@ -31,7 +31,22 @@ self.addEventListener("fetch", e => {
     e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
     return;
   }
-  // それ以外はキャッシュ優先→なければネット→キャッシュに保存
+  // アプリ本体（index.html / SW / manifest / データJS）はネット優先→オフライン時のみキャッシュ
+  // → 更新が次に開いた時に必ず届く。データJSはサイズがあるので3秒でキャッシュに切替。
+  const isShell = e.request.mode === "navigate" || /\/(index\.html|manifest\.webmanifest|assets\/[a-z-]+-data\.js)(\?|$)/.test(url) || url.endsWith("/");
+  if (isShell) {
+    e.respondWith(
+      Promise.race([
+        fetch(e.request).then(res => {
+          if (res.ok) { const copy = res.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); }
+          return res;
+        }),
+        new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), url.includes("-data.js") ? 3000 : 4000))
+      ]).catch(() => caches.match(e.request).then(hit => hit || caches.match("./index.html")))
+    );
+    return;
+  }
+  // それ以外（アイコン・Leaflet等）はキャッシュ優先→なければネット→キャッシュに保存
   e.respondWith(
     caches.match(e.request).then(hit => hit || fetch(e.request).then(res => {
       if (res.ok && e.request.method === "GET") {

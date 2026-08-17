@@ -1138,7 +1138,20 @@ renderProgress(); renderLog(); renderMap(); renderWantCount(); renderOriginBadge
 
 /* ---------- PWA ---------- */
 if("serviceWorker" in navigator){
-  window.addEventListener("load", ()=>navigator.serviceWorker.register("service-worker.js").catch(()=>{}));
+  window.addEventListener("load", ()=>{
+    navigator.serviceWorker.register("service-worker.js").then(reg=>{
+      // 開くたび・前面に戻るたびに更新チェック
+      reg.update().catch(()=>{});
+      document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="visible") reg.update().catch(()=>{}); });
+    }).catch(()=>{});
+    // 新しい版に切り替わったら一度だけ自動リロード（入力途中を壊さないよう起点未設定時のみ即時、それ以外は案内）
+    let reloaded=false;
+    navigator.serviceWorker.addEventListener("controllerchange", ()=>{
+      if(reloaded) return; reloaded=true;
+      if(!here && !currentPlan.length){ location.reload(); }
+      else toast("新しい版があります。次に開いた時に更新されます");
+    });
+  });
 }
 </script>
 </body>
