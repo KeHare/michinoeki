@@ -220,12 +220,12 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
           <div id="destPicker" style="display:none;margin-top:8px">
             <div class="cityRow" id="destCityRow" style="margin:0 0 8px"></div>
             <div style="display:flex;gap:6px">
-              <input type="search" id="destSearch" enterkeyhint="search" placeholder="場所名で検索（駅・空港・宿・地名）" style="flex:1;min-width:0;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:var(--card);color:var(--ink)">
+              <input type="search" id="destSearch" enterkeyhint="search" placeholder="場所名・住所で検索（宿名・空港・◯◯市◯町1-2）" style="flex:1;min-width:0;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:var(--card);color:var(--ink)">
               <button id="destSearchBtn" style="border:none;border-radius:10px;background:var(--primary);color:#fff;font-weight:700;padding:0 14px;font-size:13px;white-space:nowrap">検索</button>
             </div>
             <div class="cityRow" id="destQuickRow" style="margin:8px 0 0;justify-content:flex-start"></div>
             <div id="destSearchResults"></div>
-            <div class="note" style="margin-top:6px">宿・空港・実家など、道の駅以外の場所も終着点にできます。道の駅を終着点にするには、駅の詳細で「🏁 ここを終着点に」。</div>
+            <div class="note" style="margin-top:6px">宿・空港・実家など、道の駅以外の場所も終着点にできます。住所は番地まで指定できます（例：滝川市本町4丁目1-23）。道の駅を終着点にするには、駅の詳細で「🏁 ここを終着点に」。</div>
           </div>
         </div>
         <button class="bigBtn primary" id="planBtn">プランを立てる</button>
@@ -580,23 +580,40 @@ const destCityRow=document.getElementById("destCityRow");
 // 地名・施設名で終着点を検索（OpenStreetMap Nominatim）
 function runDestSearch(){
   const q=document.getElementById("destSearch").value.trim();
-  if(!q){ toast("場所名を入れてください"); return; }
+  if(!q){ toast("場所名か住所を入れてください"); return; }
   document.getElementById("destSearch").blur();
   const box=document.getElementById("destSearchResults");
   box.innerHTML='<div class="note">検索中…</div>';
-  fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&countrycodes=jp&accept-language=ja&limit=5&q=${encodeURIComponent(q)}`)
-    .then(r=>r.json()).then(list=>{
-      box.innerHTML="";
-      if(!list.length){ box.innerHTML='<div class="note">見つかりませんでした。地名や施設名を変えて試してください。</div>'; return; }
-      list.forEach(r=>{
-        const label=(r.display_name||"").split(",")[0] || q;
-        const b=document.createElement("button");
-        b.className="destResult";
-        b.innerHTML=`<b>${label}</b><small>${(r.display_name||"").split(",").slice(1,3).join("・")}</small>`;
-        b.onclick=()=>{ setDest({lat:+r.lat, lon:+r.lon, label}); renderPlanList(); box.innerHTML=""; };
-        box.appendChild(b);
-      });
-    }).catch(()=>{ box.innerHTML='<div class="note">検索できませんでした。通信状況を確認して、もう一度試してください。</div>'; });
+  // 住所は国土地理院（番地まで強い）、施設名・地名はNominatim。両方引いて出す。
+  const gsi = fetch(`https://msearch.gsi.go.jp/address-search/AddressSearch?q=${encodeURIComponent(q)}`)
+    .then(r=>r.json()).then(list=>(list||[]).slice(0,5).map(x=>({
+      label: x.properties.title.replace(/^北海道/,""), sub:"住所（国土地理院）",
+      lat:+x.geometry.coordinates[1], lon:+x.geometry.coordinates[0], kind:"addr"
+    }))).catch(()=>[]);
+  const nom = fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&countrycodes=jp&accept-language=ja&limit=5&q=${encodeURIComponent(q)}`)
+    .then(r=>r.json()).then(list=>(list||[]).map(r=>({
+      label:(r.display_name||"").split(",")[0]||q, sub:(r.display_name||"").split(",").slice(1,3).join("・"),
+      lat:+r.lat, lon:+r.lon, kind:"poi"
+    }))).catch(()=>[]);
+  Promise.all([gsi, nom]).then(([a, n])=>{
+    // 住所らしい入力（数字・丁目・番地・市町村名を含む）は住所結果を先頭に
+    const addrLike=/[0-9０-９]|丁目|番地|番|号|市|町|村|区|条/.test(q);
+    let list = addrLike ? a.concat(n) : n.concat(a);
+    // 北海道の範囲外は後ろへ
+    const inHk = x => x.lat>41.3 && x.lat<45.6 && x.lon>139.3 && x.lon<146.0;
+    const hk=list.filter(inHk); list = hk.length ? hk : list; // 道内候補があれば道外は出さない
+    // ほぼ同一地点の重複を除く
+    const seen=[]; list=list.filter(x=>{ if(seen.some(y=>Math.abs(y.lat-x.lat)<0.0005&&Math.abs(y.lon-x.lon)<0.0005)) return false; seen.push(x); return true; }).slice(0,7);
+    box.innerHTML="";
+    if(!list.length){ box.innerHTML='<div class="note">見つかりませんでした。「市町村名＋丁目・番地」や施設名で試してください。</div>'; return; }
+    list.forEach(x=>{
+      const b=document.createElement("button");
+      b.className="destResult";
+      b.innerHTML=`<b>${x.kind==="addr"?"📮 ":""}${x.label}</b><small>${x.sub}</small>`;
+      b.onclick=()=>{ setDest({lat:x.lat, lon:x.lon, label:x.label}); renderPlanList(); box.innerHTML=""; };
+      box.appendChild(b);
+    });
+  });
 }
 document.getElementById("destSearch").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); runDestSearch(); } });
 document.getElementById("destSearch").addEventListener("search", ()=>{ if(document.getElementById("destSearch").value.trim()) runDestSearch(); });
