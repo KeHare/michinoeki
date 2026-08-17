@@ -156,7 +156,7 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 .sheetBtns .origin{background:var(--primary);color:#fff}
 .sheetBtns .destBtn{background:var(--card);color:var(--ink);border:1px solid var(--ink)}
 
-#toast{position:fixed;bottom:calc(30px + var(--safe));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2000;white-space:nowrap}
+#toast{position:fixed;bottom:calc(30px + var(--safe));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 18px;border-radius:18px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2000;max-width:min(92vw,520px);line-height:1.5;text-align:center}
 #toast.show{opacity:.94}
 .empty{text-align:center;color:var(--sub);font-size:13px;padding:24px 8px;line-height:1.8}
 </style>
@@ -385,7 +385,7 @@ function save(){
 function toast(msg){
   const t=document.getElementById("toast");
   t.textContent=msg; t.classList.add("show");
-  clearTimeout(t._tm); t._tm=setTimeout(()=>t.classList.remove("show"),2200);
+  clearTimeout(t._tm); t._tm=setTimeout(()=>t.classList.remove("show"), Math.min(9000, 2200+msg.length*60));
 }
 function switchPane(name){
   document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on", x.dataset.pane===name));
@@ -398,15 +398,13 @@ document.querySelectorAll("nav button").forEach(b=>{ b.onclick=()=>switchPane(b.
 /* ---------- 起点 ---------- */
 document.getElementById("locBtn").onclick=()=>{
   const btn=document.getElementById("locBtn"), st=document.getElementById("locStatus");
-  if(!navigator.geolocation){ st.textContent="この端末では位置情報が使えません。下の街から選んでください。"; return; }
-  btn.disabled=true; st.textContent="現在地を取得中…";
-  navigator.geolocation.getCurrentPosition(
+  btn.disabled=true; st.textContent="現在地を取得中…（最大20秒ほどかかることがあります）";
+  getLocation(
     pos=>{
       setOrigin({lat:pos.coords.latitude, lon:pos.coords.longitude, label:"現在地"});
-      btn.disabled=false; st.textContent="現在地を取得しました";
+      btn.disabled=false; st.textContent="現在地を取得しました（精度 約"+Math.round(pos.coords.accuracy)+"m）";
     },
-    ()=>{ btn.disabled=false; st.textContent="取得できませんでした。電波を確認するか、下の街から選んでください。"; },
-    {enableHighAccuracy:true, timeout:12000}
+    msg=>{ btn.disabled=false; st.textContent=msg; }
   );
 };
 const cityRow=document.getElementById("cityRow");
@@ -437,16 +435,38 @@ function renderOriginBadges(){
     if(b) b.onclick=useCurrentLocation;
   });
 }
+/* ---------- 位置取得（共通）: 高精度→失敗なら低精度で再試行、原因別に案内 ---------- */
+const GEO_MSG = {
+  1: "位置情報の利用が許可されていません。ブラウザのアドレスバー左の🔒（またはⓘ）→「位置情報」を許可にしてから、もう一度お試しください。ホーム画面のアプリで開いている場合は、端末の設定→ブラウザ→位置情報をご確認ください。",
+  2: "現在地を測れませんでした。端末の位置情報サービス（GPS）がオンか、屋内なら窓際でお試しください。",
+  3: "現在地の取得に時間がかかっています。もう一度押すか、下の街を起点にして始められます。",
+};
+function getLocation(onOk, onFail){
+  if(!navigator.geolocation || !window.isSecureContext){
+    onFail("この端末・この開き方では位置情報が使えません。https のURLで開くか、街を起点にしてください");
+    return;
+  }
+  const tryOnce = (opts, next) => navigator.geolocation.getCurrentPosition(
+    pos => onOk(pos),
+    err => next ? next(err) : onFail(GEO_MSG[err.code] || "現在地を取得できませんでした（"+(err.message||"不明")+"）"),
+    opts
+  );
+  // 1回目: 高精度・15秒。タイムアウト/測位不能なら 2回目: 低精度・20秒・直近5分のキャッシュ許容
+  tryOnce({enableHighAccuracy:true, timeout:15000, maximumAge:60000}, err=>{
+    if(err.code===1){ onFail(GEO_MSG[1]); return; }
+    tryOnce({enableHighAccuracy:false, timeout:20000, maximumAge:300000}, null);
+  });
+}
+function geoFail(msg){ toast(msg); }
+
 function useCurrentLocation(){
-  if(!navigator.geolocation){ toast("この端末では位置情報が使えません"); return; }
   toast("現在地を取得中…");
-  navigator.geolocation.getCurrentPosition(
+  getLocation(
     pos=>{
       setOrigin({lat:pos.coords.latitude, lon:pos.coords.longitude, label:"現在地"});
       toast("📍 現在地を起点にしました");
     },
-    ()=>toast("現在地を取得できませんでした。電波を確認してください"),
-    {enableHighAccuracy:true, timeout:12000}
+    msg=>{ toast(msg); document.getElementById("locStatus").textContent = msg; }
   );
 }
 // 現在地→全駅をOSRMで実道路の時間・距離に精緻化（失敗しても直線概算で動く）
@@ -519,12 +539,10 @@ const destCityRow=document.getElementById("destCityRow");
   b.onclick=()=>{
     if(c.n==="なし"){ setDest(null); renderPlanList(); }
     else if(c.n==="📍現在地"){
-      if(!navigator.geolocation){ toast("この端末では位置情報が使えません"); return; }
       toast("現在地を取得中…");
-      navigator.geolocation.getCurrentPosition(
+      getLocation(
         pos=>{ setDest({lat:pos.coords.latitude, lon:pos.coords.longitude, label:"現在地"}); renderPlanList(); },
-        ()=>toast("現在地を取得できませんでした"),
-        {enableHighAccuracy:true, timeout:12000}
+        msg=>toast(msg)
       );
     }
     else { setDest({lat:c.lat, lon:c.lon, label:c.n}); renderPlanList(); }
