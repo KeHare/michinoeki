@@ -103,6 +103,10 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 .etaRow.late{color:var(--accent)}
 .etaRow.late b{color:var(--accent)}
 .originNowBtn{border:1px solid var(--primary);background:var(--card);color:var(--primary);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;cursor:pointer;margin:0 0 8px 8px}
+#destRow{margin:2px 0 4px}
+.destResult{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px;margin-top:6px;font-size:13px;color:var(--ink);cursor:pointer}
+.destResult small{display:block;color:var(--sub);font-size:11px;margin-top:1px}
+.st .num.goal{background:var(--gold-soft);color:#8a6c22}
 .gmaps{width:100%;padding:11px;border:1px solid var(--ink);border-radius:var(--radius);background:var(--card);color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;margin-top:9px}
 .gmaps.mini{width:auto;padding:6px 13px;font-size:11px;margin:6px 0 2px;border-radius:999px;font-weight:500}
 .originBadge{display:inline-flex;align-items:center;gap:5px;background:var(--primary-soft);color:var(--primary);border-radius:999px;padding:3px 12px;font-size:12px;font-weight:700;margin-bottom:8px}
@@ -150,6 +154,7 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 .sheetBtns .wantBtn{background:var(--card);color:#8a6c22;border:1px solid var(--gold)}
 .sheetBtns .wantBtn.on{background:var(--gold);color:#fff;border:none}
 .sheetBtns .origin{background:var(--primary);color:#fff}
+.sheetBtns .destBtn{background:var(--card);color:var(--ink);border:1px solid var(--ink)}
 
 #toast{position:fixed;bottom:calc(30px + var(--safe));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 18px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2000;white-space:nowrap}
 #toast.show{opacity:.94}
@@ -204,8 +209,18 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
           <label>出発時刻 <input type="time" id="depTime" value="09:00"></label>
           <label>終了リミット <input type="time" id="limitTime"></label>
         </div>
+        <div id="destRow">
+          <div style="font-size:12px;color:var(--sub)">終着点：<b id="destBadge" style="color:var(--primary);font-family:var(--serif)">なし（最後の駅で終わり）</b>
+            <button id="destEditBtn" class="originNowBtn" style="margin-left:8px">変更</button></div>
+          <div id="destPicker" style="display:none;margin-top:8px">
+            <div class="cityRow" id="destCityRow" style="margin:0 0 8px"></div>
+            <input type="search" id="destSearch" placeholder="場所で検索して終着点に（例：札幌駅、ニセコ）" style="width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:var(--card);color:var(--ink)">
+            <div id="destSearchResults"></div>
+            <div class="note" style="margin-top:6px">道の駅を終着点にするには、駅の詳細で「🏁 ここを終着点に」を押してください。</div>
+          </div>
+        </div>
         <button class="bigBtn primary" id="planBtn">プランを立てる</button>
-        <div class="note">起点は「📍現在地」か、駅の詳細で「ここを起点にめぐる」を押した道の駅。終了リミットを入れると、その時刻までに回りきれるかを判定します。</div>
+        <div class="note">起点は「📍現在地」か、駅の詳細で「ここを起点にめぐる」を押した道の駅。終着点を決めると、そこへ向かいながら寄りやすい駅を選んでめぐります。終了リミットを入れると、その時刻までに回りきれるか（終着点に着けるか）を判定します。</div>
       </div>
       <div class="card">
         <h2>選んだ駅だけでめぐる</h2>
@@ -249,7 +264,7 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
     <section class="pane" id="pane-map">
       <div class="card" style="padding:8px">
         <div id="map"></div>
-        <div class="legend">🟠未訪問　⚪訪問済み　⚑今回　★お気に入り　🔵起点　番号=プラン　タップで詳細</div>
+        <div class="legend">🟠未訪問　⚪訪問済み　⚑今回　★お気に入り　🔵起点　🏁終着点　番号=プラン　タップで詳細</div>
       </div>
     </section>
 
@@ -293,6 +308,10 @@ let originKm = null;          // 現在地→各駅の実道路km（OSRM精緻�
 let currentPlan = [];         // 駅idの配列（地図表示用）
 let currentChain = [];        // プランの行程 {i, km, min}（タイムライン再計算用）
 let currentStay = {};         // 駅idごとの個別滞在分（未設定はスライダー値）
+let dest = null;              // 終着点 {lat, lon, label}（なし=最後の駅で終わり）
+let destIdx = null;           // 終着点が道の駅のときの駅index（マトリクス直参照用）
+let destMinArr = null;        // 各駅→終着点の実道路分（OSRM精緻化・補正込み）
+let destKmArr = null;         // 各駅→終着点の実道路km
 let lastDrive = null;         // とまり旅の直近プラン（出発時刻変更で再描画用）
 let activeFilters = new Set();
 const AVG_KMH = 48, ROAD_FACTOR = 1.3;
@@ -341,6 +360,16 @@ function originMinTo(s){
   if(hereIdx!=null) return stMin(hereIdx, i);
   if(originMin && originMin[i]!=null) return originMin[i];
   return haversine(here, s)*ROAD_FACTOR/AVG_KMH*60;
+}
+function destKmFrom(i){
+  if(destIdx!=null) return stKm(i, destIdx);
+  if(destKmArr && destKmArr[i]!=null) return destKmArr[i];
+  return haversine(STATIONS[i], dest)*ROAD_FACTOR;
+}
+function destMinFrom(i){
+  if(destIdx!=null) return stMin(i, destIdx);
+  if(destMinArr && destMinArr[i]!=null) return destMinArr[i];
+  return haversine(STATIONS[i], dest)*ROAD_FACTOR/AVG_KMH*60;
 }
 const fmtKm  = km => km<10 ? km.toFixed(1)+"km" : Math.round(km)+"km";
 function fmtMin(m){ m=Math.round(m); return m<60 ? m+"分" : Math.floor(m/60)+"時間"+(m%60?m%60+"分":""); }
@@ -443,6 +472,87 @@ function refineOrigin(){
       }).catch(()=>{});
   }
 }
+
+/* ---------- 終着点 ---------- */
+function setDest(o, idx=null){
+  dest=o; destIdx=idx; destMinArr=null; destKmArr=null;
+  renderDestUI(); renderMap();
+  if(o && idx==null) refineDest();
+  if(o) toast("🏁 終着点："+o.label);
+}
+// 各駅→終着点をOSRMで実道路の時間・距離に精緻化（失敗しても直線概算で動く）
+function refineDest(){
+  const d0=dest;
+  const order=STATIONS.map((s,i)=>({i, d:haversine(d0,s)})).sort((a,b)=>a.d-b.d).map(x=>x.i);
+  for(let k=0;k<order.length;k+=80){
+    const sub=order.slice(k,k+80);
+    const cstr=`${d0.lon},${d0.lat};`+sub.map(i=>`${STATIONS[i].lon},${STATIONS[i].lat}`).join(";");
+    fetch(`https://router.project-osrm.org/table/v1/driving/${cstr}?destinations=0&annotations=duration,distance`)
+      .then(r=>r.json()).then(d=>{
+        if(d.code!=="Ok" || dest!==d0) return;
+        if(!destMinArr) destMinArr=new Array(STATIONS.length).fill(null);
+        if(!destKmArr) destKmArr=new Array(STATIONS.length).fill(null);
+        d.durations.forEach((row,n)=>{
+          if(n>0 && row[0]!=null){
+            const i=sub[n-1], km=(d.distances && d.distances[n][0]!=null) ? d.distances[n][0]/1000 : null;
+            if(km!=null) destKmArr[i]=km;
+            destMinArr[i]=calMin(row[0]/60, km||0);
+          }
+        });
+        renderPlanList();
+      }).catch(()=>{});
+  }
+}
+function renderDestUI(){
+  document.getElementById("destBadge").textContent = dest ? "🏁 "+dest.label : "なし（最後の駅で終わり）";
+  document.querySelectorAll("#destCityRow button").forEach(b=>{
+    b.classList.toggle("on", (dest && b.textContent===dest.label) || (!dest && b.textContent==="なし"));
+  });
+}
+document.getElementById("destEditBtn").onclick=()=>{
+  const p=document.getElementById("destPicker");
+  p.style.display = p.style.display==="none" ? "block" : "none";
+};
+const destCityRow=document.getElementById("destCityRow");
+[{n:"なし"},{n:"📍現在地"}].concat(CITIES).forEach(c=>{
+  const b=document.createElement("button"); b.textContent=c.n;
+  b.onclick=()=>{
+    if(c.n==="なし"){ setDest(null); renderPlanList(); }
+    else if(c.n==="📍現在地"){
+      if(!navigator.geolocation){ toast("この端末では位置情報が使えません"); return; }
+      toast("現在地を取得中…");
+      navigator.geolocation.getCurrentPosition(
+        pos=>{ setDest({lat:pos.coords.latitude, lon:pos.coords.longitude, label:"現在地"}); renderPlanList(); },
+        ()=>toast("現在地を取得できませんでした"),
+        {enableHighAccuracy:true, timeout:12000}
+      );
+    }
+    else { setDest({lat:c.lat, lon:c.lon, label:c.n}); renderPlanList(); }
+  };
+  destCityRow.appendChild(b);
+});
+// 地名・施設名で終着点を検索（OpenStreetMap Nominatim）
+document.getElementById("destSearch").addEventListener("keydown", e=>{
+  if(e.key!=="Enter") return;
+  e.preventDefault();
+  const q=e.target.value.trim();
+  if(!q) return;
+  const box=document.getElementById("destSearchResults");
+  box.innerHTML='<div class="note">検索中…</div>';
+  fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&countrycodes=jp&accept-language=ja&limit=5&q=${encodeURIComponent(q)}`)
+    .then(r=>r.json()).then(list=>{
+      box.innerHTML="";
+      if(!list.length){ box.innerHTML='<div class="note">見つかりませんでした。地名や施設名を変えて試してください。</div>'; return; }
+      list.forEach(r=>{
+        const label=(r.display_name||"").split(",")[0] || q;
+        const b=document.createElement("button");
+        b.className="destResult";
+        b.innerHTML=`<b>${label}</b><small>${(r.display_name||"").split(",").slice(1,3).join("・")}</small>`;
+        b.onclick=()=>{ setDest({lat:+r.lat, lon:+r.lon, label}); renderPlanList(); box.innerHTML=""; };
+        box.appendChild(b);
+      });
+    }).catch(()=>{ box.innerHTML='<div class="note">検索できませんでした。電波を確認して、もう一度試してください。</div>'; });
+});
 
 /* ---------- 駅行 ---------- */
 function facTagsHtml(s){
@@ -557,13 +667,31 @@ function renderNear(){
 /* ---------- めぐる：連鎖プラン ---------- */
 document.getElementById("planN").oninput=e=>document.getElementById("planNOut").textContent=e.target.value+"駅";
 document.getElementById("planStay").oninput=e=>{ document.getElementById("planStayOut").textContent=e.target.value+"分"; renderPlanList(); };
+// 経路（駅indexの並び）から行程 {i, km, min} を組む
+function chainFromRoute(route){
+  const chain=[]; let cur=hereIdx;
+  route.forEach((j,k)=>{
+    const km = (cur==null && k===0) ? originKmTo(STATIONS[j]) : stKm(cur, j);
+    const min = (cur==null && k===0) ? originMinTo(STATIONS[j]) : stMin(cur, j);
+    chain.push({i:j, km, min}); cur=j;
+  });
+  return chain;
+}
 document.getElementById("planBtn").onclick=()=>{
   if(!here){ toast("先に「近くの駅」で起点を決めてください"); switchPane("near"); return; }
-  const n=+document.getElementById("planN").value, stay=+document.getElementById("planStay").value;
-  const pool=STATIONS.filter(s=>!visited.has(s.id) && passFilter(s) && IDX[s.id]!==hereIdx).map(s=>IDX[s.id]);
+  const n=+document.getElementById("planN").value;
+  const pool=STATIONS.filter(s=>!visited.has(s.id) && passFilter(s) && IDX[s.id]!==hereIdx && (destIdx==null || IDX[s.id]!==destIdx)).map(s=>IDX[s.id]);
   if(!pool.length){ toast("未訪問の駅がありません"); return; }
-  const chain=nearestChain(pool, n);
-  showPlan(`巡回ルート（${here.label}から）`, chain);
+  let chain;
+  if(dest){
+    // 終着点あり：起点→終着点の道すがら寄り道が小さい駅を選び、最短順に並べる
+    const picked=pool.map(j=>({j, det:originMinTo(STATIONS[j])+destMinFrom(j)}))
+      .sort((a,b)=>a.det-b.det).slice(0,n).map(x=>x.j);
+    chain=chainFromRoute(optimizeOrder(picked));
+  }else{
+    chain=nearestChain(pool, n);
+  }
+  showPlan(dest?`巡回ルート（${here.label} → ${dest.label}）`:`巡回ルート（${here.label}から）`, chain);
 };
 function nearestChain(pool, n){
   const used=new Set(), chain=[];
@@ -620,11 +748,26 @@ function renderPlanList(){
     box.appendChild(eta);
     t=depart;
   });
-  let sm=`<b>${currentChain.length}駅</b>／走行 <b>${fmtKm(totalKm)}</b>・運転 <b>${fmtMin(totalDrive)}</b>・滞在 <b>${fmtMin(totalStay)}</b><br>出発 <b>${fmtHM(dep)}</b> → 最終駅を出るのは <b>${fmtHM(t)}</b>`;
+  let goalHtml="";
+  if(dest){
+    const last=currentChain[currentChain.length-1].i;
+    const km=destKmFrom(last), min=destMinFrom(last), arrive=t+min;
+    totalKm+=km; totalDrive+=min;
+    const late = limit!=null && arrive>limit;
+    if(late) over=true;
+    const row=document.createElement("div"); row.className="st";
+    row.innerHTML=`<div class="num goal">🏁</div><div class="info"><div class="nm">${dest.label}</div><div class="meta">終着点</div></div><div class="dist"><b>${fmtKm(km)}</b><br>約${fmtMin(min)}</div>`;
+    box.appendChild(row);
+    const eta=document.createElement("div"); eta.className="etaRow"+(late?" late":"");
+    eta.innerHTML=`<span>${late?"⚠ ":""}着 <b>${fmtHM(arrive)}</b></span>`;
+    box.appendChild(eta);
+    goalHtml=` → 終着点 ${dest.label} 着 <b>${fmtHM(arrive)}</b>`;
+  }
+  let sm=`<b>${currentChain.length}駅</b>／走行 <b>${fmtKm(totalKm)}</b>・運転 <b>${fmtMin(totalDrive)}</b>・滞在 <b>${fmtMin(totalStay)}</b><br>出発 <b>${fmtHM(dep)}</b> → 最終駅を出るのは <b>${fmtHM(t)}</b>${goalHtml}`;
   if(limit!=null){
     sm += over
-      ? `<br><span style="color:var(--accent);font-weight:700">⚠ リミット${fmtHM(limit)}までに回れるのは ${okCount}駅 まで。滞在を短くするか、駅数を減らしてみてください</span>`
-      : `<br><span style="color:var(--green);font-weight:700">✓ リミット${fmtHM(limit)}内に全駅回れます</span>`;
+      ? `<br><span style="color:var(--accent);font-weight:700">⚠ リミット${fmtHM(limit)}までに回れるのは ${okCount}駅 まで${dest?"（終着点への到着も含めた判定です）":""}。滞在を短くするか、駅数を減らしてみてください</span>`
+      : `<br><span style="color:var(--green);font-weight:700">✓ リミット${fmtHM(limit)}内に${dest?"全駅めぐって終着点に着けます":"全駅回れます"}</span>`;
   }
   document.getElementById("planSummary").innerHTML=sm;
 }
@@ -635,17 +778,11 @@ document.getElementById("limitTime").onchange=renderPlanList;
 function selectedPlan(idSet, mark, title, emptyMsg){
   if(!idSet.size){ toast(emptyMsg); return; }
   if(!here){ toast("先に「近くの駅」で起点を決めてください"); switchPane("near"); return; }
-  const ids=[...idSet].map(id=>IDX[id]).filter(j=>j!=null && j!==hereIdx);
+  const ids=[...idSet].map(id=>IDX[id]).filter(j=>j!=null && j!==hereIdx && (destIdx==null || j!==destIdx));
   if(!ids.length){ toast(emptyMsg); return; }
   const route=optimizeOrder(ids);
-  const chain=[];
-  let cur=hereIdx;
-  route.forEach((j,k)=>{
-    const km = (cur==null && k===0) ? originKmTo(STATIONS[j]) : stKm(cur, j);
-    const min = (cur==null && k===0) ? originMinTo(STATIONS[j]) : stMin(cur, j);
-    chain.push({i:j, km, min}); cur=j;
-  });
-  showPlan(`${mark} ${title}（${here.label}から・最短順）`, chain);
+  const chain=chainFromRoute(route);
+  showPlan(dest?`${mark} ${title}（${here.label} → ${dest.label}）`:`${mark} ${title}（${here.label}から・最短順）`, chain);
 }
 document.getElementById("tripPlanBtn").onclick=()=>selectedPlan(trip, "⚑", "今回の旅めぐり", "⚑の旗を立てた駅がありません。気分の駅に旗を立ててください");
 document.getElementById("wantPlanBtn").onclick=()=>selectedPlan(want, "☆", "お気に入りめぐり", "☆でお気に入りの駅を選んでください");
@@ -669,10 +806,11 @@ function optimizeOrder(ids){
     }
     route.push(best); used.add(best); cur=best;
   }
-  // 2-opt改善
+  // 2-opt改善（終着点があれば最後の駅→終着点も含めて最短化）
   const cost=r=>{
     let c=firstLeg(r[0]);
     for(let k=0;k<r.length-1;k++) c+=stMin(r[k],r[k+1]);
+    if(dest) c+=destMinFrom(r[r.length-1]);
     return c;
   };
   let improved=true, guard=0;
@@ -805,18 +943,18 @@ function renderDrive(plan, days, stay, ret){
 document.getElementById("drvDep").onchange=()=>{ if(lastDrive) renderDrive(lastDrive.plan, lastDrive.days, lastDrive.stay, lastDrive.ret); };
 
 /* ---------- Googleマップ書き出し ---------- */
-function openGmapsRoute(ids, startPt){
+function openGmapsRoute(ids, startPt, endPt){
   if(!ids.length) return;
   const pts=ids.map(id=>STATIONS[IDX[id]]).map(s=>`${s.lat},${s.lon}`);
-  const dest=pts.pop();
+  const goal = endPt ? `${endPt.lat},${endPt.lon}` : pts.pop();
   let url=`https://www.google.com/maps/dir/?api=1`;
   if(startPt) url+=`&origin=${startPt.lat},${startPt.lon}`;
-  url+=`&destination=${dest}&travelmode=driving`;
+  url+=`&destination=${goal}&travelmode=driving`;
   const wp=pts.slice(0,9);
   if(wp.length) url+=`&waypoints=${wp.join("|")}`;
   location.href=url;
 }
-document.getElementById("planGmaps").onclick=()=>openGmapsRoute(currentPlan, here);
+document.getElementById("planGmaps").onclick=()=>openGmapsRoute(currentPlan, here, dest);
 
 /* ---------- 詳細シート ---------- */
 const sheet=document.getElementById("sheet");
@@ -870,6 +1008,7 @@ function openSheet(s){
     </div>
     <div class="sheetBtns">
       <button class="origin">⚐ ここを起点にめぐる</button>
+      <button class="destBtn">🏁 ここを終着点に</button>
     </div>`;
   c.querySelector(".navi").onclick=()=>naviTo(s);
   c.querySelector(".visit").onclick=()=>{
@@ -881,6 +1020,11 @@ function openSheet(s){
     setOrigin({lat:s.lat, lon:s.lon, label:s.name}, IDX[s.id]);
     closeSheet(); switchPane("plan");
     toast("⚐ "+s.name+"を起点にしました");
+  };
+  c.querySelector(".destBtn").onclick=()=>{
+    setDest({lat:s.lat, lon:s.lon, label:s.name}, IDX[s.id]);
+    renderPlanList();
+    closeSheet(); switchPane("plan");
   };
   c.querySelector(".wantBtn").onclick=()=>{ toggleWant(s); openSheet(s); };
   c.querySelector(".tripBtn").onclick=()=>{ toggleTrip(s); openSheet(s); };
@@ -918,8 +1062,12 @@ function renderMap(){
   if(here){
     markerLayer.addLayer(L.marker([here.lat,here.lon],{icon:L.divIcon({html:'<div style="background:#1a73e8;border-radius:50%;width:16px;height:16px;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>',className:"",iconSize:[16,16],iconAnchor:[8,8]})}).bindPopup(here.label));
   }
+  if(dest){
+    markerLayer.addLayer(L.marker([dest.lat,dest.lon],{icon:L.divIcon({html:'<div style="font-size:20px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))">🏁</div>',className:"",iconSize:[22,22],iconAnchor:[4,20]})}).bindPopup("終着点："+dest.label));
+  }
   if(currentPlan.length&&here){
     const pts=[[here.lat,here.lon],...currentPlan.map(id=>[STATIONS[IDX[id]].lat,STATIONS[IDX[id]].lon])];
+    if(dest) pts.push([dest.lat,dest.lon]);
     markerLayer.addLayer(L.polyline(pts,{color:"#2e5d4b",weight:3,dashArray:"6 6",opacity:.8}));
   }
 }
