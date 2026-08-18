@@ -111,6 +111,9 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 .sheetBtns .firstBtn{background:var(--card);color:var(--primary);border:1px solid var(--primary)}
 .sheetBtns .firstBtn.on{background:var(--primary);color:#fff;border:none}
 .gmaps{width:100%;padding:11px;border:1px solid var(--ink);border-radius:var(--radius);background:var(--card);color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;margin-top:9px}
+.shareRow{display:flex;gap:8px;margin-top:9px}
+.shareBtn{flex:1;padding:11px;border:none;border-radius:var(--radius);background:var(--primary);color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.shareBtn.sub{background:var(--card);color:var(--primary);border:1px solid var(--primary)}
 .gmaps.mini{width:auto;padding:6px 13px;font-size:11px;margin:6px 0 2px;border-radius:999px;font-weight:500}
 .originBadge{display:inline-flex;align-items:center;gap:5px;background:var(--primary-soft);color:var(--primary);border-radius:999px;padding:3px 12px;font-size:12px;font-weight:700;margin-bottom:8px}
 
@@ -243,6 +246,10 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
         <div class="summary" id="planSummary"></div>
         <div id="planList"></div>
         <button class="gmaps" id="planGmaps">Googleマップでこのルートを開く</button>
+        <div class="shareRow">
+          <button class="shareBtn" id="planShareBtn">📤 このプランを共有</button>
+          <button class="shareBtn sub" id="planCopyBtn">📋 テキストをコピー</button>
+        </div>
         <div class="note">駅から駅は実際の道路距離（OSRM）。時間は信号・市街地の減速を上乗せした目安で、Googleマップとおおむね±1割です。各駅の「滞在」を変えると到着・出発時刻が組み直されます。</div>
       </div>
     </section>
@@ -265,6 +272,10 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
       <div class="card" id="drvCard" style="display:none">
         <h2>行程表</h2>
         <div id="drvList"></div>
+        <div class="shareRow">
+          <button class="shareBtn" id="drvShareBtn">📤 この行程を共有</button>
+          <button class="shareBtn sub" id="drvCopyBtn">📋 テキストをコピー</button>
+        </div>
         <div class="note">「泊」はその日の最後の駅の周辺で宿を取る想定です。時間は滞在込みの目安です。</div>
       </div>
     </section>
@@ -835,6 +846,18 @@ function renderPlanList(){
     t=depart;
   });
   let goalHtml="";
+  const shareRows=[]; // 共有テキスト用
+  let t2=dep;
+  currentChain.forEach((c,i)=>{ const st=stayOf(STATIONS[c.i].id); const a=t2+c.min; shareRows.push({n:i+1, name:STATIONS[c.i].name, km:c.km, min:c.min, arrive:a, stay:st, depart:a+st}); t2=a+st; });
+  let backHtml="", backInfo=null;
+  if(!dest && here){
+    // 終着点なし：起点に戻る目安
+    const last=currentChain[currentChain.length-1].i;
+    const bmin = hereIdx!=null ? stMin(last,hereIdx) : haversine(STATIONS[last], here)*ROAD_FACTOR/AVG_KMH*60;
+    const bkm  = hereIdx!=null ? stKm(last,hereIdx)  : haversine(STATIONS[last], here)*ROAD_FACTOR;
+    backInfo={min:bmin, km:bkm, arrive:t+bmin};
+    backHtml=`<br>${here.label}に戻るなら 着 <b>${fmtHM(t+bmin)}</b>ごろ（約${fmtMin(bmin)}）`;
+  }
   if(dest){
     const last=currentChain[currentChain.length-1].i;
     const km=destKmFrom(last), min=destMinFrom(last), arrive=t+min;
@@ -848,8 +871,10 @@ function renderPlanList(){
     eta.innerHTML=`<span>${late?"⚠ ":""}着 <b>${fmtHM(arrive)}</b></span>`;
     box.appendChild(eta);
     goalHtml=` → 終着点 ${dest.label} 着 <b>${fmtHM(arrive)}</b>`;
+    backInfo={min, km, arrive, isDest:true};
   }
-  let sm=`<b>${currentChain.length}駅</b>／走行 <b>${fmtKm(totalKm)}</b>・運転 <b>${fmtMin(totalDrive)}</b>・滞在 <b>${fmtMin(totalStay)}</b><br>出発 <b>${fmtHM(dep)}</b> → 最終駅を出るのは <b>${fmtHM(t)}</b>${goalHtml}`;
+  let sm=`<b>${currentChain.length}駅</b>／走行 <b>${fmtKm(totalKm)}</b>・運転 <b>${fmtMin(totalDrive)}</b>・滞在 <b>${fmtMin(totalStay)}</b><br>出発 <b>${fmtHM(dep)}</b> → 最終駅を出るのは <b>${fmtHM(t)}</b>${goalHtml}${backHtml}`;
+  lastPlanShare={title:document.getElementById("planTitle").textContent, origin:here?here.label:"", dep, rows:shareRows, lastDepart:t, back:backInfo, dest:dest?dest.label:null, totalKm, totalDrive, totalStay, limit, over, okCount};
   if(limit!=null){
     sm += over
       ? `<br><span style="color:var(--accent);font-weight:700">⚠ リミット${fmtHM(limit)}までに回れるのは ${okCount}駅 まで${dest?"（終着点への到着も含めた判定です）":""}。滞在を短くするか、駅数を減らしてみてください</span>`
@@ -857,6 +882,45 @@ function renderPlanList(){
   }
   document.getElementById("planSummary").innerHTML=sm;
 }
+let lastPlanShare=null;
+const APP_URL="https://michinoeki-meguri.pages.dev/";
+function planShareText(){
+  const d=lastPlanShare; if(!d) return "";
+  const L=[];
+  L.push(`🚗 ${d.title}`);
+  L.push(`出発 ${fmtHM(d.dep)}${d.origin?"　"+d.origin+"から":""}`);
+  L.push("");
+  d.rows.forEach(r=>L.push(`${r.n}. ${r.name}　${fmtHM(r.arrive)}着 → ${fmtHM(r.depart)}発（滞在${r.stay}分／${fmtKm(r.km)}・約${fmtMin(r.min)}）`));
+  L.push("");
+  if(d.back){
+    if(d.back.isDest) L.push(`🏁 ${d.dest} 着 ${fmtHM(d.back.arrive)}ごろ（約${fmtMin(d.back.min)}）`);
+    else L.push(`🏠 ${d.origin}に戻るなら 着 ${fmtHM(d.back.arrive)}ごろ（約${fmtMin(d.back.min)}）`);
+  }
+  L.push(`合計 ${d.rows.length}駅／走行 ${fmtKm(d.totalKm+(d.back?d.back.km:0))}・運転 ${fmtMin(d.totalDrive+(d.back?d.back.min:0))}・滞在 ${fmtMin(d.totalStay)}`);
+  if(d.limit!=null) L.push(d.over ? `⚠ リミット${fmtHM(d.limit)}までに回れるのは${d.okCount}駅まで` : `✓ リミット${fmtHM(d.limit)}内に回れます`);
+  L.push("");
+  L.push("※時間は目安です（廻 — 道の駅めぐり 北海道）");
+  L.push(APP_URL);
+  return L.join("\n");
+}
+async function shareText(text, title){
+  if(!text){ toast("先にプランを立ててください"); return; }
+  if(navigator.share){
+    try{ await navigator.share({title, text}); return; }catch(e){ if(e && e.name==="AbortError") return; }
+  }
+  copyText(text);
+}
+async function copyText(text){
+  if(!text){ toast("先にプランを立ててください"); return; }
+  try{ await navigator.clipboard.writeText(text); toast("コピーしました。LINEやメモに貼り付けられます"); }
+  catch{
+    const ta=document.createElement("textarea"); ta.value=text; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand("copy"); toast("コピーしました"); }catch{ toast("コピーできませんでした"); }
+    ta.remove();
+  }
+}
+document.getElementById("planShareBtn").onclick=()=>shareText(planShareText(), "道の駅めぐりプラン");
+document.getElementById("planCopyBtn").onclick=()=>copyText(planShareText());
 document.getElementById("depTime").onchange=renderPlanList;
 document.getElementById("limitTime").onchange=renderPlanList;
 
@@ -1026,8 +1090,28 @@ function renderDrive(plan, days, stay, ret){
     st.innerHTML=`<b>帰着</b>　${fmtHM(lastT+plan.returnMin)}ごろ 出発地の近くへ`;
     box.appendChild(st);
   }
+  // 共有テキスト
+  {
+    const L=[]; L.push(`🚗 とまり旅プラン${days>1?`（${days}日間）`:""}`); L.push(`${here.label}を起点に ${plan.chain.length}駅／各日 ${fmtHM(dep)}出発`); L.push("");
+    let n=0;
+    for(let day=1; day<=days; day++){
+      const dc=plan.chain.filter(c=>c.day===day); if(!dc.length) continue;
+      if(days>1) L.push(`【${day}日目】`);
+      let t=dep;
+      dc.forEach(c=>{ n++; const a=t+c.min; L.push(`${n}. ${STATIONS[c.i].name}　${fmtHM(a)}着 → ${fmtHM(a+stay)}発（${fmtKm(c.km)}・約${fmtMin(c.min)}）`); t=a+stay; });
+      if(days>1 && day<days) L.push(`　泊：${STATIONS[dc[dc.length-1].i].name} 周辺`);
+      if(day===days && ret && plan.returnMin) L.push(`🏠 帰着 ${fmtHM(t+plan.returnMin)}ごろ 出発地の近くへ（約${fmtMin(plan.returnMin)}）`);
+      L.push("");
+    }
+    L.push(`合計 走行 ${fmtKm(totalKm)}・所要 ${fmtMin(totalDriveMin+stay*plan.chain.length)}`);
+    L.push(""); L.push("※時間は目安です（廻 — 道の駅めぐり 北海道）"); L.push(APP_URL);
+    lastDriveShare=L.join("\n");
+  }
   document.getElementById("drvCard").style.display="block";
 }
+let lastDriveShare="";
+document.getElementById("drvShareBtn").onclick=()=>shareText(lastDriveShare, "とまり旅プラン");
+document.getElementById("drvCopyBtn").onclick=()=>copyText(lastDriveShare);
 document.getElementById("drvDep").onchange=()=>{ if(lastDrive) renderDrive(lastDrive.plan, lastDrive.days, lastDrive.stay, lastDrive.ret); };
 
 /* ---------- Googleマップ書き出し ---------- */
