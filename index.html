@@ -145,6 +145,32 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 .openWarn.ng{background:#fbe9e4;color:var(--accent)}
 .openWarn.soft{background:#f6f0dc;color:#8a6c22}
 .openWarn.ok{background:#e6efe7;color:var(--green)}
+.seihaBar{height:9px;background:#e9e5da;border-radius:5px;overflow:hidden;margin:7px 0 4px}
+.seihaBar i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),#4a8a6e)}
+.seihaNum{font-family:var(--serif);font-size:26px;color:var(--primary);font-weight:700}
+.seihaSub{font-size:11px;color:var(--sub);line-height:1.7}
+.expItem{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:7px;background:var(--card)}
+.expItem .eh{display:flex;align-items:baseline;gap:8px}
+.expItem .eh b{font-family:var(--serif);font-size:15px;color:var(--primary);white-space:nowrap;flex-shrink:0}
+.expItem .eh .ot2{flex:1;min-width:0;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.expItem .eh span{font-size:11px;color:var(--sub);margin-left:auto;white-space:nowrap;flex-shrink:0}
+.expItem .ed{font-size:11px;color:var(--sub);margin-top:3px;line-height:1.6}
+.expItem button{margin-top:7px;border:1px solid var(--primary);background:var(--card);color:var(--primary);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer}
+.omkCard{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:9px;background:var(--card);cursor:pointer}
+.omkCard:active{background:var(--primary-soft)}
+.omkCard .ot{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--primary);margin-bottom:2px}
+.omkCard .ol{font-size:11px;color:var(--sub);line-height:1.65}
+.omkCard .ol b{color:var(--ink)}
+.omkCard .obadge{display:inline-block;background:var(--primary-soft);color:var(--primary);border-radius:5px;padding:1px 7px;font-size:10px;font-weight:700;margin-right:4px}
+.omkCard .owarn{color:var(--accent)}
+.pillRow{padding:1px 0 4px 42px;display:flex;flex-wrap:wrap;gap:4px}
+.pill{display:inline-block;border-radius:5px;padding:2px 8px;font-size:10px;font-weight:700}
+.pill.ng{background:#fbe9e4;color:var(--accent)}
+.pill.soft{background:#f6f0dc;color:#8a6c22}
+.pill.ok{background:#e6efe7;color:var(--green)}
+.fuelRow{font-size:11px;color:#8a6c22;background:var(--gold-soft);border-radius:8px;padding:6px 10px;margin:5px 0}
+.fuelRow.gap{color:var(--sub);background:#efece3}
+.fuelRow b{color:var(--accent)}
 .manualBadge{display:inline-block;background:var(--gold-soft);color:#8a6c22;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:700;margin-bottom:6px}
 .shareRow{display:flex;gap:8px;margin-top:9px}
 .shareBtn{flex:1;padding:11px;border:none;border-radius:var(--radius);background:var(--primary);color:#fff;font-size:13px;font-weight:700;cursor:pointer}
@@ -242,6 +268,17 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
     <!-- めぐる（巡回プラン） -->
     <section class="pane" id="pane-plan">
       <div class="card">
+        <h2>行き先はおまかせ（3案から選ぶ）</h2>
+        <div class="note" style="margin:0 0 8px">どこへ行くか決まっていない時に。<b>何時に帰るか</b>と<b>したいこと</b>を決めると、そこから3つのコースを出します。</div>
+        <div class="timeRow">
+          <label>帰りたい時刻 <input type="time" id="omkBack" value="17:00"></label>
+        </div>
+        <div class="filterRow" id="omkThemeRow" style="margin:8px 0"></div>
+        <label class="toggle"><input type="checkbox" id="omkKids"><span>子ども・高齢者と一緒（トイレ・休憩の間隔を優先）</span></label>
+        <button class="bigBtn primary" id="omkBtn">🎲 3案を出す</button>
+        <div id="omkResults"></div>
+      </div>
+      <div class="card">
         <h2>ここから連鎖でめぐる</h2>
         <div id="originBadge1"></div>
         <div id="firstRow" style="font-size:12px;color:var(--sub);margin:2px 0 6px">最初の駅：<b id="firstBadge" style="color:var(--primary);font-family:var(--serif)">おまかせ（いちばん近い駅）</b>
@@ -252,6 +289,13 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
           <label>出発日 <input type="date" id="depDate"></label>
           <label>出発時刻 <input type="time" id="depTime" value="09:00"></label>
           <label>終了リミット <input type="time" id="limitTime"></label>
+        </div>
+        <div class="timeRow" style="align-items:center">
+          <label>満タンで走れる距離 <select id="fuelRange">
+            <option value="0">気にしない</option><option value="300">300km</option><option value="400">400km</option>
+            <option value="500" selected>500km</option><option value="600">600km</option><option value="700">700km</option>
+          </select></label>
+          <button id="sunsetBtn" class="originNowBtn" title="日の入りをリミットに">🌇 日の入りをリミットに</button>
         </div>
         <div id="destRow">
           <div style="font-size:12px;color:var(--sub)">終着点：<b id="destBadge" style="color:var(--primary);font-family:var(--serif)">なし（最後の駅で終わり）</b>
@@ -342,6 +386,16 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 
     <!-- 記録 -->
     <section class="pane" id="pane-log">
+      <div class="card" id="seihaCard">
+        <h2>制覇の状況</h2>
+        <div id="seihaBox"></div>
+      </div>
+      <div class="card">
+        <h2>あと何回の遠征で終わるか</h2>
+        <div class="note" style="margin:0 0 8px">未訪問の駅を、近いものどうしの塊に分けています。1日に走れる時間を決めると、塊ごとの日数の目安が出ます。</div>
+        <div class="slider"><label>1日の時間</label><input type="range" id="expH" min="4" max="12" step="0.5" value="8"><output id="expHOut">8.0時間</output></div>
+        <div id="expBox"></div>
+      </div>
       <div class="card">
         <h2>訪問記録（エリア別）</h2>
         <div id="logList"></div>
@@ -370,9 +424,12 @@ const LS_VISITED = "michinoeki.visited.v1";
 const LS_WANT = "michinoeki.want.v1";
 const LS_TRIP = "michinoeki.trip.v1";
 const LS_PLAN = "michinoeki.plan.v1";
+const LS_VDATE = "michinoeki.visitdate.v1";
 let visited = new Set(JSON.parse(localStorage.getItem(LS_VISITED) || "[]"));
 let want = new Set(JSON.parse(localStorage.getItem(LS_WANT) || "[]"));
 let trip = new Set(JSON.parse(localStorage.getItem(LS_TRIP) || "[]"));
+// 訪問日 {駅id:"YYYY-MM-DD"}。日付のない過去の記録も visited には残るので失われない
+let visitDate = (()=>{ try{ return JSON.parse(localStorage.getItem(LS_VDATE)||"{}"); }catch{ return {}; } })();
 let searchQuery = "";
 let here = null;              // {lat, lon, label}
 let hereIdx = null;           // 起点が駅のときの駅index（マトリクス直参照用）
@@ -459,7 +516,8 @@ function save(){
   localStorage.setItem(LS_VISITED, JSON.stringify([...visited]));
   localStorage.setItem(LS_WANT, JSON.stringify([...want]));
   localStorage.setItem(LS_TRIP, JSON.stringify([...trip]));
-  renderProgress(); renderNear(); renderLog(); renderMap(); renderWantCount();
+  localStorage.setItem(LS_VDATE, JSON.stringify(visitDate));
+  renderProgress(); renderNear(); renderLog(); renderMap(); renderWantCount(); renderSeiha(); renderExpedition();
 }
 function toast(msg){
   const t=document.getElementById("toast");
@@ -824,6 +882,100 @@ function renderNear(){
   list.forEach((x,i)=>box.appendChild(stationRow(x.s, i+1, x.km!=null?`<b>${fmtKm(x.km)}</b><br>約${fmtMin(x.min)}`:"")));
 }
 
+/* ---------- 行き先はおまかせ（何時に帰る × したいこと → 3案） ---------- */
+const THEMES=[
+  {key:"onsen", label:"♨ 温泉に入る", short:"♨ 温泉", score:s=>(s.onsen?3:0)},
+  {key:"eat",   label:"🍜 ごはん", short:"🍜 食事", score:s=>(s.facilities.includes("レストラン")?2:0)+(s.facilities.includes("喫茶・軽食")?1:0)},
+  {key:"kids",  label:"🧒 子どもが遊べる", short:"🧒 遊び場", score:s=>(s.facilities.includes("公園")?3:0)+(s.facilities.includes("ドッグラン")?1:0)+(s.facilities.includes("授乳室・おむつ交換台")?1:0)},
+  {key:"sanchoku", label:"🥬 産直で買う", short:"🥬 産直", score:s=>(s.facilities.includes("産地直売")?3:0)+(s.facilities.includes("ショップ")?1:0)},
+];
+let omkTheme=null;
+const omkThemeRow=document.getElementById("omkThemeRow");
+THEMES.forEach(th=>{
+  const b=document.createElement("button"); b.textContent=th.label;
+  b.onclick=()=>{
+    omkTheme = (omkTheme===th.key) ? null : th.key;
+    [...omkThemeRow.children].forEach(x=>x.classList.toggle("on", x.textContent===th.label && omkTheme===th.key));
+  };
+  omkThemeRow.appendChild(b);
+});
+// 予算内で「行って戻れる」駅を、テーマ加点つきで選ぶ
+function omakaseCourse(budgetMin, stay, themeFn, maxN, preferNear){
+  const backMin = j => hereIdx!=null ? stMin(j,hereIdx) : (()=>{const d=haversine(STATIONS[j],here)*ROAD_FACTOR; return calMin(d/AVG_KMH*60,d);})();
+  const pool=STATIONS.filter(s=>!visited.has(s.id) && !isSuspended(s)).map(s=>IDX[s.id]).filter(j=>j!==hereIdx);
+  const chain=[]; const used=new Set(); let cur=null, elapsed=0;
+  while(chain.length<maxN){
+    let best=null, bestScore=-Infinity, bestMin=0, bestKm=0;
+    for(const j of pool){
+      if(used.has(j)) continue;
+      const leg = cur==null ? originMinTo(STATIONS[j]) : stMin(cur,j);
+      if(elapsed+leg+stay+backMin(j) > budgetMin) continue;
+      // 近さ重視 or テーマ重視のスコア
+      const th=themeFn?themeFn(STATIONS[j]):0;
+      const sc = preferNear ? (th*12 - leg) : (th*30 - leg*0.6);
+      if(sc>bestScore){ bestScore=sc; best=j; bestMin=leg; bestKm=cur==null?originKmTo(STATIONS[j]):stKm(cur,j); }
+    }
+    if(best==null) break;
+    chain.push({i:best, km:bestKm, min:bestMin});
+    elapsed+=bestMin+stay; used.add(best); cur=best;
+  }
+  if(!chain.length) return null;
+  return {chain, backMin:backMin(cur), backKm: hereIdx!=null?stKm(cur,hereIdx):haversine(STATIONS[cur],here)*ROAD_FACTOR, elapsed};
+}
+document.getElementById("omkBtn").onclick=()=>{
+  if(!here){ toast("先に「近くの駅」で起点を決めてください"); switchPane("near"); return; }
+  const dep=parseHM(document.getElementById("depTime").value) ?? 540;
+  const back=parseHM(document.getElementById("omkBack").value) ?? 1020;
+  let budget=back-dep;
+  if(budget<=45){ toast("帰りたい時刻が出発時刻に近すぎます。出発時刻か帰りたい時刻を見直してください"); return; }
+  const kids=document.getElementById("omkKids").checked;
+  const th=THEMES.find(x=>x.key===omkTheme);
+  const box=document.getElementById("omkResults"); box.innerHTML="";
+  const stayBase=kids?30:20;
+  const plans=[
+    {name:"ゆったり", desc:"近場で、1駅ずつしっかり過ごす", stay:kids?40:35, maxN:3, near:true, use:0.7},
+    {name:"ほどよく", desc:"移動と滞在のバランス型", stay:stayBase, maxN:5, near:true, use:0.9},
+    {name:"しっかり回る", desc:"時間いっぱい、多めにめぐる", stay:kids?20:15, maxN:9, near:false, use:1.0},
+  ];
+  let any=false; const seenCourse=new Set();
+  plans.forEach(pl=>{
+    const r=omakaseCourse(Math.round(budget*pl.use), pl.stay, th?th.score:null, pl.maxN, pl.near);
+    if(!r) return;
+    const sig=r.chain.map(c=>c.i).join(",")+"/"+pl.stay;
+    if(seenCourse.has(sig)) return;   // 同じ道のりの案は1つだけ出す
+    seenCourse.add(sig);
+    any=true;
+    const totalKm=r.chain.reduce((a,c)=>a+c.km,0)+r.backKm;
+    const totalMin=r.elapsed+r.backMin;
+    // テーマの達成度・休憩間隔
+    const hit=th?r.chain.filter(c=>th.score(STATIONS[c.i])>0).length:0;
+    const longLeg=r.chain.some(c=>c.min>(kids?90:120));
+    // 昼食枠（12時前後に着く駅）
+    let lunch=null, tt=dep;
+    r.chain.forEach(c=>{ const a=tt+c.min; if(lunch===null && a>=660 && a<=810) lunch=STATIONS[c.i]; tt=a+pl.stay; });
+    const card=document.createElement("div"); card.className="omkCard";
+    card.innerHTML=`<div class="ot">${pl.name}　<span style="font-size:11px;color:var(--sub);font-weight:normal">${pl.desc}</span></div>
+      <div class="ol">
+        <span class="obadge">${r.chain.length}駅</span><span class="obadge">走行 ${fmtKm(totalKm)}</span><span class="obadge">1駅${pl.stay}分</span><br>
+        ${fmtHM(dep)}出発 → <b>${fmtHM(dep+totalMin)}</b>ごろ ${here.label}に帰着（${fmtMin(totalMin)}）<br>
+        ${r.chain.map(c=>STATIONS[c.i].name).join(" → ")}<br>
+        ${th&&hit?`${th.short}のある駅：<b>${hit}／${r.chain.length}駅</b><br>`:""}
+        ${lunch?`昼どきに着くのは <b>${lunch.name}</b>${lunch.facilities.includes("レストラン")||lunch.facilities.includes("喫茶・軽食")?"（食事あり）":'<span class="owarn">（この駅に食事処はありません）</span>'}<br>`:""}
+        ${longLeg?`<span class="owarn">${kids?"90":"120"}分以上の連続運転が入ります。途中で休憩を</span>`:""}
+      </div>`;
+    card.onclick=()=>{
+      showPlan(`おまかせ・${pl.name}（${here.label}発）`, r.chain);
+      // showPlan が currentStay を初期化するので、そのあとに案の滞在時間を入れる
+      r.chain.forEach(c=>{ currentStay[STATIONS[c.i].id]=pl.stay; });
+      document.getElementById("limitTime").value=document.getElementById("omkBack").value;
+      renderPlanList();
+    };
+    box.appendChild(card);
+  });
+  if(!any){ box.innerHTML='<div class="empty">その時間では行って帰れる未訪問の駅が見つかりませんでした。<br>帰りたい時刻を遅くするか、起点を変えてみてください。</div>'; }
+  else toast("3案を出しました。押すとプランになります");
+};
+
 /* ---------- めぐる：連鎖プラン ---------- */
 document.getElementById("planN").oninput=e=>document.getElementById("planNOut").textContent=e.target.value+"駅";
 document.getElementById("planStay").oninput=e=>{ document.getElementById("planStayOut").textContent=e.target.value+"分"; renderPlanList(); };
@@ -939,6 +1091,82 @@ function openStatus(s, arriveMin){
 }
 // 冬季は要確認の駅か
 const winterCaution = (s)=> (s.holidayInfo||{}).winter;
+// 公式に営業時間の記載がない＝長期休館などで開いていない可能性が高い駅
+const isSuspended = (s)=> !s.hours && (!s.hoursRange || !s.hoursRange.length);
+
+/* ---------- 年度で数える（制覇は年をまたぐ営み） ---------- */
+const ymd = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+function fiscalYearOf(dateStr){
+  const d=new Date(dateStr+"T00:00:00");
+  if(isNaN(d)) return null;
+  return d.getMonth()+1>=4 ? d.getFullYear() : d.getFullYear()-1;
+}
+function currentFY(){ const n=new Date(); return n.getMonth()+1>=4 ? n.getFullYear() : n.getFullYear()-1; }
+// 今年度の訪問数・年度末までの残り日数
+function fyStats(){
+  const fy=currentFY();
+  let inFY=0, dated=0;
+  Object.entries(visitDate).forEach(([id,ds])=>{ if(!visited.has(id)) return; dated++; if(fiscalYearOf(ds)===fy) inFY++; });
+  const end=new Date(fy+1,2,31);
+  const days=Math.max(0, Math.ceil((end-new Date())/86400000));
+  return {fy, inFY, dated, undated:visited.size-dated, days, end};
+}
+
+/* ---------- スタンプが押せるか（着いたのに押せなかった、を防ぐ） ---------- */
+// stampTime の定型文を分類。押印は営業時間と別物（24時間押せる駅・休館日も押せる駅がある）
+function stampRule(s){
+  const t=(s.stampTime||"").replace(/\s+/g,"");
+  if(!t) return {mode:"hours", holidayOk:false, guess:true};      // 記載なし＝開館時間に同じとみなす（推定）
+  const h24=/24時間押印可能/.test(t);
+  const holidayOk=/休館日も押せます/.test(t);
+  return {mode:h24?"24h":"hours", holidayOk, guess:false, raw:s.stampTime};
+}
+// arriveMin時点でスタンプが押せるか
+function stampStatus(s, arriveMin){
+  const r=stampRule(s);
+  const os=openStatus(s, arriveMin);
+  const isHoliday = /休館|年末年始/.test(os.label);
+  if(r.mode==="24h"){
+    if(isHoliday && !r.holidayOk) return {ok:false, label:"押印×(休館)", note:r.raw};
+    return {ok:true, label:"押印24h", note:r.raw};
+  }
+  // 開館時間に同じ
+  if(isHoliday && r.holidayOk) return {ok:true, label:"押印○(休館日も可)", note:r.raw};
+  if(os.lv==="ng") return {ok:false, label:"押印×", note:r.guess?"押印時間の記載なし（開館時間に準じると想定）":r.raw};
+  if(os.lv==="soft" && os.label==="閉館まぎわ") return {ok:true, soft:true, label:"押印は急いで", note:r.raw};
+  return {ok:true, label:"", note:r.raw};
+}
+
+/* ---------- 日の入り（冬の道北は16時前に暗い） ---------- */
+// NOAA簡易式。分単位（現地時間・JST固定）を返す
+function sunsetMin(lat, lon, date){
+  const rad=Math.PI/180;
+  const start=new Date(date.getFullYear(),0,0);
+  const doy=Math.floor((date-start)/86400000);
+  const lngHour=lon/15;
+  const t=doy+((18-lngHour)/24);
+  const M=(0.9856*t)-3.289;
+  let L=M+(1.916*Math.sin(M*rad))+(0.020*Math.sin(2*M*rad))+282.634;
+  L=((L%360)+360)%360;
+  let RA=Math.atan(0.91764*Math.tan(L*rad))/rad;
+  RA=((RA%360)+360)%360;
+  RA += (Math.floor(L/90)*90) - (Math.floor(RA/90)*90);
+  RA/=15;
+  const sinDec=0.39782*Math.sin(L*rad), cosDec=Math.cos(Math.asin(sinDec));
+  const zenith=90.833;
+  const cosH=(Math.cos(zenith*rad)-(sinDec*Math.sin(lat*rad)))/(cosDec*Math.cos(lat*rad));
+  if(cosH<-1||cosH>1) return null;           // 白夜・極夜（北海道では起きない）
+  const H=(Math.acos(cosH)/rad)/15;
+  const T=H+RA-(0.06571*t)-6.622;
+  let UT=((T-lngHour)%24+24)%24;
+  return Math.round((UT+9)*60);              // JST
+}
+// プランの最後の駅あたりの日の入り
+function planSunset(){
+  if(!currentChain.length) return null;
+  const s=STATIONS[currentChain[currentChain.length-1].i];
+  return sunsetMin(s.lat, s.lon, planDate());
+}
 
 /* ---------- 立てたプランの保存・復元（着信やアプリ終了で消さない） ---------- */
 function savePlan(){
@@ -1185,6 +1413,9 @@ function renderPlanList(){
   const dep=parseHM(document.getElementById("depTime").value) ?? 540;
   const limit=parseHM(document.getElementById("limitTime").value);
   let t=dep, totalKm=0, totalDrive=0, totalStay=0, okCount=0, over=false;
+  const fuelCap=+document.getElementById("fuelRange").value;
+  let fuelRun=0, fuelWarns=0, stampNg=0;
+  const sunset=planSunset();
   currentChain.forEach((c,i)=>{
     const s=STATIONS[c.i];
     const arrive=t+c.min, st=stayOf(s.id), depart=arrive+st;
@@ -1195,7 +1426,39 @@ function renderPlanList(){
     const row=stationRow(s, i+1, `<b>${fmtKm(c.km)}</b><br>約${fmtMin(c.min)}`);
     if(i===0 && firstIdx===c.i) row.querySelector(".num").classList.add("first");
     if(late) row.style.opacity=".55";
+    // 給油のめやす：満タン走行の70%を超えたらここで入れる
+    if(fuelCap>0){
+      fuelRun+=c.km;
+      if(fuelRun>fuelCap*0.7){
+        const fu=document.createElement("div"); fu.className="fuelRow";
+        fu.innerHTML=`⛽ ここまでで <b>${fmtKm(fuelRun)}</b> 走ります。この駅の前後で給油を`;
+        box.appendChild(fu); fuelRun=0; fuelWarns++;
+      }
+    }
+    // 長い無停車区間（道東・道北は駅もGSも間隔が空く）
+    if(c.km>=60){
+      const gp=document.createElement("div"); gp.className="fuelRow gap";
+      gp.innerHTML=`↕ 次の駅まで <b>${fmtKm(c.km)}・${fmtMin(c.min)}</b>。この区間は給油・トイレの間隔が空きます`;
+      box.appendChild(gp);   // rowより先に置く（rowはまだboxの子ではない）
+    }
     box.appendChild(row);
+    // 押印・営業・冬季の注意
+    const ss=stampStatus(s, arrive), osx=openStatus(s, arrive);
+    const notes=[];
+    if(osx.lv==="ng") notes.push(`<span class="pill ng">${osx.label}</span>`);
+    else if(osx.lv==="soft") notes.push(`<span class="pill soft">${osx.label}</span>`);
+    if(!ss.ok) notes.push(`<span class="pill ng">${ss.label}</span>`);
+    else if(ss.soft) notes.push(`<span class="pill soft">${ss.label}</span>`);
+    else if(ss.label==="押印24h") notes.push(`<span class="pill ok">${ss.label}</span>`);
+    if(isSuspended(s)) notes.push(`<span class="pill ng">長期休館の可能性</span>`);
+    if(winterCaution(s) && [11,12,1,2,3,4].includes(planDate().getMonth()+1)) notes.push(`<span class="pill soft">冬季は要確認</span>`);
+    if(sunset!=null && arrive>sunset) notes.push(`<span class="pill soft">🌇 日の入り後</span>`);
+    if(!ss.ok) stampNg++;
+    if(notes.length){
+      const nb=document.createElement("div"); nb.className="pillRow"; nb.innerHTML=notes.join("");
+      if(osx.note) nb.title=osx.note;
+      box.appendChild(nb);
+    }
     const eta=document.createElement("div"); eta.className="etaRow"+(late?" late":"");
     eta.innerHTML=`<span>${late?"⚠ ":""}着 <b>${fmtHM(arrive)}</b></span><label>滞在 <select></select></label><span>発 <b>${fmtHM(depart)}</b></span>`;
     const sel=eta.querySelector("select");
@@ -1216,8 +1479,8 @@ function renderPlanList(){
   if(!dest && here){
     // 終着点なし：起点に戻る目安
     const last=currentChain[currentChain.length-1].i;
-    const bmin = hereIdx!=null ? stMin(last,hereIdx) : haversine(STATIONS[last], here)*ROAD_FACTOR/AVG_KMH*60;
     const bkm  = hereIdx!=null ? stKm(last,hereIdx)  : haversine(STATIONS[last], here)*ROAD_FACTOR;
+    const bmin = hereIdx!=null ? stMin(last,hereIdx) : calMin(bkm/AVG_KMH*60, bkm);
     backInfo={min:bmin, km:bkm, arrive:t+bmin};
     backHtml=`<br>${here.label}に戻るなら 着 <b>${fmtHM(t+bmin)}</b>ごろ（約${fmtMin(bmin)}）`;
   }
@@ -1254,6 +1517,9 @@ function renderPlanList(){
       ? `<br><span style="color:var(--accent);font-weight:700">⚠ リミット${fmtHM(limit)}までに回れるのは ${okCount}駅 まで${dest?"（終着点への到着も含めた判定です）":""}。滞在を短くするか、駅数を減らしてみてください</span>`
       : `<br><span style="color:var(--green);font-weight:700">✓ リミット${fmtHM(limit)}内に${dest?"全駅めぐって終着点に着けます":"全駅回れます"}</span>`;
   }
+  if(stampNg>0) sm += `<br><span style="color:var(--accent);font-weight:700">🔖 ${stampNg}駅は着いた時刻にスタンプが押せません</span>（順番を入れ替えるか、出発を早めてみてください）`;
+  if(sunset!=null) sm += `<br><span style="color:var(--sub)">🌇 この日の日の入りは ${fmtHM(sunset)}ごろ（最後の駅あたり）</span>`;
+  if(fuelWarns>0) sm += `<br><span style="color:var(--sub)">⛽ 途中 ${fuelWarns}回の給油を見込んでいます</span>`;
   document.getElementById("planSummary").innerHTML=sm;
   const rb=document.getElementById("revertAutoBtn"); if(rb) rb.onclick=revertToAuto;
   renderEditList(); savePlan();
@@ -1297,6 +1563,16 @@ async function copyText(text){
 }
 document.getElementById("planShareBtn").onclick=()=>shareText(planShareText(), "道の駅めぐりプラン");
 document.getElementById("planCopyBtn").onclick=()=>copyText(planShareText());
+document.getElementById("sunsetBtn").onclick=()=>{
+  if(!currentChain.length){ toast("先にプランを立ててください"); return; }
+  const ss=planSunset();
+  if(ss==null){ toast("日の入りを計算できませんでした"); return; }
+  document.getElementById("limitTime").value=fmtHM(ss).replace("（翌日）","");
+  renderPlanList();
+  toast(`🌇 日の入り ${fmtHM(ss)} を終了リミットにしました`);
+};
+document.getElementById("fuelRange").onchange=renderPlanList;
+document.getElementById("depDate").onchange=renderPlanList;
 document.getElementById("depTime").onchange=renderPlanList;
 document.getElementById("limitTime").onchange=renderPlanList;
 
@@ -1563,8 +1839,13 @@ function openSheet(s){
     </div>`;
   c.querySelector(".navi").onclick=()=>naviTo(s);
   c.querySelector(".visit").onclick=()=>{
-    if(visited.has(s.id)){ visited.delete(s.id); toast(s.name+"を未訪問に戻しました"); }
-    else{ visited.add(s.id); toast(s.name+"に訪問チェック！"); }
+    if(visited.has(s.id)){ visited.delete(s.id); delete visitDate[s.id]; toast(s.name+"を未訪問に戻しました"); }
+    else{
+      visited.add(s.id);
+      const dv=document.getElementById("depDate").value;
+      visitDate[s.id]= dv || ymd(new Date());
+      toast(s.name+"に訪問チェック！（"+visitDate[s.id]+"）");
+    }
     save(); openSheet(s);
   };
   c.querySelector(".origin").onclick=()=>{
@@ -1629,6 +1910,98 @@ function renderMap(){
   }
 }
 
+/* ---------- 制覇の状況 ---------- */
+function renderSeiha(){
+  const box=document.getElementById("seihaBox"); if(!box) return;
+  const st=fyStats();
+  const pct=Math.round(visited.size/STATIONS.length*100);
+  const rest=STATIONS.length-visited.size;
+  const byRegion={};
+  STATIONS.forEach(s=>{ const r=s.region||"その他"; byRegion[r]=byRegion[r]||{n:0,d:0}; byRegion[r].n++; if(visited.has(s.id)) byRegion[r].d++; });
+  const regionLine=Object.entries(byRegion).map(([r,v])=>`${r} ${v.d}/${v.n}`).join("　");
+  box.innerHTML=`
+    <div><span class="seihaNum">${visited.size}</span> <span style="font-size:13px;color:var(--sub)">/ ${STATIONS.length} 駅（${pct}%）</span></div>
+    <div class="seihaBar"><i style="width:${pct}%"></i></div>
+    <div class="seihaSub">残り <b style="color:var(--accent)">${rest}駅</b>${rest===0?"　全駅制覇です🎉":""}<br>
+      ${st.fy}年度に訪問：<b>${st.inFY}駅</b>　年度末（${st.fy+1}/3/31）まであと <b>${st.days}日</b><br>
+      ${st.undated>0?`<span style="color:var(--sub)">※ ${st.undated}駅は訪問日が未記録（日付を持つ前のチェック分）</span><br>`:""}
+      ${regionLine}</div>`;
+}
+
+/* ---------- あと何回の遠征で終わるか（未訪問駅を塊に分ける） ---------- */
+// 単連結クラスタリング：駅間の実道路時間がしきい値以下なら同じ塊
+function clusterRest(thresholdMin=45){
+  const rest=STATIONS.map((s,i)=>i).filter(i=>!visited.has(STATIONS[i].id));
+  if(!rest.length) return [];
+  const parent=Object.fromEntries(rest.map(i=>[i,i]));
+  const find=x=>{ while(parent[x]!==x){ parent[x]=parent[parent[x]]; x=parent[x]; } return x; };
+  const uni=(a,b)=>{ a=find(a); b=find(b); if(a!==b) parent[a]=b; };
+  for(let a=0;a<rest.length;a++)
+    for(let b=a+1;b<rest.length;b++)
+      if(stMin(rest[a],rest[b])<=thresholdMin) uni(rest[a],rest[b]);
+  const groups={};
+  rest.forEach(i=>{ const r=find(i); (groups[r]=groups[r]||[]).push(i); });
+  return Object.values(groups).sort((a,b)=>b.length-a.length);
+}
+// 塊の中を最短で回った時の走行時間（起点＝塊の中で最も北西の駅）
+function clusterCost(idxs){
+  if(idxs.length===1) return {min:0, km:0};
+  let total=0, km=0, cur=idxs[0];
+  const used=new Set([cur]);
+  while(used.size<idxs.length){
+    let best=null, bm=Infinity;
+    idxs.forEach(j=>{ if(used.has(j)) return; const m=stMin(cur,j); if(m<bm){bm=m; best=j;} });
+    total+=bm; km+=stKm(cur,best); used.add(best); cur=best;
+  }
+  return {min:total, km};
+}
+function renderExpedition(){
+  const box=document.getElementById("expBox"); if(!box) return;
+  const dayMin=(+document.getElementById("expH").value)*60;
+  const stay=20;
+  const groups=clusterRest(30);
+  box.innerHTML="";
+  if(!groups.length){ box.innerHTML='<div class="empty">未訪問の駅はありません。全駅制覇です🎉</div>'; return; }
+  // 現在地が決まっていれば「近い塊から」並べる（取りかかりやすい順）
+  if(here){
+    groups.sort((a,b)=>{
+      const da=Math.min(...a.map(i=>originMinTo(STATIONS[i])));
+      const db=Math.min(...b.map(i=>originMinTo(STATIONS[i])));
+      return da-db;
+    });
+  }
+  let totalDays=0;
+  groups.forEach(g=>{
+    const c=clusterCost(g);
+    const need=c.min+stay*g.length;
+    const days=Math.max(1, Math.ceil(need/dayMin));
+    totalDays+=days;
+    const susp=g.filter(i=>isSuspended(STATIONS[i]));
+    const regions=[...new Set(g.map(i=>STATIONS[i].region))];
+    const munis=[...new Set(g.map(i=>STATIONS[i].muni.replace(/[市町村]$/,"")))];
+    const title=regions.join("・")+(munis.length<=2?`（${munis.join("・")}）`:"");
+    let access="";
+    if(here){
+      const near=g.reduce((m,i)=>{ const t=originMinTo(STATIONS[i]); return t<m.t?{t,i}:m; }, {t:Infinity,i:g[0]});
+      access=`${here.label}から いちばん近い駅（${STATIONS[near.i].name}）まで 約${fmtMin(near.t)}<br>`;
+    }
+    const split = days>=4 ? `<span style="color:var(--accent)">${days}日は長丁場。${Math.ceil(days/2)}日×2回に分けるのが現実的です</span><br>` : "";
+    const it=document.createElement("div"); it.className="expItem";
+    it.innerHTML=`<div class="eh"><b>${g.length}駅</b><span class="ot2">${title}</span><span>${days===1?"日帰り":days+"日"}</span></div>
+      <div class="ed">${access}${split}${susp.length?`<span style="color:var(--accent)">${susp.map(i=>STATIONS[i].name).join("・")} は長期休館の可能性。公式で確認を</span><br>`:""}塊の中の移動 約${fmtKm(c.km)}・${fmtMin(c.min)}／滞在20分×${g.length}駅<br>
+      ${g.length<=4?g.map(i=>STATIONS[i].name).join("・"):g.slice(0,3).map(i=>STATIONS[i].name).join("・")+" ほか"+(g.length-3)+"駅"}</div>`;
+    const b=document.createElement("button");
+    b.textContent="⚑ この塊に旗を立てる";
+    b.onclick=()=>{ g.forEach(i=>trip.add(STATIONS[i].id)); save(); toast(`⚑ ${g.length}駅に旗を立てました。「めぐる」で順番を組めます`); switchPane("plan"); };
+    it.appendChild(b);
+    box.appendChild(it);
+  });
+  const sum=document.createElement("div"); sum.className="seihaSub"; sum.style.marginTop="8px";
+  sum.innerHTML=`合計 <b style="color:var(--accent)">${groups.length}回の遠征・のべ${totalDays}日</b>で全駅制覇の見込み（1日${(+document.getElementById("expH").value).toFixed(1)}時間で計算${here?"、近い塊から順に表示":""}）<br>移動時間は実際の道路距離、滞在は1駅20分で見ています。`;
+  box.appendChild(sum);
+}
+document.getElementById("expH").oninput=e=>{ document.getElementById("expHOut").textContent=(+e.target.value).toFixed(1)+"時間"; renderExpedition(); };
+
 /* ---------- 記録 ---------- */
 function renderProgress(){ document.querySelector("#progress b").textContent=visited.size; }
 function renderLog(){
@@ -1650,7 +2023,7 @@ function renderLog(){
   });
 }
 document.getElementById("exportBtn").onclick=()=>{
-  const blob=new Blob([JSON.stringify({app:"michinoeki",exported:new Date().toISOString(),visited:[...visited],want:[...want],trip:[...trip]},null,1)],{type:"application/json"});
+  const blob=new Blob([JSON.stringify({app:"michinoeki",exported:new Date().toISOString(),visited:[...visited],want:[...want],trip:[...trip],visitDate},null,1)],{type:"application/json"});
   const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="廻_道の駅記録.json"; a.click();
   toast("記録を書き出しました");
 };
@@ -1666,6 +2039,7 @@ document.getElementById("importFile").onchange=e=>{
       d.visited.forEach(id=>{ if(IDX[id]!=null) visited.add(id); });
       (d.want||[]).forEach(id=>{ if(IDX[id]!=null) want.add(id); });
       (d.trip||[]).forEach(id=>{ if(IDX[id]!=null) trip.add(id); });
+      Object.entries(d.visitDate||{}).forEach(([id,ds])=>{ if(IDX[id]!=null && !visitDate[id]) visitDate[id]=ds; });
       save(); toast(`読み込みました（${before}→${visited.size}駅）`);
     }catch{ toast("このファイルは読み込めませんでした。書き出したファイルを選んでください"); }
   };
@@ -1674,6 +2048,7 @@ document.getElementById("importFile").onchange=e=>{
 
 /* ---------- 起動 ---------- */
 renderProgress(); renderLog(); renderMap(); renderWantCount(); renderOriginBadges(); renderFirstUI(); renderDestUI();
+renderSeiha(); renderExpedition();
 restorePlan();
 
 /* ---------- PWA ---------- */
