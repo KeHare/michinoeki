@@ -111,6 +111,41 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 .sheetBtns .firstBtn{background:var(--card);color:var(--primary);border:1px solid var(--primary)}
 .sheetBtns .firstBtn.on{background:var(--primary);color:#fff;border:none}
 .gmaps{width:100%;padding:11px;border:1px solid var(--ink);border-radius:var(--radius);background:var(--card);color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;margin-top:9px}
+.editHint{font-size:11px;color:var(--sub);background:var(--primary-soft);border-radius:8px;padding:7px 10px;margin-bottom:8px;line-height:1.5}
+.editHint b{color:var(--primary)}
+.eRow{display:flex;align-items:center;gap:8px;padding:9px 2px;border-bottom:1px solid var(--line)}
+.eRow.moving{background:var(--gold-soft);border-radius:8px}
+.eHead,.eFoot{font-size:11px;color:var(--sub);padding:6px 4px;background:var(--primary-soft);border-radius:8px;margin:2px 0}
+.eHead b,.eFoot b{color:var(--primary)}
+.eRow .eNum{cursor:pointer;box-shadow:0 0 0 1px var(--line);width:26px;height:26px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700;font-size:12px;flex-shrink:0}
+.eRow.fixed .eNum{background:var(--primary);color:#fff}
+.eRow .eInfo{flex:1;min-width:0}
+.eRow .eInfo .en{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eRow .eInfo .em{font-size:10px;color:var(--sub)}
+.eRow button{flex-shrink:0;width:40px;height:40px;border-radius:9px;border:1px solid var(--line);background:var(--card);font-size:15px;cursor:pointer;color:var(--ink)}
+.eRow button:disabled{opacity:.25}
+.eRow .eMove.on{background:var(--gold);border-color:var(--gold);color:#fff}
+.eRow .eDel{color:var(--accent)}
+.eSlot{display:block;width:100%;text-align:center;border:1px dashed var(--gold);background:var(--gold-soft);color:#8a6c22;border-radius:8px;padding:13px 0;font-size:13px;font-weight:700;cursor:pointer;margin:5px 0}
+.eRest{display:block;width:100%;text-align:center;border:none;background:var(--primary);color:#fff;border-radius:9px;padding:11px 0;font-size:12px;font-weight:700;cursor:pointer;margin:5px 0}
+.eCancel{position:sticky;bottom:0;z-index:20;display:flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border-radius:10px;padding:9px 12px;margin-top:8px;font-size:12px}
+.eCancel b{color:var(--gold)}
+.eCancel button{margin-left:auto;flex-shrink:0;border:1px solid rgba(255,255,255,.5);background:transparent;color:#fff;border-radius:8px;padding:6px 13px;font-size:12px;font-weight:700;cursor:pointer}
+.eRow .eInfo .em .eta{color:var(--ink);font-weight:700}
+.eRow .eInfo .em .etaLate{color:var(--accent);font-weight:700}
+.autoBackBtn{border:1px solid var(--line);background:var(--card);color:var(--sub);border-radius:999px;padding:3px 11px;font-size:11px;font-weight:700;cursor:pointer;margin-left:6px}
+.undoBtn{background:none;border:1px solid rgba(255,255,255,.6);color:#fff;border-radius:999px;padding:2px 10px;font-size:12px;margin-left:10px;cursor:pointer}
+.editBtns{display:flex;gap:6px;margin-top:10px}
+.editBtns button{flex:1;padding:10px 0;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.editBtns .editDone{background:var(--primary);color:#fff;border:none}
+.editBtns .editAuto{color:var(--sub)}
+.eResult{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px;margin-top:6px;font-size:13px;color:var(--ink);cursor:pointer}
+.eResult small{display:block;color:var(--sub);font-size:11px}
+.openWarn{display:inline-block;border-radius:5px;padding:1px 7px;font-size:10px;font-weight:700;margin-left:5px}
+.openWarn.ng{background:#fbe9e4;color:var(--accent)}
+.openWarn.soft{background:#f6f0dc;color:#8a6c22}
+.openWarn.ok{background:#e6efe7;color:var(--green)}
+.manualBadge{display:inline-block;background:var(--gold-soft);color:#8a6c22;border-radius:999px;padding:2px 10px;font-size:11px;font-weight:700;margin-bottom:6px}
 .shareRow{display:flex;gap:8px;margin-top:9px}
 .shareBtn{flex:1;padding:11px;border:none;border-radius:var(--radius);background:var(--primary);color:#fff;font-size:13px;font-weight:700;cursor:pointer}
 .shareBtn.sub{background:var(--card);color:var(--primary);border:1px solid var(--primary)}
@@ -214,6 +249,7 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
         <div class="slider"><label>めぐる数</label><input type="range" id="planN" min="2" max="15" value="6"><output id="planNOut">6駅</output></div>
         <div class="slider"><label>1駅の滞在</label><input type="range" id="planStay" min="10" max="60" step="5" value="20"><output id="planStayOut">20分</output></div>
         <div class="timeRow">
+          <label>出発日 <input type="date" id="depDate"></label>
           <label>出発時刻 <input type="time" id="depTime" value="09:00"></label>
           <label>終了リミット <input type="time" id="limitTime"></label>
         </div>
@@ -245,6 +281,22 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
         <h2 id="planTitle">巡回ルート</h2>
         <div class="summary" id="planSummary"></div>
         <div id="planList"></div>
+        <div id="editRow">
+          <button class="gmaps" id="planEditBtn">≡ 順番を自分で決める</button>
+        </div>
+        <div id="editPanel" style="display:none">
+          <div class="editHint"><b>⇅</b> を押してから「ここに入れる」を押すと、その駅がその場所へ移ります。<br>移動中に出る <b>⚡ここから先はおまかせ</b> を押すと、そこまでは今の順のまま、<b>その先だけ自動で最短</b>に並べ替えます。</div>
+          <div id="editList"></div>
+          <div class="editBtns">
+            <button class="editAdd" id="editAddBtn">＋ 駅を足す</button>
+            <button class="editAuto" id="editAutoBtn">↺ ぜんぶ最短に</button>
+            <button class="editDone" id="editDoneBtn">✓ この順で決める</button>
+          </div>
+          <div id="editAddBox" style="display:none;margin-top:8px">
+            <input type="search" id="editSearch" placeholder="駅名・市町村で探して追加" style="width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:var(--card);color:var(--ink)">
+            <div id="editSearchResults"></div>
+          </div>
+        </div>
         <button class="gmaps" id="planGmaps">Googleマップでこのルートを開く</button>
         <div class="shareRow">
           <button class="shareBtn" id="planShareBtn">📤 このプランを共有</button>
@@ -317,6 +369,7 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 const LS_VISITED = "michinoeki.visited.v1";
 const LS_WANT = "michinoeki.want.v1";
 const LS_TRIP = "michinoeki.trip.v1";
+const LS_PLAN = "michinoeki.plan.v1";
 let visited = new Set(JSON.parse(localStorage.getItem(LS_VISITED) || "[]"));
 let want = new Set(JSON.parse(localStorage.getItem(LS_WANT) || "[]"));
 let trip = new Set(JSON.parse(localStorage.getItem(LS_TRIP) || "[]"));
@@ -328,6 +381,11 @@ let originKm = null;          // 現在地→各駅の実道路km（OSRM精緻�
 let currentPlan = [];         // 駅idの配列（地図表示用）
 let currentChain = [];        // プランの行程 {i, km, min}（タイムライン再計算用）
 let currentStay = {};         // 駅idごとの個別滞在分（未設定はスライダー値）
+let manualOrder = false;      // 順番を手で決めたか（自動最短に戻すまで保持）
+let autoOrder = [];           // 生成直後の自動最短順（駅index配列）。「自動に戻す」の基準
+let autoCost = null;          // 自動最短のコスト {km,min}。手動との差分表示用
+let manualSnapshot = null;    // 自動に戻す直前の手動順（取り消し用）
+let movingPos = null;         // 編集モードで「移動中」の行位置（null=なし）
 let firstIdx = null;          // 最初に立ち寄る駅のindex（起点とは別。null=自動）
 let dest = null;              // 終着点 {lat, lon, label}（なし=最後の駅で終わり）
 let destIdx = null;           // 終着点が道の駅のときの駅index（マトリクス直参照用）
@@ -407,6 +465,18 @@ function toast(msg){
   const t=document.getElementById("toast");
   t.textContent=msg; t.classList.add("show");
   clearTimeout(t._tm); t._tm=setTimeout(()=>t.classList.remove("show"), Math.min(9000, 2200+msg.length*60));
+}
+// 取り消しボタン付きトースト（10秒）。入力済みの並びを失わせないため
+function toastUndo(msg, undoLabel, onUndo){
+  const t=document.getElementById("toast");
+  t.innerHTML="";
+  t.appendChild(document.createTextNode(msg));
+  const b=document.createElement("button"); b.className="undoBtn"; b.textContent="⟲ "+undoLabel;
+  b.onclick=()=>{ t.classList.remove("show"); onUndo(); };
+  t.appendChild(b);
+  t.style.pointerEvents="auto";
+  t.classList.add("show");
+  clearTimeout(t._tm); t._tm=setTimeout(()=>{ t.classList.remove("show"); t.style.pointerEvents="none"; }, 10000);
 }
 function switchPane(name){
   document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on", x.dataset.pane===name));
@@ -809,12 +879,305 @@ function showPlan(title, chain){
   currentPlan=chain.map(c=>STATIONS[c.i].id);
   currentChain=chain;
   currentStay={}; // 新しいプランでは個別滞在をリセット（スライダー値が既定に戻る）
+  manualOrder=false; movingPos=null; manualSnapshot=null;
+  autoOrder=chain.map(c=>c.i); autoCost=routeCost(autoOrder);
+  const ep=document.getElementById("editPanel");
+  if(ep){ ep.style.display="none"; document.getElementById("editRow").style.display=""; document.getElementById("editAddBox").style.display="none";
+          document.getElementById("planList").style.display=""; document.getElementById("planGmaps").style.display=""; }
   document.getElementById("planTitle").textContent=title;
   renderPlanList();
   document.getElementById("planCard").style.display="block";
-  renderMap(); switchPane("plan"); toast("プランを立てました");
+  renderMap(); switchPane("plan"); savePlan(); toast("プランを立てました");
 }
 const stayOf = id => currentStay[id]!=null ? currentStay[id] : +document.getElementById("planStay").value;
+// 起点→…→（終着点 or 起点へ戻る）の総走行。マトリクス参照のみなので一瞬
+function routeCost(order){
+  if(!order || !order.length || !here) return null;
+  const ch=chainFromRoute(order);
+  let km=0, min=0; ch.forEach(c=>{ km+=c.km; min+=c.min; });
+  const last=order[order.length-1];
+  if(dest){ km+=destKmFrom(last); min+=destMinFrom(last); }
+  else if(hereIdx!=null){ km+=stKm(last,hereIdx); min+=stMin(last,hereIdx); }
+  else { const d=haversine(STATIONS[last],here)*ROAD_FACTOR; km+=d; min+=calMin(d/AVG_KMH*60, d); }
+  return {km, min};
+}
+
+/* ---------- 到着時刻に開いているか（着いたのに閉まっていた、を防ぐ） ---------- */
+// 出発日（未指定なら今日）
+function planDate(){
+  const v=document.getElementById("depDate").value;
+  const d = v ? new Date(v+"T00:00:00") : new Date();
+  return isNaN(d) ? new Date() : d;
+}
+const WDNAME=["日","月","火","水","木","金","土"];
+// arriveMin は出発日0時からの通算分（翌日にまたぐ場合は1440以上）
+function openStatus(s, arriveMin){
+  const base=planDate();
+  const dayAdd=Math.floor(arriveMin/1440), tod=((arriveMin%1440)+1440)%1440;
+  const d=new Date(base.getTime()+dayAdd*86400000);
+  const mon=d.getMonth()+1, dow=d.getDay();
+  const hi=s.holidayInfo||{};
+  // 休館日
+  if(hi.weekdays && hi.weekdays.includes(dow)) return {lv:"ng", label:`${WDNAME[dow]}曜は休館`, note:s.holiday};
+  if(hi.newyear && ((mon===12 && d.getDate()>=29) || (mon===1 && d.getDate()<=4))) return {lv:"ng", label:"年末年始は休館", note:s.holiday};
+  // 営業時間（その月に該当するレンジ。なければ通年レンジ、それもなければ全レンジ）
+  const rs=s.hoursRange||[];
+  if(!rs.length) return {lv:"soft", label:"時間は要確認", note:s.hours||""};
+  let cand=rs.filter(r=>r.m && r.m.includes(mon));
+  if(!cand.length) cand=rs.filter(r=>!r.m);
+  if(!cand.length) cand=rs;
+  const inAny=cand.some(r=> tod>=r.o && tod<=r.c );
+  if(inAny){
+    // 閉館30分前より後なら「まもなく閉館」
+    const tight=cand.some(r=> tod>=r.o && tod<=r.c && r.c-tod<=30 );
+    if(tight) return {lv:"soft", label:"閉館まぎわ", note:cand.map(r=>fmtHM(r.o)+"〜"+fmtHM(r.c)).join(" / ")};
+    return {lv:"ok", label:"", note:cand.map(r=>fmtHM(r.o)+"〜"+fmtHM(r.c)).join(" / ")};
+  }
+  const earliest=Math.min(...cand.map(r=>r.o)), latest=Math.max(...cand.map(r=>r.c));
+  if(tod<earliest) return {lv:"ng", label:`開館前（${fmtHM(earliest)}〜）`, note:cand.map(r=>fmtHM(r.o)+"〜"+fmtHM(r.c)).join(" / ")};
+  return {lv:"ng", label:`閉館後（〜${fmtHM(latest)}）`, note:cand.map(r=>fmtHM(r.o)+"〜"+fmtHM(r.c)).join(" / ")};
+}
+// 冬季は要確認の駅か
+const winterCaution = (s)=> (s.holidayInfo||{}).winter;
+
+/* ---------- 立てたプランの保存・復元（着信やアプリ終了で消さない） ---------- */
+function savePlan(){
+  try{
+    if(!currentChain.length){ localStorage.removeItem(LS_PLAN); return; }
+    localStorage.setItem(LS_PLAN, JSON.stringify({
+      v:1, saved:Date.now(),
+      title:document.getElementById("planTitle").textContent,
+      order:orderOf(), autoOrder, manual:manualOrder,
+      stay:currentStay, first:firstIdx,
+      here, hereIdx, dest, destIdx,
+      dep:document.getElementById("depTime").value,
+      depDate:document.getElementById("depDate").value,
+      limit:document.getElementById("limitTime").value,
+    }));
+  }catch{}
+}
+function restorePlan(){
+  let d=null;
+  try{ d=JSON.parse(localStorage.getItem(LS_PLAN)||"null"); }catch{}
+  if(!d || !Array.isArray(d.order) || !d.order.length) return;
+  // 7日以上前のプランは復元しない（古い行程が勝手に出てくる方が混乱する）
+  if(d.saved && Date.now()-d.saved > 7*86400000){ localStorage.removeItem(LS_PLAN); return; }
+  if(d.order.some(j=>!STATIONS[j])) return;   // データ更新で駅数が変わった場合は諦める
+  here=d.here||null; hereIdx=(d.hereIdx!=null)?d.hereIdx:null;
+  dest=d.dest||null; destIdx=(d.destIdx!=null)?d.destIdx:null;
+  firstIdx=(d.first!=null)?d.first:null;
+  currentStay=d.stay||{}; autoOrder=d.autoOrder||[]; manualOrder=!!d.manual;
+  if(d.dep) document.getElementById("depTime").value=d.dep;
+  if(d.depDate) document.getElementById("depDate").value=d.depDate;
+  if(d.limit) document.getElementById("limitTime").value=d.limit;
+  currentChain=chainFromRoute(d.order);
+  currentPlan=d.order.map(j=>STATIONS[j].id);
+  autoCost=autoOrder.length?routeCost(autoOrder):null;
+  document.getElementById("planTitle").textContent=d.title||"巡回ルート";
+  document.getElementById("planCard").style.display="block";
+  renderOriginBadges(); renderFirstUI(); renderDestUI(); renderPlanList(); renderMap();
+  toast("前回のプランを復元しました");
+}
+
+/* ---------- 順番を自分で決める（編集モード） ---------- */
+// 駅indexの並びから行程を組み直して再描画。手で触ったら manualOrder を立てる
+function applyOrder(order, manual=true){
+  currentChain = chainFromRoute(order);
+  currentPlan = order.map(j=>STATIONS[j].id);
+  if(manual) manualOrder = true;
+  // 「①最初の駅」を手で先頭から動かしたら、固定は解除して表示の食い違いを防ぐ
+  if(firstIdx!=null && order.length && order[0]!==firstIdx && order.includes(firstIdx)){
+    firstIdx=null; renderFirstUI();
+    toast("先頭から動かしたので「①最初の駅」の指定は外しました");
+  }
+  renderPlanList(); renderMap();   // renderPlanList の末尾で renderEditList も走る
+  savePlan();
+}
+const orderOf = () => currentChain.map(c=>c.i);
+function moveTo(from, to){
+  const o=orderOf();
+  if(to>from) to--;                      // 抜いた分だけ詰まる
+  if(from===to){ movingPos=null; renderEditList(); return; }
+  const [x]=o.splice(from,1); o.splice(to,0,x);
+  movingPos=null;
+  applyOrder(o);
+  toast(STATIONS[x].name+" を "+(to+1)+"番目に");
+}
+function removeAt(pos){
+  const o=orderOf();
+  if(o.length<=1){ toast("これ以上は減らせません"); return; }
+  const [x]=o.splice(pos,1);
+  if(firstIdx===x){ firstIdx=null; renderFirstUI(); }   // 外した駅が先頭固定なら解除
+  movingPos=null;
+  applyOrder(o);
+  toast(STATIONS[x].name+" を外しました");
+}
+function addStation(j){
+  const o=orderOf();
+  if(o.includes(j)){ toast("すでにプランに入っています"); return; }
+  // いちばん遠回りが小さくなる位置に入れる（末尾固定だと大回りになりやすい）
+  const base=routeCost(o);
+  let bestPos=o.length, bestCost=Infinity;
+  for(let k=0;k<=o.length;k++){
+    const cand=[...o.slice(0,k), j, ...o.slice(k)];
+    const c=routeCost(cand);
+    if(c && c.min<bestCost){ bestCost=c.min; bestPos=k; }
+  }
+  const add = (base && bestCost<Infinity) ? bestCost-base.min : null;
+  o.splice(bestPos,0,j);
+  applyOrder(o);
+  toast(`${STATIONS[j].name} を ${bestPos+1}番目に入れました${add!=null?`（＋${fmtMin(Math.max(0,add))}）`:""}。⇅ で動かせます`);
+}
+// pos番目までは今の順のまま、その先だけ最短に並べ替える（途中まで手で決めて残りはおまかせ）
+function optimizeAfter(pos){
+  const o=orderOf();
+  if(pos>=o.length-1){ toast("これより先に駅がありません"); return; }
+  const head=o.slice(0,pos+1), tail=o.slice(pos+1);
+  const route=optimizeOrder(tail, head[head.length-1]);
+  movingPos=null;
+  applyOrder([...head, ...route]);
+  toast(`${pos+1}番目まではそのまま、その先の${tail.length}駅を最短順にしました`);
+}
+function autoOptimize(){
+  const o=orderOf();
+  manualSnapshot=[...o];   // 手で並べた順は失わない（取り消せる）
+  const f = (firstIdx!=null && o.includes(firstIdx)) ? firstIdx : null;
+  const rest = f!=null ? o.filter(j=>j!==f) : o;
+  const route = optimizeOrder(rest, f);
+  manualOrder=false; movingPos=null;
+  applyOrder(f!=null ? [f, ...route] : route, false);
+  toastUndo("↺ いちばん短い順に並べ替えました", "手の並びに戻す", ()=>{
+    if(!manualSnapshot) return;
+    applyOrder([...manualSnapshot]); manualSnapshot=null;
+    toast("手で並べた順に戻しました");
+  });
+}
+// プランカードから「自動最短に戻す」
+function revertToAuto(){
+  if(!autoOrder.length) return;
+  const cur=orderOf();
+  const valid=autoOrder.filter(j=>cur.includes(j));
+  const extra=cur.filter(j=>!autoOrder.includes(j));
+  manualSnapshot=[...cur];
+  manualOrder=false; movingPos=null;
+  applyOrder([...valid, ...extra], false);
+  toastUndo("↺ 自動最短の順に戻しました", "手の並びに戻す", ()=>{
+    if(!manualSnapshot) return;
+    applyOrder([...manualSnapshot]); manualSnapshot=null;
+    toast("手で並べた順に戻しました");
+  });
+}
+function renderEditList(){
+  const box=document.getElementById("editList");
+  if(!box || document.getElementById("editPanel").style.display==="none") return;
+  box.innerHTML="";
+  const dep=parseHM(document.getElementById("depTime").value) ?? 540;
+  const limit=parseHM(document.getElementById("limitTime").value);
+  const slot = pos => {
+    const b=document.createElement("button"); b.className="eSlot"; b.textContent="ここに入れる";
+    b.onclick=()=>moveTo(movingPos, pos);
+    return b;
+  };
+  // 起点（非操作行）
+  if(here){
+    const h=document.createElement("div"); h.className="eHead";
+    h.innerHTML=`⚐ 起点 <b>${here.label}</b>　${fmtHM(dep)}発`;
+    box.appendChild(h);
+  }
+  let t=dep;
+  currentChain.forEach((c,i)=>{
+    if(movingPos!=null && i!==movingPos && i!==movingPos+1) box.appendChild(slot(i));
+    const s2=STATIONS[c.i];
+    const arrive=t+c.min, st=stayOf(s2.id);
+    const late = limit!=null && arrive>limit;
+    const os = openStatus(s2, arrive);
+    const row=document.createElement("div");
+    row.className="eRow"+(movingPos===i?" moving":"")+(firstIdx===c.i?" fixed":"");
+    row.innerHTML=`<div class="eNum">${i+1}</div>
+      <div class="eInfo"><div class="en">${s2.name}${os.lv!=="ok"?`<span class="openWarn ${os.lv}">${os.label}</span>`:""}</div>
+      <div class="em">${fmtKm(c.km)}・約${fmtMin(c.min)} ／ <span class="${late?"etaLate":"eta"}">${late?"⚠ ":""}着 ${fmtHM(arrive)}</span>${firstIdx===c.i?"　①最初の駅":""}</div></div>
+      <button class="eMove ${movingPos===i?"on":""}" title="移動">⇅</button>
+      <button class="eDel" title="外す">✕</button>`;
+    // 番号は詳細シート（プラン一覧の番号と同じ挙動に揃える）
+    row.querySelector(".eNum").onclick=()=>openSheet(s2);
+    row.querySelector(".eMove").onclick=()=>{
+      movingPos = (movingPos===i) ? null : i;
+      renderEditList();
+      if(movingPos!=null){
+        toast("入れたい場所の「ここに入れる」を押してください");
+        const r=document.querySelectorAll("#editList .eRow")[movingPos];
+        if(r) r.scrollIntoView({block:"center", behavior:"smooth"});
+      }
+    };
+    const del=row.querySelector(".eDel");
+    del.onclick=()=>removeAt(i);
+    if(movingPos!=null && movingPos!==i) del.disabled=true;  // 移動中の誤タップで駅が消えるのを防ぐ
+    box.appendChild(row);
+    // 移動中の駅の直下に「ここから先はおまかせ」（隠し機能だった optimizeAfter を明示化）
+    if(movingPos===i && i<currentChain.length-1){
+      const rest=document.createElement("button"); rest.className="eRest";
+      rest.textContent=`⚡ ここから先はおまかせ（残り${currentChain.length-1-i}駅を最短に）`;
+      rest.onclick=()=>optimizeAfter(i);
+      box.appendChild(rest);
+    }
+    t=arrive+st;
+  });
+  if(movingPos!=null && movingPos!==currentChain.length-1) box.appendChild(slot(currentChain.length));
+  // 終着点／帰着（非操作行）
+  if(currentChain.length){
+    const last=currentChain[currentChain.length-1].i;
+    const f=document.createElement("div"); f.className="eFoot";
+    if(dest){ f.innerHTML=`🏁 終着点 <b>${dest.label}</b>　着 ${fmtHM(t+destMinFrom(last))}ごろ`; box.appendChild(f); }
+    else if(here){
+      const bm = hereIdx!=null ? stMin(last,hereIdx) : (()=>{const d=haversine(STATIONS[last],here)*ROAD_FACTOR; return calMin(d/AVG_KMH*60,d);})();
+      f.innerHTML=`🏠 <b>${here.label}</b>に戻るなら 着 ${fmtHM(t+bm)}ごろ`; box.appendChild(f);
+    }
+  }
+  // 移動中のキャンセルバー（スクロールしても何を掴んでいるか見失わない）
+  if(movingPos!=null){
+    const bar=document.createElement("div"); bar.className="eCancel";
+    bar.innerHTML=`<b>${movingPos+1}</b> ${STATIONS[currentChain[movingPos].i].name} を移動中<button>やめる</button>`;
+    bar.querySelector("button").onclick=()=>{ movingPos=null; renderEditList(); };
+    box.appendChild(bar);
+  }
+}
+document.getElementById("planEditBtn").onclick=()=>{
+  const p=document.getElementById("editPanel");
+  p.style.display="block"; document.getElementById("editRow").style.display="none";
+  document.getElementById("planList").style.display="none";   // 同じ並びが二重に出るのを避ける
+  document.getElementById("planGmaps").style.display="none";
+  movingPos=null; renderEditList();
+  p.scrollIntoView({behavior:"smooth", block:"start"});
+};
+document.getElementById("editDoneBtn").onclick=()=>{
+  document.getElementById("editPanel").style.display="none";
+  document.getElementById("editRow").style.display="";
+  document.getElementById("editAddBox").style.display="none";
+  document.getElementById("planList").style.display="";
+  document.getElementById("planGmaps").style.display="";
+  movingPos=null; renderPlanList();
+  document.getElementById("planCard").scrollIntoView({behavior:"smooth", block:"start"});
+};
+document.getElementById("editAutoBtn").onclick=autoOptimize;
+document.getElementById("editAddBtn").onclick=()=>{
+  const b=document.getElementById("editAddBox");
+  b.style.display = b.style.display==="none" ? "block" : "none";
+  if(b.style.display==="block") document.getElementById("editSearch").focus();
+};
+document.getElementById("editSearch").oninput=e=>{
+  const q=normQ(e.target.value); const box=document.getElementById("editSearchResults");
+  box.innerHTML="";
+  if(!q){ return; }
+  const inPlan=new Set(orderOf());
+  const hits=STATIONS.filter(s=>!inPlan.has(IDX[s.id]) && matchQuery(s,q)).slice(0,8);
+  if(!hits.length){ box.innerHTML='<div class="note">見つかりませんでした</div>'; return; }
+  hits.forEach(s=>{
+    const b=document.createElement("button"); b.className="eResult";
+    b.innerHTML=`<b>${s.name}</b><small>${s.muni}${visited.has(s.id)?"・訪問済み":""}</small>`;
+    b.onclick=()=>{ addStation(IDX[s.id]); e.target.value=""; box.innerHTML=""; };
+    box.appendChild(b);
+  });
+};
 // 出発時刻・滞在から各駅の着/発を計算して行程を描く。リミット超過は⚠で知らせる
 function renderPlanList(){
   if(!currentChain.length) return;
@@ -873,7 +1236,18 @@ function renderPlanList(){
     goalHtml=` → 終着点 ${dest.label} 着 <b>${fmtHM(arrive)}</b>`;
     backInfo={min, km, arrive, isDest:true};
   }
-  let sm=`<b>${currentChain.length}駅</b>／走行 <b>${fmtKm(totalKm)}</b>・運転 <b>${fmtMin(totalDrive)}</b>・滞在 <b>${fmtMin(totalStay)}</b><br>出発 <b>${fmtHM(dep)}</b> → 最終駅を出るのは <b>${fmtHM(t)}</b>${goalHtml}${backHtml}`;
+  let manualHtml="";
+  if(manualOrder){
+    let diff="";
+    const cur=routeCost(orderOf());
+    if(cur && autoCost){
+      const dk=cur.km-autoCost.km, dm=cur.min-autoCost.min;
+      diff = dm>5 ? `（自動最短より +${fmtKm(Math.max(0,dk))}・+${fmtMin(dm)}）`
+           : dm<-5 ? `（自動最短より ${fmtKm(dk)}・${fmtMin(dm)}）` : "（自動最短とほぼ同じ）";
+    }
+    manualHtml=`<span class="manualBadge">≡ 手で並べた順${diff}</span><button class="autoBackBtn" id="revertAutoBtn">↺ 自動最短に戻す</button><br>`;
+  }
+  let sm=manualHtml+`<b>${currentChain.length}駅</b>／走行 <b>${fmtKm(totalKm)}</b>・運転 <b>${fmtMin(totalDrive)}</b>・滞在 <b>${fmtMin(totalStay)}</b><br>出発 <b>${fmtHM(dep)}</b> → 最終駅を出るのは <b>${fmtHM(t)}</b>${goalHtml}${backHtml}`;
   lastPlanShare={title:document.getElementById("planTitle").textContent, origin:here?here.label:"", dep, rows:shareRows, lastDepart:t, back:backInfo, dest:dest?dest.label:null, totalKm, totalDrive, totalStay, limit, over, okCount};
   if(limit!=null){
     sm += over
@@ -881,6 +1255,8 @@ function renderPlanList(){
       : `<br><span style="color:var(--green);font-weight:700">✓ リミット${fmtHM(limit)}内に${dest?"全駅めぐって終着点に着けます":"全駅回れます"}</span>`;
   }
   document.getElementById("planSummary").innerHTML=sm;
+  const rb=document.getElementById("revertAutoBtn"); if(rb) rb.onclick=revertToAuto;
+  renderEditList(); savePlan();
 }
 let lastPlanShare=null;
 const APP_URL="https://michinoeki-meguri.pages.dev/";
@@ -1298,6 +1674,7 @@ document.getElementById("importFile").onchange=e=>{
 
 /* ---------- 起動 ---------- */
 renderProgress(); renderLog(); renderMap(); renderWantCount(); renderOriginBadges(); renderFirstUI(); renderDestUI();
+restorePlan();
 
 /* ---------- PWA ---------- */
 if("serviceWorker" in navigator){

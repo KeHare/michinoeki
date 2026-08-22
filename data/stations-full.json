@@ -36,7 +36,20 @@
   ],
   "onsen": false,
   "mapcode": "180 276 299",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/172/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/172/",
+  "hoursRange": [
+   {
+    "o": 510,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk002",
@@ -79,7 +92,45 @@
   ],
   "onsen": false,
   "mapcode": "450 668 665",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/202/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/202/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1140,
+    "m": [
+     7,
+     8
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    4
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk003",
@@ -118,7 +169,42 @@
   ],
   "onsen": false,
   "mapcode": "550 324 065",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/222/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/222/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     10,
+     11,
+     12
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     6,
+     9
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1140,
+    "m": [
+     7,
+     8
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk004",
@@ -161,7 +247,17 @@
   ],
   "onsen": false,
   "mapcode": "630 263 487",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/263/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/263/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1140,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk005",
@@ -203,7 +299,32 @@
   ],
   "onsen": false,
   "mapcode": "651 488 715",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/292/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/292/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1050,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk006",
@@ -237,7 +358,39 @@
   ],
   "onsen": false,
   "mapcode": "482 512 034",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/321/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/321/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ]
+   },
+   {
+    "o": 600,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk007",
@@ -273,7 +426,22 @@
   ],
   "onsen": false,
   "mapcode": "759 672 364",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/364/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/364/",
+  "hoursRange": [
+   {
+    "o": 510,
+    "c": 1045,
+    "m": null
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "open": true
+  }
  },
  {
   "id": "hk008",
@@ -314,7 +482,36 @@
   ],
   "onsen": false,
   "mapcode": "830 170 345",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/389/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/389/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk009",
@@ -355,7 +552,36 @@
   ],
   "onsen": false,
   "mapcode": "396 201 700",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/407/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/407/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk011",
@@ -397,7 +623,36 @@
   ],
   "onsen": true,
   "mapcode": "462 849 696",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/440/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/440/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk012",
@@ -435,7 +690,11 @@
   ],
   "onsen": false,
   "mapcode": "684 226 222",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/458/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/458/",
+  "hoursRange": [],
+  "holidayInfo": {
+   "open": true
+  }
  },
  {
   "id": "hk013",
@@ -472,7 +731,36 @@
   ],
   "onsen": true,
   "mapcode": "404 641 776",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/472/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/472/",
+  "hoursRange": [
+   {
+    "o": 600,
+    "c": 1320,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ]
+   },
+   {
+    "o": 660,
+    "c": 1260,
+    "m": [
+     1,
+     2,
+     3,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk014",
@@ -505,7 +793,39 @@
   ],
   "onsen": true,
   "mapcode": "398 812 643",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/499/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/499/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk016",
@@ -547,7 +867,45 @@
   ],
   "onsen": false,
   "mapcode": "637 191 563",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/531/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/531/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1140,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1080,
+    "m": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk017",
@@ -587,7 +945,15 @@
   ],
   "onsen": false,
   "mapcode": "179 870 735",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/546/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/546/",
+  "hoursRange": [
+   {
+    "o": 480,
+    "c": 1320,
+    "m": null
+   }
+  ],
+  "holidayInfo": {}
  },
  {
   "id": "hk018",
@@ -626,7 +992,36 @@
   ],
   "onsen": false,
   "mapcode": "564 481 197",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/564/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/564/",
+  "hoursRange": [
+   {
+    "o": 525,
+    "c": 1320,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 525,
+    "c": 1050,
+    "m": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk019",
@@ -668,7 +1063,36 @@
   ],
   "onsen": false,
   "mapcode": "482 581 642",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/576/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/576/",
+  "hoursRange": [
+   {
+    "o": 510,
+    "c": 1080,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk020",
@@ -707,7 +1131,20 @@
   ],
   "onsen": false,
   "mapcode": "797 362 060",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/588/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/588/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk021",
@@ -741,7 +1178,36 @@
   ],
   "onsen": true,
   "mapcode": "718 750 199",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/611/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/611/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk022",
@@ -778,7 +1244,20 @@
   ],
   "onsen": false,
   "mapcode": "801 585 133",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/626/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/626/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk023",
@@ -811,7 +1290,28 @@
   ],
   "onsen": false,
   "mapcode": "490 638 587",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/641/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/641/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1050,
+    "m": [
+     3,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     3,
+     10
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk024",
@@ -849,7 +1349,17 @@
   ],
   "onsen": true,
   "mapcode": "402 600 136",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/685/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/685/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1050,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk025",
@@ -885,7 +1395,36 @@
   ],
   "onsen": true,
   "mapcode": "718 058 035",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/704/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/704/",
+  "hoursRange": [
+   {
+    "o": 510,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk026",
@@ -920,7 +1459,21 @@
   ],
   "onsen": false,
   "mapcode": "360 047 633",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/722/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/722/",
+  "hoursRange": [
+   {
+    "o": 510,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1,
+    3
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk027",
@@ -958,7 +1511,20 @@
   ],
   "onsen": false,
   "mapcode": "959 184 151",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/744/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/744/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk028",
@@ -998,7 +1564,46 @@
   ],
   "onsen": false,
   "mapcode": "957 166 097",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/768/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/768/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 990,
+    "m": [
+     4,
+     6,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 570,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true,
+   "winter": true
+  }
  },
  {
   "id": "hk029",
@@ -1032,7 +1637,36 @@
   ],
   "onsen": false,
   "mapcode": "587 509 044",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/795/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/795/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk030",
@@ -1074,7 +1708,36 @@
   ],
   "onsen": true,
   "mapcode": "556 212 058",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/810/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/810/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "open": true
+  }
  },
  {
   "id": "hk031",
@@ -1116,7 +1779,36 @@
   ],
   "onsen": false,
   "mapcode": "124 802 667",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/825/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/825/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1140,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk032",
@@ -1151,7 +1843,17 @@
   ],
   "onsen": true,
   "mapcode": "684 761 001",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/842/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/842/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1050,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk034",
@@ -1191,7 +1893,20 @@
   ],
   "onsen": false,
   "mapcode": "807 791 625",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/870/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/870/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk035",
@@ -1226,7 +1941,17 @@
   ],
   "onsen": false,
   "mapcode": "775 271 531",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/881/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/881/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk036",
@@ -1268,7 +1993,39 @@
   ],
   "onsen": false,
   "mapcode": "396 660 710",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/892/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/892/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk037",
@@ -1308,7 +2065,36 @@
   ],
   "onsen": false,
   "mapcode": "230 416 583",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/906/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/906/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk038",
@@ -1347,7 +2133,27 @@
   ],
   "onsen": false,
   "mapcode": "694 128 825",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/921/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/921/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1140,
+    "m": null
+   },
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1,
+    4
+   ],
+   "newyear": true,
+   "winter": true
+  }
  },
  {
   "id": "hk039",
@@ -1387,7 +2193,31 @@
   ],
   "onsen": true,
   "mapcode": "321 498 699",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/937/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/937/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1050,
+    "m": [
+     4,
+     11
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     3,
+     11
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk040",
@@ -1426,7 +2256,17 @@
   ],
   "onsen": false,
   "mapcode": "398 174 591",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/949/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/949/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk041",
@@ -1461,7 +2301,39 @@
   ],
   "onsen": false,
   "mapcode": "584 340 772",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/961/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/961/",
+  "hoursRange": [
+   {
+    "o": 510,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk042",
@@ -1494,7 +2366,17 @@
   ],
   "onsen": false,
   "mapcode": "676 526 243",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/973/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/973/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk043",
@@ -1530,7 +2412,39 @@
   ],
   "onsen": true,
   "mapcode": "551 068 790",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/988/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/988/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     11,
+     12
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk044",
@@ -1574,7 +2488,22 @@
   ],
   "onsen": false,
   "mapcode": "424 524 068",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/1001/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/1001/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   },
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk045",
@@ -1614,7 +2543,22 @@
   ],
   "onsen": false,
   "mapcode": "570 701 311",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/1016/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/1016/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1050,
+    "m": null
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk046",
@@ -1653,7 +2597,45 @@
   ],
   "onsen": false,
   "mapcode": "179 572 231",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/1026/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/1026/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     5,
+     7,
+     8
+    ]
+   },
+   {
+    "o": 600,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk047",
@@ -1694,7 +2676,39 @@
   ],
   "onsen": true,
   "mapcode": "159 308 680",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/1039/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/1039/",
+  "hoursRange": [
+   {
+    "o": 570,
+    "c": 1140,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 570,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    4
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk048",
@@ -1733,7 +2747,17 @@
   ],
   "onsen": false,
   "mapcode": "79 659 005",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/1677/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/1677/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk049",
@@ -1769,7 +2793,23 @@
   ],
   "onsen": false,
   "mapcode": "164 665 391",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/1699/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/1699/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true,
+   "winter": true
+  }
  },
  {
   "id": "hk050",
@@ -1804,7 +2844,15 @@
   ],
   "onsen": true,
   "mapcode": "508 700 668",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/1747/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/1747/",
+  "hoursRange": [
+   {
+    "o": 420,
+    "c": 1260,
+    "m": null
+   }
+  ],
+  "holidayInfo": {}
  },
  {
   "id": "hk051",
@@ -1842,7 +2890,28 @@
   ],
   "onsen": false,
   "mapcode": "955 054 609",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/1787/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/1787/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     10
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk052",
@@ -1880,7 +2949,20 @@
   ],
   "onsen": false,
   "mapcode": "404 476 412",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/1951/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/1951/",
+  "hoursRange": [
+   {
+    "o": 570,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk053",
@@ -1913,7 +2995,36 @@
   ],
   "onsen": false,
   "mapcode": "587 880 649",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/1975/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/1975/",
+  "hoursRange": [
+   {
+    "o": 480,
+    "c": 1260,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 480,
+    "c": 1200,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk054",
@@ -1954,7 +3065,94 @@
   ],
   "onsen": false,
   "mapcode": "680 591 232",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2010/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2010/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1050,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1050,
+    "m": [
+     4,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1050,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1050,
+    "m": [
+     1,
+     2,
+     3,
+     12
+    ]
+   },
+   {
+    "o": 660,
+    "c": 840,
+    "m": null
+   },
+   {
+    "o": 1020,
+    "c": 1170,
+    "m": null
+   },
+   {
+    "o": 540,
+    "c": 1050,
+    "m": null
+   },
+   {
+    "o": 780,
+    "c": 1170,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2,
+    3,
+    4
+   ],
+   "newyear": true,
+   "winter": true
+  }
  },
  {
   "id": "hk055",
@@ -1994,7 +3192,21 @@
   ],
   "onsen": true,
   "mapcode": "701 707 392",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2038/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2038/",
+  "hoursRange": [
+   {
+    "o": 600,
+    "c": 1260,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2,
+    3
+   ],
+   "winter": true
+  }
  },
  {
   "id": "hk056",
@@ -2031,7 +3243,39 @@
   ],
   "onsen": true,
   "mapcode": "179 016 095",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2066/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2066/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 600,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk057",
@@ -2067,7 +3311,39 @@
   ],
   "onsen": false,
   "mapcode": "521 616 360",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2088/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2088/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk058",
@@ -2104,7 +3380,36 @@
   ],
   "onsen": false,
   "mapcode": "179 428 493",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2107/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2107/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk059",
@@ -2142,7 +3447,39 @@
   ],
   "onsen": false,
   "mapcode": "734 353 064",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2143/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2143/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 600,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk060",
@@ -2181,7 +3518,39 @@
   ],
   "onsen": false,
   "mapcode": "360 100 682",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2164/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2164/",
+  "hoursRange": [
+   {
+    "o": 600,
+    "c": 1080,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk061",
@@ -2212,7 +3581,39 @@
   ],
   "onsen": false,
   "mapcode": "582 417 198",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2179/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2179/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk062",
@@ -2247,7 +3648,48 @@
   ],
   "onsen": false,
   "mapcode": "490 740 675",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2200/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2200/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     11,
+     12
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk063",
@@ -2276,7 +3718,36 @@
   ],
   "onsen": false,
   "mapcode": "757 353 706",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2217/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2217/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 600,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk064",
@@ -2315,7 +3786,36 @@
   ],
   "onsen": false,
   "mapcode": "396 468 632",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2232/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2232/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk065",
@@ -2354,7 +3854,17 @@
   ],
   "onsen": false,
   "mapcode": "159 780 165",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2253/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2253/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk066",
@@ -2393,7 +3903,17 @@
   ],
   "onsen": false,
   "mapcode": "79 312 818",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2272/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2272/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1260,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk067",
@@ -2432,7 +3952,28 @@
   ],
   "onsen": false,
   "mapcode": "694 513 125",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2298/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2298/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     3,
+     11
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk068",
@@ -2467,7 +4008,39 @@
   ],
   "onsen": false,
   "mapcode": "1009 014 048",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2325/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2325/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk069",
@@ -2501,7 +4074,36 @@
   ],
   "onsen": false,
   "mapcode": "596 464 768",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2355/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2355/",
+  "hoursRange": [
+   {
+    "o": 480,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk070",
@@ -2538,7 +4140,36 @@
   ],
   "onsen": false,
   "mapcode": "958 054 745",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2375/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2375/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1050,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk071",
@@ -2580,7 +4211,36 @@
   ],
   "onsen": false,
   "mapcode": "179 713 628",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2390/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2390/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk072",
@@ -2618,7 +4278,17 @@
   ],
   "onsen": false,
   "mapcode": "640 473 826",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2424/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2424/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk073",
@@ -2660,7 +4330,36 @@
   ],
   "onsen": false,
   "mapcode": "385 256 470",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2442/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2442/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk074",
@@ -2699,7 +4398,39 @@
   ],
   "onsen": true,
   "mapcode": "530 150 728",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2467/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2467/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1140,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    0
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk075",
@@ -2739,7 +4470,17 @@
   ],
   "onsen": true,
   "mapcode": "454 858 427",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2483/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2483/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1050,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk076",
@@ -2775,7 +4516,17 @@
   ],
   "onsen": false,
   "mapcode": "638 225 457",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2502/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2502/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk077",
@@ -2809,7 +4560,39 @@
   ],
   "onsen": false,
   "mapcode": "730 057 177",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2519/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2519/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk078",
@@ -2844,7 +4627,20 @@
   ],
   "onsen": false,
   "mapcode": "662 297 033",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2533/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2533/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    3
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk079",
@@ -2884,7 +4680,17 @@
   ],
   "onsen": false,
   "mapcode": "305 278 722",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2548/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2548/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk080",
@@ -2921,7 +4727,17 @@
   ],
   "onsen": false,
   "mapcode": "455 261 556",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2569/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2569/",
+  "hoursRange": [
+   {
+    "o": 480,
+    "c": 1320,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "open": true
+  }
  },
  {
   "id": "hk081",
@@ -2958,7 +4774,27 @@
   ],
   "onsen": true,
   "mapcode": "866 463 154",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2585/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2585/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   },
+   {
+    "o": 540,
+    "c": 900,
+    "m": [
+     1
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk082",
@@ -2993,7 +4829,39 @@
   ],
   "onsen": false,
   "mapcode": "343 644 422",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2605/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2605/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 600,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk083",
@@ -3032,7 +4900,20 @@
   ],
   "onsen": false,
   "mapcode": "787 429 109",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2623/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2623/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk084",
@@ -3073,7 +4954,39 @@
   ],
   "onsen": false,
   "mapcode": "481 591 031",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2639/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2639/",
+  "hoursRange": [
+   {
+    "o": 480,
+    "c": 1080,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 480,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    4
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk085",
@@ -3115,7 +5028,17 @@
   ],
   "onsen": false,
   "mapcode": "113 889 736",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2654/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2654/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "open": true
+  }
  },
  {
   "id": "hk086",
@@ -3150,7 +5073,36 @@
   ],
   "onsen": false,
   "mapcode": "389 406 345",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2668/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2668/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk087",
@@ -3190,7 +5142,36 @@
   ],
   "onsen": false,
   "mapcode": "230 220 351",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2684/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2684/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk088",
@@ -3224,7 +5205,39 @@
   ],
   "onsen": false,
   "mapcode": "730 464 294",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2702/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2702/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk089",
@@ -3265,7 +5278,38 @@
   ],
   "onsen": true,
   "mapcode": "385 337 162",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2715/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2715/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1050,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 570,
+    "c": 990,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk090",
@@ -3300,7 +5344,39 @@
   ],
   "onsen": true,
   "mapcode": "495 041 459",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2732/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2732/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk091",
@@ -3338,7 +5414,39 @@
   ],
   "onsen": false,
   "mapcode": "321 393 176",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2751/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2751/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk092",
@@ -3376,7 +5484,28 @@
   ],
   "onsen": false,
   "mapcode": "702 018 074",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2766/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2766/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     11
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     4,
+     11
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk093",
@@ -3417,7 +5546,36 @@
   ],
   "onsen": true,
   "mapcode": "470 617 881",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2782/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2782/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk094",
@@ -3459,7 +5617,17 @@
   ],
   "onsen": true,
   "mapcode": "508 514 308",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2805/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2805/",
+  "hoursRange": [
+   {
+    "o": 420,
+    "c": 1320,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "open": true
+  }
  },
  {
   "id": "hk095",
@@ -3496,7 +5664,17 @@
   ],
   "onsen": true,
   "mapcode": "424 509 348",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2824/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2824/",
+  "hoursRange": [
+   {
+    "o": 600,
+    "c": 1260,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "open": true
+  }
  },
  {
   "id": "hk096",
@@ -3535,7 +5713,20 @@
   ],
   "onsen": true,
   "mapcode": "385 674 718",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2841/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2841/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    3
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk097",
@@ -3573,7 +5764,42 @@
   ],
   "onsen": false,
   "mapcode": "389 011 693",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2854/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2854/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     3,
+     4,
+     5,
+     9,
+     10,
+     11
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     6,
+     7,
+     8
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk098",
@@ -3609,7 +5835,39 @@
   ],
   "onsen": false,
   "mapcode": "692 513 293",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2870/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2870/",
+  "hoursRange": [
+   {
+    "o": 600,
+    "c": 1260,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1200,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk099",
@@ -3649,7 +5907,20 @@
   ],
   "onsen": false,
   "mapcode": "894 824 850",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2884/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2884/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    4
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk100",
@@ -3686,7 +5957,17 @@
   ],
   "onsen": false,
   "mapcode": "642 575 095",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2905/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2905/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1140,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk101",
@@ -3725,7 +6006,17 @@
   ],
   "onsen": true,
   "mapcode": "444 439 496",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2920/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2920/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1260,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk102",
@@ -3765,7 +6056,36 @@
   ],
   "onsen": true,
   "mapcode": "272 440 153",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2939/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2939/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk103",
@@ -3801,7 +6121,22 @@
   ],
   "onsen": false,
   "mapcode": "797 778 157",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2959/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2959/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk104",
@@ -3836,7 +6171,38 @@
   ],
   "onsen": false,
   "mapcode": "321 879 392",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2974/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2974/",
+  "hoursRange": [
+   {
+    "o": 510,
+    "c": 1020,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ]
+  }
  },
  {
   "id": "hk105",
@@ -3874,7 +6240,17 @@
   ],
   "onsen": false,
   "mapcode": "305 678 311",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/2986/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/2986/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk106",
@@ -3910,7 +6286,17 @@
   ],
   "onsen": false,
   "mapcode": "862 028 788",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3007/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3007/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk107",
@@ -3951,7 +6337,38 @@
   ],
   "onsen": false,
   "mapcode": "481 149 722",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3021/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3021/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 780,
+    "m": [
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk108",
@@ -3994,7 +6411,36 @@
   ],
   "onsen": false,
   "mapcode": "113 413 681",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3038/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3038/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk109",
@@ -4033,7 +6479,17 @@
   ],
   "onsen": false,
   "mapcode": "511 530 334",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3057/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3057/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk110",
@@ -4067,7 +6523,15 @@
   ],
   "onsen": false,
   "mapcode": "139 767 407",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3070/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3070/",
+  "hoursRange": [
+   {
+    "o": 360,
+    "c": 1320,
+    "m": null
+   }
+  ],
+  "holidayInfo": {}
  },
  {
   "id": "hk111",
@@ -4101,7 +6565,62 @@
   ],
   "onsen": false,
   "mapcode": "700 080 120",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3083/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3083/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1110,
+    "m": [
+     5,
+     8
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1110,
+    "m": [
+     9
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1080,
+    "m": [
+     10,
+     11,
+     12
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1050,
+    "m": [
+     1,
+     2
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1080,
+    "m": [
+     3,
+     4
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk112",
@@ -4141,7 +6660,36 @@
   ],
   "onsen": false,
   "mapcode": "448 418 657",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3099/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3099/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk113",
@@ -4179,7 +6727,39 @@
   ],
   "onsen": true,
   "mapcode": "744 053 054",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3114/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3114/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 990,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    1
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk114",
@@ -4216,7 +6796,20 @@
   ],
   "onsen": false,
   "mapcode": "353 876 742",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3126/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3126/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    3
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk115",
@@ -4254,7 +6847,9 @@
   ],
   "onsen": true,
   "mapcode": "164 161 803",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3143/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3143/",
+  "hoursRange": [],
+  "holidayInfo": {}
  },
  {
   "id": "hk116",
@@ -4296,7 +6891,17 @@
   ],
   "onsen": false,
   "mapcode": "584 652 050",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3158/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3158/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk117",
@@ -4335,7 +6940,39 @@
   ],
   "onsen": false,
   "mapcode": "744 400 122",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/3174/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/3174/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     3,
+     11
+    ]
+   },
+   {
+    "o": 600,
+    "c": 900,
+    "m": [
+     3,
+     12
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1020,
+    "m": [
+     3,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    3
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk118",
@@ -4371,7 +7008,17 @@
   ],
   "onsen": false,
   "mapcode": "305 050 115",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/13538/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/13538/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk119",
@@ -4412,7 +7059,39 @@
   ],
   "onsen": false,
   "mapcode": "514 024 876",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/13542/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/13542/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11
+    ]
+   },
+   {
+    "o": 600,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    3
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk120",
@@ -4455,7 +7134,43 @@
   ],
   "onsen": false,
   "mapcode": "514 862 216",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/14938/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/14938/",
+  "hoursRange": [
+   {
+    "o": 570,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 570,
+    "c": 1140,
+    "m": [
+     6,
+     7,
+     8
+    ]
+   },
+   {
+    "o": 600,
+    "c": 960,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true,
+   "winter": true
+  }
  },
  {
   "id": "hk121",
@@ -4496,7 +7211,17 @@
   ],
   "onsen": false,
   "mapcode": "86 604 729",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/14941/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/14941/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk122",
@@ -4534,7 +7259,53 @@
   ],
   "onsen": false,
   "mapcode": "349 627 122",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/16028/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/16028/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     3,
+     4,
+     5,
+     9,
+     10,
+     11
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     6,
+     7,
+     8
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     12
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     11
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    3
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk123",
@@ -4575,7 +7346,41 @@
   ],
   "onsen": false,
   "mapcode": "644 748 682",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/19522/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/19522/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1140,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk124",
@@ -4613,7 +7418,36 @@
   ],
   "onsen": false,
   "mapcode": "320 128 740",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/19505/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/19505/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk125",
@@ -4653,7 +7487,17 @@
   ],
   "onsen": false,
   "mapcode": "404 060 330",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/22139/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/22139/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "open": true
+  }
  },
  {
   "id": "hk126",
@@ -4695,7 +7539,17 @@
   ],
   "onsen": false,
   "mapcode": "416 393 039",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/23225/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/23225/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1020,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk127",
@@ -4740,7 +7594,28 @@
   ],
   "onsen": true,
   "mapcode": "424 800 612",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/23227/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/23227/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     4,
+     10
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  },
  {
   "id": "hk128",
@@ -4780,7 +7655,27 @@
   ],
   "onsen": true,
   "mapcode": "369 636 677",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/26870/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/26870/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1140,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ],
+   "newyear": true
+  }
  },
  {
   "id": "hk129",
@@ -4820,7 +7715,36 @@
   ],
   "onsen": false,
   "mapcode": "272 017 828",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/33477/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/33477/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 600,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     4,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "open": true
+  }
  },
  {
   "id": "hk130",
@@ -4860,7 +7784,19 @@
   ],
   "onsen": true,
   "mapcode": "575 322 601",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/53300/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/53300/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1260,
+    "m": null
+   }
+  ],
+  "holidayInfo": {
+   "weekdays": [
+    2
+   ]
+  }
  },
  {
   "id": "hk131",
@@ -4904,6 +7840,35 @@
   ],
   "onsen": false,
   "mapcode": "938 347 483",
-  "url": "https://hokkaido-michinoeki.jp/michinoeki/55776/"
+  "url": "https://hokkaido-michinoeki.jp/michinoeki/55776/",
+  "hoursRange": [
+   {
+    "o": 540,
+    "c": 1080,
+    "m": [
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   },
+   {
+    "o": 540,
+    "c": 1020,
+    "m": [
+     1,
+     2,
+     3,
+     11,
+     12
+    ]
+   }
+  ],
+  "holidayInfo": {
+   "newyear": true
+  }
  }
 ]
