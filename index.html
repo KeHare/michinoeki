@@ -163,6 +163,16 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 .omkCard .ol b{color:var(--ink)}
 .omkCard .obadge{display:inline-block;background:var(--primary-soft);color:var(--primary);border-radius:5px;padding:1px 7px;font-size:10px;font-weight:700;margin-right:4px}
 .omkCard .owarn{color:var(--accent)}
+.mkWrap{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:100%}
+.mk{border-radius:50%;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.mkDot{width:13px;height:13px}
+.mkMark{width:19px;height:19px;font-size:11px}
+.mkPlan{width:26px;height:26px;font-size:12px;font-weight:700;box-shadow:0 1px 5px rgba(0,0,0,.45)}
+.mkHere{width:16px;height:16px;border-width:3px}
+.mkLabel{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:2px;white-space:nowrap;font-size:10px;font-weight:700;color:#243430;background:rgba(255,253,248,.88);border-radius:4px;padding:0 4px;pointer-events:none;text-shadow:0 0 2px #fffdf8}
+.mkLabel.plan{font-size:11px;background:rgba(255,253,248,.95);box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.legend .lg{display:inline-flex;align-items:center;gap:3px;margin:0 6px}
+.legend .lg i{width:9px;height:9px;border-radius:50%;display:inline-block;border:1px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
 .pillRow{padding:1px 0 4px 42px;display:flex;flex-wrap:wrap;gap:4px}
 .pill{display:inline-block;border-radius:5px;padding:2px 8px;font-size:10px;font-weight:700}
 .pill.ng{background:#fbe9e4;color:var(--accent)}
@@ -380,7 +390,7 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
     <section class="pane" id="pane-map">
       <div class="card" style="padding:8px">
         <div id="map"></div>
-        <div class="legend">🟠未訪問　⚪訪問済み　⚑今回　★お気に入り　🔵起点　🏁終着点　番号=プラン　タップで詳細</div>
+        <div class="legend" id="mapLegend"></div>
       </div>
     </section>
 
@@ -540,7 +550,10 @@ function switchPane(name){
   document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on", x.dataset.pane===name));
   document.querySelectorAll(".pane").forEach(x=>x.classList.remove("on"));
   document.getElementById("pane-"+name).classList.add("on");
-  if(name==="map") setTimeout(()=>map.invalidateSize(),60);
+  if(name==="map") setTimeout(()=>{
+    map.invalidateSize();
+    if(pendingFit){ pendingFit=false; fitPlanOnMap(); } else renderMap();
+  },60);
 }
 document.querySelectorAll("nav button").forEach(b=>{ b.onclick=()=>switchPane(b.dataset.pane); });
 
@@ -1039,7 +1052,7 @@ function showPlan(title, chain){
   document.getElementById("planTitle").textContent=title;
   renderPlanList();
   document.getElementById("planCard").style.display="block";
-  renderMap(); switchPane("plan"); savePlan(); toast("プランを立てました");
+  fitPlanOnMap(); switchPane("plan"); savePlan(); toast("プランを立てました");
 }
 const stayOf = id => currentStay[id]!=null ? currentStay[id] : +document.getElementById("planStay").value;
 // 起点→…→（終着点 or 起点へ戻る）の総走行。マトリクス参照のみなので一瞬
@@ -1878,36 +1891,104 @@ function openSheet(s){
 const map=L.map("map",{zoomControl:true}).setView([43.6,142.8],7);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap",maxZoom:18}).addTo(map);
 let markerLayer=L.layerGroup().addTo(map);
+// 駅名の出る／出ないの境目をまたいだ時だけ描き直す
+let mapRedrawTm=null;
+map.on("moveend zoomend", ()=>{
+  clearTimeout(mapRedrawTm);
+  mapRedrawTm=setTimeout(()=>renderMap(), 120);   // 連続操作でちらつかないよう少し待つ
+});
+// 地図の色は「訪問したか」だけを表す。緑＝まだ、赤＝行った。
+const MAP_COL={ yet:"#2e7d32", done:"#c62828", plan:"#1b3a6b", here:"#1a73e8" };
+// このズーム以上で駅名を出す（全道表示では128駅すべてのラベルが重なるため）
+const LABEL_ZOOM=9;
 function renderMap(){
   markerLayer.clearLayers();
   const planIdx=Object.fromEntries(currentPlan.map((id,i)=>[id,i+1]));
-  STATIONS.forEach(s=>{
-    const v=visited.has(s.id), w=want.has(s.id), t=trip.has(s.id), pi=planIdx[s.id];
-    let html, sz;
+  const z=map.getZoom();
+  const showAllLabels = z>=LABEL_ZOOM;
+  // 置いたラベルの矩形。重なるものは出さない（優先度の高い順に置く）
+  const placed=[];
+  // 文字幅の見積もり：全角は約10px、半角・記号は約6px。少し余裕を持たせる
+  const textW=(str)=>{
+    let w=0;
+    for(const ch of str) w += /[\x20-\x7E｡-ﾟ・･]/.test(ch) ? 6 : 10;
+    return w+14;
+  };
+  const place=(lat,lon,name,big)=>{
+    let pt; try{ pt=map.latLngToContainerPoint([lat,lon]); }catch{ return false; }
+    const w=textW(name)*(big?1.1:1), h=17;
+    const r={x1:pt.x-w/2, x2:pt.x+w/2, y1:pt.y+4, y2:pt.y+4+h};
+    if(placed.some(q=>!(r.x2<q.x1||r.x1>q.x2||r.y2<q.y1||r.y1>q.y2))) return false;
+    placed.push(r); return true;
+  };
+  // 起点と終着点のラベルを先に確保（いちばん見失いたくないため最優先）
+  const hereLabelOk = here ? place(here.lat, here.lon, here.label, true) : false;
+  const destLabelOk = dest ? place(dest.lat, dest.lon, dest.label, true) : false;
+  // 優先度：プラン中 → ⚑今回 → ★お気に入り → その他
+  const order=STATIONS.map((s2,i)=>({s:s2,i}))
+    .sort((a,b)=>{
+      const pr=x=>planIdx[x.s.id]?0:(trip.has(x.s.id)?1:(want.has(x.s.id)?2:3));
+      const d=pr(a)-pr(b);
+      return d!==0?d:(planIdx[a.s.id]||0)-(planIdx[b.s.id]||0);
+    });
+  order.forEach(({s:s2})=>{
+    const v=visited.has(s2.id), w=want.has(s2.id), t=trip.has(s2.id), pi=planIdx[s2.id];
+    const col = v?MAP_COL.done:MAP_COL.yet;
+    let dot, sz;
     if(pi){
-      html=`<div style="background:#2e5d4b;color:#fff;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:12px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)">${pi}</div>`; sz=24;
+      // プランの順番は別レイヤー。訪問状態の緑赤とぶつからないよう濃紺で
+      dot=`<span class="mk mkPlan" style="background:${MAP_COL.plan}">${pi}</span>`; sz=26;
     }else if(t){
-      html=`<div style="background:#b45330;color:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:11px;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.35)">⚑</div>`; sz=18;
+      dot=`<span class="mk mkMark" style="background:${col}">⚑</span>`; sz=19;
     }else if(w){
-      html=`<div style="background:#c8a24a;color:#fff;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;font-size:10px;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.35)">★</div>`; sz=16;
+      dot=`<span class="mk mkMark" style="background:${col}">★</span>`; sz=19;
     }else{
-      html=`<div style="background:${v?"#cfc9bb":"#b45330"};border-radius:50%;width:12px;height:12px;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.3)"></div>`; sz=12;
+      dot=`<span class="mk mkDot" style="background:${col}"></span>`; sz=13;
     }
-    const m=L.marker([s.lat,s.lon],{icon:L.divIcon({html,className:"",iconSize:[sz,sz],iconAnchor:[sz/2,sz/2]})});
-    m.on("click",()=>openSheet(s));
+    // 寄せた時は全駅、全道でもプラン中・⚑今回は出す。ただし重なる分は省く
+    const wants = showAllLabels || pi || t;
+    const label = (wants && place(s2.lat, s2.lon, s2.name, !!pi)) ? `<span class="mkLabel${pi?" plan":""}">${s2.name}</span>` : "";
+    const m=L.marker([s2.lat,s2.lon],{
+      icon:L.divIcon({html:`<div class="mkWrap">${dot}${label}</div>`, className:"", iconSize:[sz,sz], iconAnchor:[sz/2,sz/2]}),
+      zIndexOffset: pi?1000:(t?500:(w?300:0))
+    });
+    m.on("click",()=>openSheet(s2));
     markerLayer.addLayer(m);
   });
   if(here){
-    markerLayer.addLayer(L.marker([here.lat,here.lon],{icon:L.divIcon({html:'<div style="background:#1a73e8;border-radius:50%;width:16px;height:16px;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>',className:"",iconSize:[16,16],iconAnchor:[8,8]})}).bindPopup(here.label));
+    markerLayer.addLayer(L.marker([here.lat,here.lon],{icon:L.divIcon({html:`<div class="mkWrap"><span class="mk mkHere" style="background:${MAP_COL.here}"></span>${hereLabelOk?`<span class="mkLabel plan">${here.label}</span>`:""}</div>`,className:"",iconSize:[16,16],iconAnchor:[8,8]}),zIndexOffset:900}));
   }
   if(dest){
-    markerLayer.addLayer(L.marker([dest.lat,dest.lon],{icon:L.divIcon({html:'<div style="font-size:20px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))">🏁</div>',className:"",iconSize:[22,22],iconAnchor:[4,20]})}).bindPopup("終着点："+dest.label));
+    markerLayer.addLayer(L.marker([dest.lat,dest.lon],{icon:L.divIcon({html:`<div class="mkWrap"><span style="font-size:20px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))">🏁</span>${destLabelOk?`<span class="mkLabel plan">${dest.label}</span>`:""}</div>`,className:"",iconSize:[22,22],iconAnchor:[11,20]}),zIndexOffset:900}));
   }
   if(currentPlan.length&&here){
     const pts=[[here.lat,here.lon],...currentPlan.map(id=>[STATIONS[IDX[id]].lat,STATIONS[IDX[id]].lon])];
     if(dest) pts.push([dest.lat,dest.lon]);
-    markerLayer.addLayer(L.polyline(pts,{color:"#2e5d4b",weight:3,dashArray:"6 6",opacity:.8}));
+    markerLayer.addLayer(L.polyline(pts,{color:MAP_COL.plan,weight:3,dashArray:"6 6",opacity:.75}));
   }
+  updateLegend(z);
+}
+// プランの範囲が画面に収まるよう地図を合わせる（回る範囲がひと目でわかるように）
+let pendingFit=false;
+function fitPlanOnMap(){
+  if(!currentPlan.length) return;
+  // 地図タブが隠れているとサイズが0でフィットできない。表示された時に持ち越す
+  if(!document.getElementById("pane-map").classList.contains("on")){ pendingFit=true; renderMap(); return; }
+  const pts=currentPlan.map(id=>[STATIONS[IDX[id]].lat,STATIONS[IDX[id]].lon]);
+  if(here) pts.push([here.lat,here.lon]);
+  if(dest) pts.push([dest.lat,dest.lon]);
+  try{
+    map.fitBounds(L.latLngBounds(pts).pad(0.18), {animate:false, maxZoom:12});
+    renderMap();
+  }catch{}
+}
+function updateLegend(z){
+  const el=document.getElementById("mapLegend"); if(!el) return;
+  el.innerHTML = `<span class="lg"><i style="background:${MAP_COL.yet}"></i>まだ</span>`+
+    `<span class="lg"><i style="background:${MAP_COL.done}"></i>行った</span>`+
+    `<span class="lg"><i style="background:${MAP_COL.plan}"></i>プランの順</span>`+
+    `<span class="lg">⚑今回　★お気に入り</span>`+
+    (z>=LABEL_ZOOM ? "" : `<br><span style="color:var(--sub)">地図を広げると駅名が出ます</span>`);
 }
 
 /* ---------- 制覇の状況 ---------- */
