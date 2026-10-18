@@ -1,0 +1,13 @@
+# 廻（めぐり）Cloudflare Pages 設定
+# デプロイ: このフォルダで `./deploy.sh`（dist/ を組み直してから pages deploy。data/ の生データは含めない）
+#   functions/api/sync.js が合言葉でつなぐ旅帳のAPI（D1）
+name = "michinoeki-meguri"
+compatibility_date = "2026-08-01"
+pages_build_output_dir = "dist"
+
+# 旅帳。KVは別の端末への反映が遅れる（数十秒）ので、相手のスマホにすぐ出るようD1に置く
+#   表の作成: `npx wrangler d1 execute michinoeki-meguri --remote --file=schema.sql`
+[[d1_databases]]
+binding = "DB"
+database_name = "michinoeki-meguri"
+database_id = "f732080c-4b9f-44de-a3c4-b03fae6b4ae0"

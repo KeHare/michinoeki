@@ -9,3 +9,7 @@ data/list_wikitext.txt
 data/overpass_query.txt
 data/wikidata_query.sparql
 .DS_Store
+
+# 公開用の組み立て・wrangler の作業場
+dist/
+.wrangler/

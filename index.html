@@ -236,6 +236,21 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 #toast{position:fixed;bottom:calc(30px + var(--safe));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 18px;border-radius:18px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:2000;max-width:min(92vw,520px);line-height:1.5;text-align:center}
 #toast.show{opacity:.94}
 .empty{text-align:center;color:var(--sub);font-size:13px;padding:24px 8px;line-height:1.8}
+
+/* ふたりでつなぐ（合言葉の旅帳） */
+.hdRight{display:flex;align-items:center;gap:8px;align-self:flex-start;margin-top:10px}  /* タイトルの行にそろえる（下げるとスクロール時にタブに隠れる） */
+#syncChip{display:none;margin:0;border:1px solid var(--primary);background:var(--card);color:var(--primary);border-radius:999px;padding:1px 10px;font-size:10px;font-weight:700;cursor:pointer;letter-spacing:.04em;white-space:nowrap}
+#syncChip.warn{border-color:var(--accent);color:var(--accent)}
+nav button.dot::before{content:"";position:absolute;top:5px;right:16%;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.syncNote{font-size:11px;color:var(--primary);background:var(--primary-soft);border-radius:8px;padding:5px 10px;margin:0 0 8px;line-height:1.6}
+.fld{display:block;font-size:12px;color:var(--sub);margin:10px 0 2px}
+.fld input{display:block;width:100%;margin-top:3px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;background:var(--card);color:var(--ink)}
+.syncOn{font-size:13px;line-height:1.85;background:var(--primary-soft);border-radius:10px;padding:10px 12px}
+.syncOn .pass{font-family:var(--serif);font-size:15px;color:var(--primary);word-break:break-all}
+.syncOn .stl{font-size:11px;color:var(--sub)}
+.pill.next{background:var(--primary);color:#fff}
+.gmaps.go{background:var(--primary);color:#fff;border-color:var(--primary)}
+.gmNote{font-size:11px;color:var(--sub);margin-top:4px}
 </style>
 </head>
 <body>
@@ -245,7 +260,10 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
       <h1>廻<span class="yomi">めぐり</span></h1>
       <small>道の駅めぐり 北海道・128駅</small>
     </div>
-    <div id="progress"><b>0</b> / 128 駅</div>
+    <div class="hdRight">
+      <button id="syncChip">🔗 つながり中</button>
+      <div id="progress"><b>0</b> / 128 駅</div>
+    </div>
   </header>
 
   <nav>
@@ -333,6 +351,7 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
       </div>
       <div class="card" id="planCard" style="display:none">
         <h2 id="planTitle">巡回ルート</h2>
+        <div class="syncNote" id="planSyncNote" style="display:none"></div>
         <div class="summary" id="planSummary"></div>
         <div id="planList"></div>
         <div id="editRow">
@@ -351,11 +370,12 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
             <div id="editSearchResults"></div>
           </div>
         </div>
-        <button class="gmaps" id="planGmaps">Googleマップでこのルートを開く</button>
+        <div id="planGmapsBox"></div>
         <div class="shareRow">
           <button class="shareBtn" id="planShareBtn">📤 このプランを共有</button>
           <button class="shareBtn sub" id="planCopyBtn">📋 テキストをコピー</button>
         </div>
+        <button class="tripReset" id="planTsunaguBtn">🔗 合言葉でつなぐと、もう一台のスマホの「めぐる」にもこのプランが出ます</button>
         <div class="note">駅から駅は実際の道路距離（OSRM）。時間は信号・市街地の減速を上乗せした目安で、Googleマップとおおむね±1割です。各駅の「滞在」を変えると到着・出発時刻が組み直されます。</div>
       </div>
     </section>
@@ -377,6 +397,7 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
       </div>
       <div class="card" id="drvCard" style="display:none">
         <h2>行程表</h2>
+        <div class="syncNote" id="drvSyncNote" style="display:none"></div>
         <div id="drvList"></div>
         <div class="shareRow">
           <button class="shareBtn" id="drvShareBtn">📤 この行程を共有</button>
@@ -396,6 +417,10 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
 
     <!-- 記録 -->
     <section class="pane" id="pane-log">
+      <div class="card" id="syncCard">
+        <h2>ふたりでつなぐ（合言葉）</h2>
+        <div id="syncBox"></div>
+      </div>
       <div class="card" id="seihaCard">
         <h2>制覇の状況</h2>
         <div id="seihaBox"></div>
@@ -414,7 +439,7 @@ main{flex:1;padding:12px 12px calc(30px + var(--safe))}
           <button id="importBtn">記録を読み込む</button>
           <input type="file" id="importFile" accept=".json" style="display:none">
         </div>
-        <div class="note">訪問チェックと行きたいリストはこの端末に保存されます。機種変更の前に「書き出す」でファイルに残しておくと安心です。データが消えることはありません。</div>
+        <div class="note">訪問チェックと行きたいリストはこの端末に保存されます。機種変更の前に「書き出す」でファイルに残しておくと安心です。データが消えることはありません。合言葉でつないでいれば、新しいスマホで同じ合言葉を入れるだけでも戻ります。</div>
       </div>
     </section>
   </main>
@@ -440,6 +465,23 @@ let want = new Set(JSON.parse(localStorage.getItem(LS_WANT) || "[]"));
 let trip = new Set(JSON.parse(localStorage.getItem(LS_TRIP) || "[]"));
 // 訪問日 {駅id:"YYYY-MM-DD"}。日付のない過去の記録も visited には残るので失われない
 let visitDate = (()=>{ try{ return JSON.parse(localStorage.getItem(LS_VDATE)||"{}"); }catch{ return {}; } })();
+// 合言葉の旅帳まわり（関数は下の「ふたりでつなぐ」）
+const LS_STAMP = "michinoeki.stamp.v1";     // 訪問・★・⚑ をいつ付けた／外したか {visited:{駅id:[1|0, 時刻]}, …}
+const LS_DRIVE = "michinoeki.drive.v1";     // とまり旅の直近の行程
+const LS_SYNC = "michinoeki.sync.v1";       // {pass, k, name, marks, ver}
+const LS_PRESYNC = "michinoeki.presync.v1"; // つなぐ前の記録の控え
+let stamps = (()=>{ try{ return JSON.parse(localStorage.getItem(LS_STAMP)||"null"); }catch{ return null; } })();
+if(!stamps){
+  // 旅帳より前からある記録は「時刻0」で控える（つないだ時、ふたりの古い記録はどちらも残る）
+  stamps={};
+  [["visited",visited],["want",want],["trip",trip]].forEach(([k,set])=>{ stamps[k]={}; set.forEach(id=>{ stamps[k][id]=[1,0]; }); });
+  try{ localStorage.setItem(LS_STAMP, JSON.stringify(stamps)); }catch{}
+}
+let syncCfg = (()=>{ try{ return JSON.parse(localStorage.getItem(LS_SYNC)||"null"); }catch{ return null; } })();
+let syncTm=null, syncBusy=false, syncDirty=false, syncAgain=false, syncStatus="", syncLastAt=0, syncArrival="";
+let planMeta={t:0, by:""}, planSig="";     // プランの中身が変わった時刻と、変えた端末の呼び名
+let driveMeta={t:0, by:""}, driveSig="";
+let pendingPlan=null;                      // 並べ替えの途中に届いたプラン（編集を閉じたら当てる）
 let searchQuery = "";
 let here = null;              // {lat, lon, label}
 let hereIdx = null;           // 起点が駅のときの駅index（マトリクス直参照用）
@@ -523,11 +565,29 @@ const parseHM = v => { if(!v) return null; const [h,m]=v.split(":").map(Number);
 const fmtHM = t => { t=Math.round(t); const over=t>=1440; t=((t%1440)+1440)%1440; return String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0")+(over?"（翌日）":""); };
 
 function save(){
+  if(stampMarks()) syncSoon();
+  writeMarks(); renderAfterMarks();
+}
+function writeMarks(){
   localStorage.setItem(LS_VISITED, JSON.stringify([...visited]));
   localStorage.setItem(LS_WANT, JSON.stringify([...want]));
   localStorage.setItem(LS_TRIP, JSON.stringify([...trip]));
   localStorage.setItem(LS_VDATE, JSON.stringify(visitDate));
+  try{ localStorage.setItem(LS_STAMP, JSON.stringify(stamps)); }catch{}
+}
+function renderAfterMarks(){
   renderProgress(); renderNear(); renderLog(); renderMap(); renderWantCount(); renderSeiha(); renderExpedition();
+  if(currentChain.length) renderPlanList();   // 訪問チェックで「次はここ」「残りをGoogleマップで」を進める
+}
+// 訪問・★・⚑ の付け外しに時刻を押す。各ボタンは集合を触って save() を呼ぶだけなので、ここで差分を見る
+function stampMarks(){
+  const now=Date.now(); let changed=false;
+  [["visited",visited],["want",want],["trip",trip]].forEach(([k,set])=>{
+    const m=stamps[k]=stamps[k]||{};
+    set.forEach(id=>{ if(!m[id] || !m[id][0]){ m[id]=[1,now]; changed=true; } });
+    Object.keys(m).forEach(id=>{ if(m[id][0] && !set.has(id)){ m[id]=[0,now]; changed=true; } });
+  });
+  return changed;
 }
 function toast(msg){
   const t=document.getElementById("toast");
@@ -547,7 +607,7 @@ function toastUndo(msg, undoLabel, onUndo){
   clearTimeout(t._tm); t._tm=setTimeout(()=>{ t.classList.remove("show"); t.style.pointerEvents="none"; }, 10000);
 }
 function switchPane(name){
-  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on", x.dataset.pane===name));
+  document.querySelectorAll("nav button").forEach(x=>{ x.classList.toggle("on", x.dataset.pane===name); if(x.dataset.pane===name) x.classList.remove("dot"); });
   document.querySelectorAll(".pane").forEach(x=>x.classList.remove("on"));
   document.getElementById("pane-"+name).classList.add("on");
   if(name==="map") setTimeout(()=>{
@@ -1048,7 +1108,7 @@ function showPlan(title, chain){
   autoOrder=chain.map(c=>c.i); autoCost=routeCost(autoOrder);
   const ep=document.getElementById("editPanel");
   if(ep){ ep.style.display="none"; document.getElementById("editRow").style.display=""; document.getElementById("editAddBox").style.display="none";
-          document.getElementById("planList").style.display=""; document.getElementById("planGmaps").style.display=""; }
+          document.getElementById("planList").style.display=""; document.getElementById("planGmapsBox").style.display=""; }
   document.getElementById("planTitle").textContent=title;
   renderPlanList();
   document.getElementById("planCard").style.display="block";
@@ -1182,19 +1242,29 @@ function planSunset(){
 }
 
 /* ---------- 立てたプランの保存・復元（着信やアプリ終了で消さない） ---------- */
+// プランの中身。区間の km・分（legs）も持つので、届いた先でも同じ着時刻が出る
+function planContent(){
+  return {
+    v:1, title:document.getElementById("planTitle").textContent,
+    order:orderOf(), legs:currentChain.map(c=>[+(+c.km).toFixed(2), +(+c.min).toFixed(1)]),
+    autoOrder, manual:manualOrder,
+    stay:currentStay, first:firstIdx,
+    here, hereIdx, dest, destIdx,
+    dep:document.getElementById("depTime").value,
+    depDate:document.getElementById("depDate").value,
+    limit:document.getElementById("limitTime").value,
+    stayDef:+document.getElementById("planStay").value,
+    fuel:document.getElementById("fuelRange").value,
+  };
+}
 function savePlan(){
   try{
     if(!currentChain.length){ localStorage.removeItem(LS_PLAN); return; }
-    localStorage.setItem(LS_PLAN, JSON.stringify({
-      v:1, saved:Date.now(),
-      title:document.getElementById("planTitle").textContent,
-      order:orderOf(), autoOrder, manual:manualOrder,
-      stay:currentStay, first:firstIdx,
-      here, hereIdx, dest, destIdx,
-      dep:document.getElementById("depTime").value,
-      depDate:document.getElementById("depDate").value,
-      limit:document.getElementById("limitTime").value,
-    }));
+    const c=planContent(), sig=JSON.stringify(c);
+    // 描き直しのたびに呼ばれるので、中身が変わった時だけ「いつ・誰が直したか」を進めて旅帳へ送る
+    if(sig!==planSig){ planSig=sig; planMeta={t:Date.now(), by:myName()}; syncSoon(); }
+    localStorage.setItem(LS_PLAN, JSON.stringify({...c, saved:Date.now(), t:planMeta.t, by:planMeta.by}));
+    renderSyncNotes();
   }catch{}
 }
 function restorePlan(){
@@ -1203,21 +1273,39 @@ function restorePlan(){
   if(!d || !Array.isArray(d.order) || !d.order.length) return;
   // 7日以上前のプランは復元しない（古い行程が勝手に出てくる方が混乱する）
   if(d.saved && Date.now()-d.saved > 7*86400000){ localStorage.removeItem(LS_PLAN); return; }
-  if(d.order.some(j=>!STATIONS[j])) return;   // データ更新で駅数が変わった場合は諦める
+  if(applyPlan(d)) toast("前回のプランを復元しました");
+}
+// 保存してあった／旅帳から届いたプランを画面に戻す。t・by は届いたものを引き継ぐ（送り返しの往復を起こさない）
+function applyPlan(d){
+  if(!d || !Array.isArray(d.order) || !d.order.length) return false;
+  if(d.order.some(j=>!STATIONS[j])) return false;   // データ更新で駅数が変わった場合は諦める
+  const hereChanged = JSON.stringify(here)!==JSON.stringify(d.here||null);
+  const destChanged = JSON.stringify(dest)!==JSON.stringify(d.dest||null);
   here=d.here||null; hereIdx=(d.hereIdx!=null)?d.hereIdx:null;
   dest=d.dest||null; destIdx=(d.destIdx!=null)?d.destIdx:null;
+  if(hereChanged){ originMin=null; originKm=null; }
+  if(destChanged){ destMinArr=null; destKmArr=null; }
   firstIdx=(d.first!=null)?d.first:null;
   currentStay=d.stay||{}; autoOrder=d.autoOrder||[]; manualOrder=!!d.manual;
-  if(d.dep) document.getElementById("depTime").value=d.dep;
-  if(d.depDate) document.getElementById("depDate").value=d.depDate;
-  if(d.limit) document.getElementById("limitTime").value=d.limit;
-  currentChain=chainFromRoute(d.order);
+  movingPos=null; manualSnapshot=null;
+  document.getElementById("depTime").value=d.dep||"09:00";
+  document.getElementById("depDate").value=d.depDate||"";
+  document.getElementById("limitTime").value=d.limit||"";
+  if(d.stayDef){ document.getElementById("planStay").value=d.stayDef; document.getElementById("planStayOut").textContent=d.stayDef+"分"; }
+  if(d.fuel!=null) document.getElementById("fuelRange").value=d.fuel;
+  currentChain = (Array.isArray(d.legs) && d.legs.length===d.order.length)
+    ? d.order.map((j,k)=>({i:j, km:+d.legs[k][0], min:+d.legs[k][1]}))
+    : chainFromRoute(d.order);
   currentPlan=d.order.map(j=>STATIONS[j].id);
   autoCost=autoOrder.length?routeCost(autoOrder):null;
   document.getElementById("planTitle").textContent=d.title||"巡回ルート";
   document.getElementById("planCard").style.display="block";
+  planMeta={t:d.t||d.saved||0, by:d.by||""};
+  planSig=JSON.stringify(planContent());
   renderOriginBadges(); renderFirstUI(); renderDestUI(); renderPlanList(); renderMap();
-  toast("前回のプランを復元しました");
+  if(hereChanged && here && hereIdx==null) refineOrigin();
+  if(destChanged && dest && destIdx==null) refineDest();
+  return true;
 }
 
 /* ---------- 順番を自分で決める（編集モード） ---------- */
@@ -1386,7 +1474,7 @@ document.getElementById("planEditBtn").onclick=()=>{
   const p=document.getElementById("editPanel");
   p.style.display="block"; document.getElementById("editRow").style.display="none";
   document.getElementById("planList").style.display="none";   // 同じ並びが二重に出るのを避ける
-  document.getElementById("planGmaps").style.display="none";
+  document.getElementById("planGmapsBox").style.display="none";
   movingPos=null; renderEditList();
   p.scrollIntoView({behavior:"smooth", block:"start"});
 };
@@ -1395,9 +1483,11 @@ document.getElementById("editDoneBtn").onclick=()=>{
   document.getElementById("editRow").style.display="";
   document.getElementById("editAddBox").style.display="none";
   document.getElementById("planList").style.display="";
-  document.getElementById("planGmaps").style.display="";
+  document.getElementById("planGmapsBox").style.display="";
   movingPos=null; renderPlanList();
   document.getElementById("planCard").scrollIntoView({behavior:"smooth", block:"start"});
+  // 並べ替えの途中に旅帳からプランが届いていて、こちらが何も直していなければ、ここで当てる
+  if(pendingPlan){ const p=pendingPlan; pendingPlan=null; if((p.t||0)>planMeta.t && applyPlan(p)){ mapFollowNewest(); toast(`🔗 ${whoBy(p.by)}のプランを表示しました`); } }
 };
 document.getElementById("editAutoBtn").onclick=autoOptimize;
 document.getElementById("editAddBtn").onclick=()=>{
@@ -1429,6 +1519,12 @@ function renderPlanList(){
   const fuelCap=+document.getElementById("fuelRange").value;
   let fuelRun=0, fuelWarns=0, stampNg=0;
   const sunset=planSunset();
+  // 旅の途中か：出発日（なければ今日）に訪問チェックした駅を「済み」とみなし、残りの先頭を「次」にする
+  const tripDay=document.getElementById("depDate").value || ymd(new Date());
+  const planIds=currentChain.map(c=>STATIONS[c.i].id);
+  const doneIds=planIds.filter(id=>visited.has(id) && visitDate[id]===tripDay);
+  const restIds=planIds.filter(id=>!doneIds.includes(id));
+  const nextId = doneIds.length ? restIds[0] : null;
   currentChain.forEach((c,i)=>{
     const s=STATIONS[c.i];
     const arrive=t+c.min, st=stayOf(s.id), depart=arrive+st;
@@ -1458,6 +1554,7 @@ function renderPlanList(){
     // 押印・営業・冬季の注意
     const ss=stampStatus(s, arrive), osx=openStatus(s, arrive);
     const notes=[];
+    if(s.id===nextId) notes.push(`<span class="pill next">▶ 次はここ</span>`);
     if(osx.lv==="ng") notes.push(`<span class="pill ng">${osx.label}</span>`);
     else if(osx.lv==="soft") notes.push(`<span class="pill soft">${osx.label}</span>`);
     if(!ss.ok) notes.push(`<span class="pill ng">${ss.label}</span>`);
@@ -1535,6 +1632,11 @@ function renderPlanList(){
   if(fuelWarns>0) sm += `<br><span style="color:var(--sub)">⛽ 途中 ${fuelWarns}回の給油を見込んでいます</span>`;
   document.getElementById("planSummary").innerHTML=sm;
   const rb=document.getElementById("revertAutoBtn"); if(rb) rb.onclick=revertToAuto;
+  // Googleマップ：旅の途中なら「いまいる場所から残り」を先に。ルート全体はいつでも
+  const gbox=document.getElementById("planGmapsBox"); gbox.innerHTML="";
+  if(doneIds.length && restIds.length)
+    gmapsButtons(gbox, restIds, null, dest, `▶ いまいる場所から残り${restIds.length}駅をGoogleマップで`, "gmaps go");
+  gmapsButtons(gbox, planIds, here, dest, "Googleマップでこのルートを開く");
   renderEditList(); savePlan();
 }
 let lastPlanShare=null;
@@ -1664,8 +1766,9 @@ document.getElementById("drvBtn").onclick=()=>{
   if(!pool.length){ toast("未訪問の駅がありません"); return; }
   const plan=multiDayPlan(pool, days, dayBudget, stay, ret);
   currentPlan=plan.chain.map(c=>STATIONS[c.i].id);
-  lastDrive={plan, days, stay, ret};
+  lastDrive={plan, days, stay, ret, here, hereIdx};
   renderDrive(plan, days, stay, ret);
+  saveDrive();
   renderMap();
   toast(plan.chain.length?`${plan.chain.length}駅の行程を組みました`:"該当なし");
 };
@@ -1703,6 +1806,7 @@ function multiDayPlan(pool, days, dayBudget, stay, ret){
   return {chain, returnMin, returnKm};
 }
 function renderDrive(plan, days, stay, ret){
+  const H=(lastDrive && lastDrive.here) || here;   // 旅帳から届いた行程は、立てた人の起点のまま描く
   const box=document.getElementById("drvList"); box.innerHTML="";
   const sum=document.getElementById("drvSummary");
   if(!plan.chain.length){
@@ -1714,7 +1818,7 @@ function renderDrive(plan, days, stay, ret){
   const totalDriveMin=plan.chain.reduce((a,c)=>a+c.min,0)+plan.returnMin;
   const dep=parseHM(document.getElementById("drvDep").value) ?? 540;
   let lastT=dep;
-  sum.innerHTML=`${here.label}を起点に <b>${plan.chain.length}駅</b>`+(days>1?`・<b>${days}日間</b>`:"")+
+  sum.innerHTML=`${H.label}を起点に <b>${plan.chain.length}駅</b>`+(days>1?`・<b>${days}日間</b>`:"")+
     `／走行 <b>${fmtKm(totalKm)}</b>・所要 <b>${fmtMin(totalDriveMin+stay*plan.chain.length)}</b>`+
     (ret?`（戻りに約${fmtMin(plan.returnMin)}）`:"");
   let n=0;
@@ -1737,13 +1841,12 @@ function renderDrive(plan, days, stay, ret){
     });
     lastT=t;
     // Googleマップ（この日の分）
-    const gm=document.createElement("button"); gm.className="gmaps mini";
-    gm.textContent=days>1?`${day}日目のルートをGoogleマップで`:"Googleマップでこのルートを開く";
     const dayIds=dayChain.map(c=>STATIONS[c.i].id);
     const prevChain=plan.chain.filter(c=>c.day<day);
-    const startPt = prevChain.length ? STATIONS[prevChain[prevChain.length-1].i] : here;
-    gm.onclick=()=>openGmapsRoute(dayIds, startPt);
-    box.appendChild(gm);
+    const startPt = prevChain.length ? STATIONS[prevChain[prevChain.length-1].i] : H;
+    const gmBox=document.createElement("div");
+    gmapsButtons(gmBox, dayIds, startPt, null, days>1?`${day}日目のルートをGoogleマップで`:"Googleマップでこのルートを開く", "gmaps mini");
+    box.appendChild(gmBox);
     if(days>1 && day<days){
       const st=document.createElement("div"); st.className="stay";
       st.innerHTML=`<b>泊</b>　${STATIONS[dayChain[dayChain.length-1].i].name} 周辺で宿を取る`;
@@ -1757,7 +1860,7 @@ function renderDrive(plan, days, stay, ret){
   }
   // 共有テキスト
   {
-    const L=[]; L.push(`🚗 とまり旅プラン${days>1?`（${days}日間）`:""}`); L.push(`${here.label}を起点に ${plan.chain.length}駅／各日 ${fmtHM(dep)}出発`); L.push("");
+    const L=[]; L.push(`🚗 とまり旅プラン${days>1?`（${days}日間）`:""}`); L.push(`${H.label}を起点に ${plan.chain.length}駅／各日 ${fmtHM(dep)}出発`); L.push("");
     let n=0;
     for(let day=1; day<=days; day++){
       const dc=plan.chain.filter(c=>c.day===day); if(!dc.length) continue;
@@ -1777,21 +1880,44 @@ function renderDrive(plan, days, stay, ret){
 let lastDriveShare="";
 document.getElementById("drvShareBtn").onclick=()=>shareText(lastDriveShare, "とまり旅プラン");
 document.getElementById("drvCopyBtn").onclick=()=>copyText(lastDriveShare);
-document.getElementById("drvDep").onchange=()=>{ if(lastDrive) renderDrive(lastDrive.plan, lastDrive.days, lastDrive.stay, lastDrive.ret); };
+document.getElementById("drvDep").onchange=()=>{ if(lastDrive){ renderDrive(lastDrive.plan, lastDrive.days, lastDrive.stay, lastDrive.ret); saveDrive(); } };
 
 /* ---------- Googleマップ書き出し ---------- */
-function openGmapsRoute(ids, startPt, endPt){
-  if(!ids.length) return;
-  const pts=ids.map(id=>STATIONS[IDX[id]]).map(s=>`${s.lat},${s.lon}`);
-  const goal = endPt ? `${endPt.lat},${endPt.lon}` : pts.pop();
+// Googleマップに一度に渡せるのは経由地9＋目的地1まで。超える分は黙って落とさず、区切って複数のボタンにする
+const GM_MAX_STOPS=10;
+function gmapsUrl(pts, startPt){   // pts の最後が目的地。startPt なし＝Googleマップ側の現在地から
+  const goal=pts[pts.length-1];
   let url=`https://www.google.com/maps/dir/?api=1`;
   if(startPt) url+=`&origin=${startPt.lat},${startPt.lon}`;
-  url+=`&destination=${goal}&travelmode=driving`;
-  const wp=pts.slice(0,9);
-  if(wp.length) url+=`&waypoints=${wp.join("|")}`;
-  location.href=url;
+  url+=`&destination=${goal.lat},${goal.lon}&travelmode=driving`;
+  const wp=pts.slice(0,-1);
+  if(wp.length) url+=`&waypoints=${wp.map(p=>`${p.lat},${p.lon}`).join("|")}`;
+  return url;
 }
-document.getElementById("planGmaps").onclick=()=>openGmapsRoute(currentPlan, here, dest);
+function gmapsButtons(box, ids, startPt, endPt, label, cls="gmaps"){
+  if(!ids.length) return;
+  const pts=ids.map(id=>STATIONS[IDX[id]]);
+  if(endPt) pts.push(endPt);
+  const segs=[]; let from=startPt, k=0;
+  while(k<pts.length){
+    const part=pts.slice(k, k+GM_MAX_STOPS);
+    const a=k, b=k+part.length;   // この区間は a+1〜b 番目
+    const toLabel = (endPt && b===pts.length) ? "🏁終着点" : `${b}駅目`;
+    segs.push({url:gmapsUrl(part, from), label:`${a===0?"出発":a+"駅目"} → ${toLabel}`});
+    from=part[part.length-1]; k=b;
+  }
+  segs.forEach((sg,n)=>{
+    const b=document.createElement("button"); b.className=cls;
+    b.textContent = segs.length===1 ? label : `${label}（${n+1}/${segs.length}：${sg.label}）`;
+    b.onclick=()=>{ location.href=sg.url; };
+    box.appendChild(b);
+  });
+  if(segs.length>1){
+    const nt=document.createElement("div"); nt.className="gmNote";
+    nt.textContent="Googleマップに一度に渡せるのは10か所までなので、区切って開きます。";
+    box.appendChild(nt);
+  }
+}
 
 /* ---------- 詳細シート ---------- */
 const sheet=document.getElementById("sheet");
@@ -2127,10 +2253,310 @@ document.getElementById("importFile").onchange=e=>{
   rd.readAsText(f);
 };
 
+/* ---------- とまり旅の保存・復元（旅帳でも渡す） ---------- */
+function driveContent(){
+  if(!lastDrive || !lastDrive.plan.chain.length) return null;
+  const p=lastDrive.plan;
+  return {
+    v:1, chain:p.chain.map(c=>({i:c.i, km:+(+c.km).toFixed(2), min:+(+c.min).toFixed(1), day:c.day})),
+    returnMin:+(+p.returnMin||0).toFixed(1), returnKm:+(+p.returnKm||0).toFixed(2),
+    days:lastDrive.days, stay:lastDrive.stay, ret:!!lastDrive.ret,
+    dep:document.getElementById("drvDep").value, here:lastDrive.here||null, hereIdx:lastDrive.hereIdx??null,
+  };
+}
+function saveDrive(){
+  try{
+    const c=driveContent(); if(!c) return;
+    const sig=JSON.stringify(c);
+    if(sig!==driveSig){ driveSig=sig; driveMeta={t:Date.now(), by:myName()}; syncSoon(); }
+    localStorage.setItem(LS_DRIVE, JSON.stringify({...c, saved:Date.now(), t:driveMeta.t, by:driveMeta.by}));
+    renderSyncNotes();
+  }catch{}
+}
+function applyDrive(d){
+  if(!d || !Array.isArray(d.chain) || !d.chain.length || d.chain.some(c=>!STATIONS[c.i])) return false;
+  lastDrive={plan:{chain:d.chain, returnMin:d.returnMin||0, returnKm:d.returnKm||0},
+    days:d.days||1, stay:d.stay||20, ret:!!d.ret, here:d.here||here, hereIdx:d.hereIdx??null};
+  if(!lastDrive.here) return false;
+  document.getElementById("drvDep").value=d.dep||"09:00";
+  // スライダーも、その行程を組んだ時の条件にそろえる
+  drvDaysEl.value=lastDrive.days; drvDaysEl.dispatchEvent(new Event("input"));
+  const ds=document.getElementById("drvStay"); ds.value=lastDrive.stay; ds.dispatchEvent(new Event("input"));
+  document.getElementById("drvReturn").checked=lastDrive.ret;
+  driveMeta={t:d.t||d.saved||0, by:d.by||""};
+  driveSig=JSON.stringify(driveContent());
+  renderDrive(lastDrive.plan, lastDrive.days, lastDrive.stay, lastDrive.ret);
+  saveDrive();
+  return true;
+}
+function restoreDrive(){
+  let d=null;
+  try{ d=JSON.parse(localStorage.getItem(LS_DRIVE)||"null"); }catch{}
+  if(!d) return;
+  if(d.saved && Date.now()-d.saved > 7*86400000){ localStorage.removeItem(LS_DRIVE); return; }
+  applyDrive(d);
+}
+// 地図に出すのは「めぐる」と「とまり旅」のうち、あとから立てた（直した）方
+function mapFollowNewest(){
+  const dIds = (lastDrive && lastDrive.plan.chain.length) ? lastDrive.plan.chain.map(c=>STATIONS[c.i].id) : null;
+  if(dIds && (!currentChain.length || driveMeta.t > planMeta.t)) currentPlan=dIds;
+  else if(currentChain.length) currentPlan=currentChain.map(c=>STATIONS[c.i].id);
+  renderMap();
+}
+
+/* ---------- ふたりでつなぐ（合言葉の旅帳） ---------- */
+// 同じ合言葉のスマホどうしで、プラン・とまり旅・⚑・★・訪問記録をひとつの旅帳にする。
+// 正本はいつもこの端末の localStorage。旅帳（サーバ）は重ね合わせの場で、つながらない時も手元は何も失わない。
+// 本番（pages.dev）と手元の試験（localhost）は同じ場所のAPI。GitHub Pages 版などからは本番のAPIへ
+const SYNC_API = /(^|\.)michinoeki-meguri\.pages\.dev$|^localhost$|^127\.0\.0\.1$/.test(location.hostname) ? "/api/sync" : "https://michinoeki-meguri.pages.dev/api/sync";
+// savePlan などから起動直後にも呼ばれるので、巻き上げの効く function 宣言にしておく
+function esc(s){ return String(s??"").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function myName(){ return (syncCfg && syncCfg.name) || ""; }
+function whoBy(by){ return by ? (by===myName() ? "この端末" : by) : "もう一台"; }
+const normPass = p => (p||"").normalize("NFKC").trim().replace(/\s+/g,"").toLowerCase();
+function fmtStamp(t){
+  const d=new Date(t), now=new Date();
+  const hm=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+  return ymd(d)===ymd(now) ? hm : `${d.getMonth()+1}/${d.getDate()} ${hm}`;
+}
+async function passKey(pass){
+  const buf=await crypto.subtle.digest("SHA-256", new TextEncoder().encode("meguri|"+normPass(pass)));
+  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+// 重ね方。functions/api/sync.js の同名関数と同じ（片方を直したらもう片方も直す）
+function mergeState(a, b){
+  a=a||{}; b=b||{};
+  const out={marks:{}, vdate:{}, plan:null, drive:null};
+  for(const kind of ["visited","want","trip"]){
+    const A=(a.marks&&a.marks[kind])||{}, B=(b.marks&&b.marks[kind])||{};
+    const m={};
+    for(const id of new Set([...Object.keys(A), ...Object.keys(B)])){
+      const x=A[id], y=B[id];
+      if(!Array.isArray(x)){ if(Array.isArray(y)) m[id]=y; continue; }
+      if(!Array.isArray(y)){ m[id]=x; continue; }
+      m[id] = y[1]>x[1] ? y : x[1]>y[1] ? x : (x[0]>=y[0] ? x : y);
+    }
+    out.marks[kind]=m;
+  }
+  const VA=a.vdate||{}, VB=b.vdate||{}, vis=out.marks.visited;
+  for(const id of Object.keys(vis)){
+    if(!vis[id][0]) continue;
+    const fromB=(b.marks&&b.marks.visited&&b.marks.visited[id])===vis[id];
+    const d=fromB ? (VB[id]||VA[id]) : (VA[id]||VB[id]);
+    if(d) out.vdate[id]=d;
+  }
+  const newer=(x,y)=> !x ? (y||null) : !y ? x : ((y.t||0)>(x.t||0) ? y : x);
+  out.plan=newer(a.plan, b.plan);
+  out.drive=newer(a.drive, b.drive);
+  return out;
+}
+const shareMarks = () => !syncCfg || syncCfg.marks!==false;
+function localTabi(){
+  // 集合と時刻の控えがずれていたら（古い版の画面で触った等）先に合わせる。ずれたまま重ねると手元の記録が消えるため
+  if(stampMarks()) try{ localStorage.setItem(LS_STAMP, JSON.stringify(stamps)); }catch{}
+  const rd=k=>{ try{ const o=JSON.parse(localStorage.getItem(k)||"null"); if(o) delete o.saved; return o; }catch{ return null; } };
+  return { marks: shareMarks()?stamps:{}, vdate: shareMarks()?visitDate:{}, plan:rd(LS_PLAN), drive:rd(LS_DRIVE) };
+}
+function saveSyncCfg(){ try{ syncCfg ? localStorage.setItem(LS_SYNC, JSON.stringify(syncCfg)) : localStorage.removeItem(LS_SYNC); }catch{} }
+// 手元が変わった。つないでいれば少し待ってまとめて送る（連打でも1回）
+function syncSoon(ms=1200){
+  syncDirty=true;
+  if(!syncCfg) return;
+  clearTimeout(syncTm); syncTm=setTimeout(()=>syncNow(), ms);
+}
+async function syncNow(){
+  if(!syncCfg) return;
+  if(syncBusy){ syncAgain=true; return; }
+  clearTimeout(syncTm);
+  syncBusy=true;
+  const push=syncDirty; syncDirty=false;
+  try{
+    const r=await fetch(SYNC_API, {method:"POST", headers:{"content-type":"application/json"}, cache:"no-store", keepalive:true,
+      body:JSON.stringify({k:syncCfg.k, ver:syncCfg.ver??null, state:push?localTabi():null})});
+    if(!r.ok) throw new Error("http "+r.status);
+    const d=await r.json();
+    if(d.state && !d.same) applyTabi(d.state);
+    if(syncCfg){ syncCfg.ver=d.ver; saveSyncCfg(); }
+    syncStatus="ok"; syncLastAt=Date.now();
+  }catch(e){
+    if(push) syncDirty=true;            // 送れなかった分は次に持ち越す（手元からは消えない）
+    syncStatus = navigator.onLine===false ? "offline" : "err";
+  }finally{
+    syncBusy=false;
+    renderSyncStatus();
+    if(syncAgain){ syncAgain=false; syncNow(); }
+    else if(syncDirty && syncStatus==="ok") syncSoon(800);
+  }
+}
+// 旅帳から届いたものを手元に重ねる。手元で送る前に直した分は、時刻が新しいので残る
+function applyTabi(remote){
+  const m=mergeState(localTabi(), remote);
+  if(shareMarks()){
+    // 知らない駅id（データ更新の前後など）も集合に残す。落とすと「外した」と見なされて2台で付け外しを繰り返すため
+    const on=k=>new Set(Object.keys(m.marks[k]||{}).filter(id=>m.marks[k][id][0]));
+    const nv=on("visited"), nw=on("want"), nt=on("trip");
+    const same=(a,b)=>a.size===b.size && [...a].every(x=>b.has(x));
+    const changed=!same(nv,visited) || !same(nw,want) || !same(nt,trip) || JSON.stringify(m.vdate)!==JSON.stringify(visitDate);
+    stamps=m.marks;
+    if(changed){ visited=nv; want=nw; trip=nt; visitDate=m.vdate; }
+    writeMarks();
+    if(changed) renderAfterMarks();
+  }
+  const fresh=p=>p && Date.now()-(p.t||0) <= 7*86400000;   // 7日より古い行程は出さない（手元の復元と同じ決まり）
+  let came=[];
+  if(m.plan && (m.plan.t||0)>planMeta.t && fresh(m.plan)){
+    if(document.getElementById("editPanel").style.display!=="none") pendingPlan=m.plan;   // 並べ替え中は邪魔しない
+    else if(applyPlan(m.plan)){ came.push(["plan", m.plan]); fitPlanOnMap(); }
+  }
+  if(m.drive && (m.drive.t||0)>driveMeta.t && fresh(m.drive) && applyDrive(m.drive)) came.push(["drive", m.drive]);
+  if(came.length){
+    mapFollowNewest();
+    const [kind, p]=came[came.length-1];
+    syncArrival=`🔗 ${whoBy(p.by)}の${kind==="plan"?"プラン":"とまり旅"}が届きました（${fmtStamp(p.t)}更新）`;
+    toast(syncArrival);
+    came.forEach(([k])=>{ const b=document.querySelector(`nav button[data-pane="${k==="plan"?"plan":"drive"}"]`); if(b && !b.classList.contains("on")) b.classList.add("dot"); });
+  }
+}
+// 状態の表示（ヘッダーの札・設定カードの一行・プランの注記）
+function renderSyncStatus(){
+  const chip=document.getElementById("syncChip");
+  if(!syncCfg){ chip.style.display="none"; }
+  else{
+    chip.style.display="block";
+    const warn = syncStatus==="offline" || syncStatus==="err";
+    chip.classList.toggle("warn", warn);
+    chip.textContent = syncStatus==="offline" ? "🔗 圏外" : syncStatus==="err" ? "🔗 再接続待ち" : (syncDirty ? "🔗 送信中" : "🔗 つながり中");
+  }
+  const st=document.getElementById("syncStatusLine");
+  if(st){
+    st.textContent = syncStatus==="ok" ? `最後に旅帳と合わせた時刻：${fmtStamp(syncLastAt)}`
+      : syncStatus==="offline" ? "いまは圏外です。電波が戻ったら自動で送ります（この端末の記録は消えません）"
+      : syncStatus==="err" ? "旅帳に届きませんでした。少し待つと自動でつなぎ直します"
+      : "旅帳と合わせています…";
+  }
+  renderSyncNotes();
+}
+function renderSyncNotes(){
+  const put=(id, meta)=>{
+    const el=document.getElementById(id); if(!el) return;
+    if(!syncCfg || !meta.t){ el.style.display="none"; return; }
+    el.style.display="";
+    el.innerHTML=`🔗 旅帳でつながっています・<b>${esc(whoBy(meta.by))}</b>が ${fmtStamp(meta.t)} に更新`;
+  };
+  put("planSyncNote", planMeta); put("drvSyncNote", driveMeta);
+  const tb=document.getElementById("planTsunaguBtn"); if(tb) tb.style.display = syncCfg ? "none" : "";
+}
+// 設定カード（つなぐ前／つないだ後）。入力中に消えないよう、つなぐ・やめる時だけ作り直す
+const PASS_WORDS=["きたきつね","ひぐま","えぞしか","しまふくろう","たんちょう","おこじょ","しまりす","らっこ","ほたて","とうきび",
+  "じゃがいも","めろん","らべんだー","ひまわり","すずらん","しらかば","はまなす","こんぶ","いくら","うに",
+  "ばたー","ちーず","すーぷかれー","じんぎすかん","ゆきだるま","りゅうひょう","おんせん","みずうみ","こうげん","みさき",
+  "とうだい","まきば","ほしぞら","にじ","かぜ","そら","はやぶさ","わかさぎ","ななかまど","ぽぷら"];
+function genPass(){
+  const r=new Uint32Array(4); crypto.getRandomValues(r);
+  const w=i=>PASS_WORDS[r[i]%PASS_WORDS.length];
+  return `${w(0)}-${w(1)}-${w(2)}-${10+r[3]%90}`;
+}
+function renderSyncCard(){
+  const box=document.getElementById("syncBox");
+  let pre=null; try{ pre=JSON.parse(localStorage.getItem(LS_PRESYNC)||"null"); }catch{}
+  const preBtn = pre ? `<button class="tripReset" id="syncRestoreBtn">つなぐ前の記録に戻す（${fmtStamp(pre.at)} の控え）</button>` : "";
+  if(!syncCfg){
+    box.innerHTML=`
+      <div class="note" style="margin:0 0 4px">同じ合言葉を入れたスマホどうしで、<b>プラン・とまり旅・⚑今回・★お気に入り・訪問記録</b>がひとつの旅帳になります。片方で立てたプランが、もう片方の「めぐる」にも出て、Googleマップでそのまま開けます。</div>
+      <label class="fld">合言葉<input id="syncPass" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="6文字以上"></label>
+      <button class="originNowBtn" id="syncGenBtn" style="margin:8px 0 0">🎲 おまかせで作る</button>
+      <label class="fld">この端末の呼び名<input id="syncName" maxlength="12" placeholder="例：よしたか（相手の画面に「〇〇が更新」と出ます）"></label>
+      <label class="toggle" style="margin-top:10px"><input type="checkbox" id="syncMarks" checked><span>訪問記録・⚑・★もいっしょにする（ふたりで制覇）</span></label>
+      <button class="bigBtn primary" id="syncConnectBtn">🔗 この合言葉でつなぐ</button>
+      <div class="note">合言葉そのものは送りません（暗号の鍵に変えて旅帳を開きます）。知らない人と同じ合言葉にならないよう「おまかせで作る」がおすすめです。つなぐ前の記録は、この端末に控えを残します。</div>
+      ${preBtn}`;
+    document.getElementById("syncGenBtn").onclick=()=>{ document.getElementById("syncPass").value=genPass(); };
+    document.getElementById("syncConnectBtn").onclick=connectSync;
+  }else{
+    box.innerHTML=`
+      <div class="syncOn">🔗 <b>つながっています</b><br>
+        合言葉：<b class="pass">${esc(syncCfg.pass)}</b><br>
+        この端末：<b>${esc(syncCfg.name||"名前なし")}</b>　${syncCfg.marks===false?"プランだけ共有":"記録もいっしょ"}<br>
+        <span class="stl" id="syncStatusLine"></span></div>
+      <div class="shareRow">
+        <button class="shareBtn" id="syncInviteBtn">📤 もう一台に合言葉を送る</button>
+        <button class="shareBtn sub" id="syncNowBtn">↻ いま合わせる</button>
+      </div>
+      <div class="note">送ったリンクを相手が開くと、合言葉が入った状態で廻が開きます。呼び名を入れて「つなぐ」を押せば完了です。<br>iPhoneで廻をホーム画面に置いている人は、ホーム画面の廻を開いて合言葉を入れてください（Safariとホーム画面の廻は、記録が別々です）。</div>
+      <button class="tripReset" id="syncOffBtn">つなぐのをやめる（この端末の記録はそのまま残ります）</button><br>
+      ${preBtn}`;
+    document.getElementById("syncInviteBtn").onclick=()=>shareText(
+      `廻（道の駅めぐり 北海道）の旅帳をつなぎましょう。\nリンクを開いて、呼び名を入れて「つなぐ」を押してください。\n\n合言葉：${syncCfg.pass}\n${APP_URL}#tsunagu=${encodeURIComponent(syncCfg.pass)}`, "廻の合言葉");
+    document.getElementById("syncNowBtn").onclick=()=>{ syncDirty=true; syncNow().then(()=>toast(syncStatus==="ok"?"旅帳と合わせました":"いまは旅帳に届きません。電波のある所で自動で合わせます")); };
+    document.getElementById("syncOffBtn").onclick=()=>{
+      syncCfg=null; saveSyncCfg(); syncStatus=""; renderSyncCard(); renderSyncStatus();
+      toast("つなぐのをやめました。この端末の記録はそのまま残っています");
+    };
+  }
+  const rb=document.getElementById("syncRestoreBtn");
+  if(rb) rb.onclick=()=>{
+    // 二度押しで確定（誤タップで記録が戻ってしまわないように）
+    if(!rb.dataset.armed){ rb.dataset.armed="1"; rb.textContent="もう一度押すと、つなぐ前の記録に戻して、つなぐのもやめます"; return; }
+    Object.entries(pre.data||{}).forEach(([k,v])=>{ try{ v==null ? localStorage.removeItem(k) : localStorage.setItem(k,v); }catch{} });
+    localStorage.removeItem(LS_SYNC); localStorage.removeItem(LS_PRESYNC);
+    location.reload();
+  };
+  renderSyncStatus();
+}
+async function connectSync(){
+  const pass=document.getElementById("syncPass").value.trim();
+  if(normPass(pass).length<6){ toast("合言葉は6文字以上にしてください（「おまかせで作る」も使えます）"); return; }
+  if(!window.crypto || !crypto.subtle){ toast("この開き方では合言葉が使えません。https のURL（michinoeki-meguri.pages.dev）で開いてください"); return; }
+  const name=document.getElementById("syncName").value.trim().slice(0,12);
+  const marks=document.getElementById("syncMarks").checked;
+  // つなぐ前の控え（ふたりの記録が重なる前に戻せるように）
+  try{
+    const data=Object.fromEntries([LS_VISITED,LS_WANT,LS_TRIP,LS_VDATE,LS_PLAN,LS_DRIVE,LS_STAMP].map(k=>[k, localStorage.getItem(k)]));
+    localStorage.setItem(LS_PRESYNC, JSON.stringify({at:Date.now(), data}));
+  }catch{}
+  syncCfg={pass, k:await passKey(pass), name, marks, ver:null};
+  saveSyncCfg();
+  // つなぐ前に立てたプランにも、この端末の呼び名を付けておく（相手の画面に「もう一台」ではなく名前で出る）
+  if(currentChain.length && !planMeta.by){ planMeta.by=name; savePlan(); }
+  if(lastDrive && !driveMeta.by){ driveMeta.by=name; saveDrive(); }
+  syncArrival=""; syncDirty=true;
+  renderSyncCard(); toast("🔗 つないでいます…");
+  await syncNow();
+  if(syncStatus==="ok") toast("🔗 つながりました。"+(syncArrival ? syncArrival.replace(/^🔗 /,"") : "もう一台でも同じ合言葉を入れてください（「もう一台に合言葉を送る」で送れます）"));
+  else toast("いまは旅帳に届きませんでした。合言葉は覚えたので、電波のある所で自動でつなぎます");
+}
+// 招待リンク（…/#tsunagu=合言葉）で開かれた時：合言葉を入れた状態で設定カードを出す
+function handleTsunaguLink(){
+  const m=location.hash.match(/tsunagu=([^&]+)/);
+  if(!m) return;
+  let pass=""; try{ pass=decodeURIComponent(m[1]); }catch{ return; }
+  history.replaceState(null, "", location.pathname+location.search);   // 合言葉をアドレスバーに残さない
+  switchPane("log");
+  if(syncCfg){
+    toast(normPass(syncCfg.pass)===normPass(pass) ? "この合言葉で、もうつながっています" : "別の合言葉でつながっています。切り替えるには「つなぐのをやめる」を押してから");
+    return;
+  }
+  document.getElementById("syncPass").value=pass;
+  setTimeout(()=>{ document.getElementById("syncCard").scrollIntoView({block:"start"}); document.getElementById("syncName").focus(); }, 150);
+  toast("合言葉が入りました。呼び名を入れて「つなぐ」を押してください");
+}
+document.getElementById("syncChip").onclick=()=>{ switchPane("log"); document.getElementById("syncCard").scrollIntoView({behavior:"smooth", block:"start"}); };
+document.getElementById("planTsunaguBtn").onclick=()=>{ switchPane("log"); document.getElementById("syncCard").scrollIntoView({behavior:"smooth", block:"start"}); };
+
 /* ---------- 起動 ---------- */
 renderProgress(); renderLog(); renderMap(); renderWantCount(); renderOriginBadges(); renderFirstUI(); renderDestUI();
 renderSeiha(); renderExpedition();
 restorePlan();
+restoreDrive();
+if(lastDrive) mapFollowNewest();
+renderSyncCard();
+handleTsunaguLink();
+window.addEventListener("hashchange", handleTsunaguLink);   // 廻を開いたままのタブで招待リンクを踏んだ時（再読み込みが起きない）
+// 旅帳：開いた時・前面に戻った時・電波が戻った時に合わせる。開いている間は15秒ごとに相手の更新を見る
+if(syncCfg){ syncDirty=true; syncNow(); }
+setInterval(()=>{ if(syncCfg && document.visibilityState==="visible") syncNow(); }, 15000);
+document.addEventListener("visibilitychange", ()=>{ if(syncCfg) syncNow(); });   // 隠れる時は未送信を送り切る・戻った時は受け取る
+window.addEventListener("online", ()=>{ if(syncCfg) syncNow(); });
 
 /* ---------- PWA ---------- */
 if("serviceWorker" in navigator){

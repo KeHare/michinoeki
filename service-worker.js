@@ -1,7 +1,7 @@
 // 道の駅めぐり 北海道 — Service Worker
 // アプリシェル＋駅データ＋マトリクスをキャッシュしオフラインでも起動できるようにする。
 // 地図タイル(OSM)とOSRM経路APIは通信が必要（オフライン時は直線概算にフォールバック）。
-const CACHE = "michinoeki-v17";
+const CACHE = "michinoeki-v18";
 const SHELL = [
   "./",
   "./index.html",
@@ -26,6 +26,8 @@ self.addEventListener("activate", e => {
 });
 self.addEventListener("fetch", e => {
   const url = e.request.url;
+  // 旅帳API（合言葉でつなぐ）と GET 以外は触らない（キャッシュに入れない・横取りしない）
+  if (e.request.method !== "GET" || url.includes("/api/")) return;
   // OSRM経路・OSMタイルは常にネット優先（キャッシュしすぎない）
   if (url.includes("router.project-osrm.org") || url.includes("tile.openstreetmap.org")) {
     e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
